@@ -2,10 +2,6 @@
 	name = Steven Bower
 	email = steven@turnwheel.com
 
-[github]
-	user = BluSyn
-	token = 62098d84c789115f9c769e5bd53677ee
-
 # Makes pushing easier on master branch
 [branch "master"]
 	remote = origin
