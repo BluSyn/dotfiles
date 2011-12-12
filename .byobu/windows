@@ -1,0 +1,3 @@
+# Default Windows
+screen -t v vim --servername s
+screen -t main /bin/bash
