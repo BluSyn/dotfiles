@@ -1,11 +1,3 @@
-##################################################################################
-##.LifehackerTerminalTweaks - Bash configuration file                           ##
-##Created: June 28, 2007                                                        ##
-##License: GPL                                                                  ##
-##Credits: Dave Crouse - http://www.novell.com/coolsolutions/tools/17142.html   ## 
-##Contact: kyle@lifehacker.com                                                  ##
-##################################################################################
-
 #-----------------------------------------
 #------ ALIAS SHORTCUTS START-------------
 
@@ -37,17 +29,8 @@ alias c="clear"
 # show size of disc in MB/GB instead of "blocks"
 alias hdd="df -h"
 
-# navigate up one directory
-alias up="cd .."
-
-# navigate to the home directory no matter where you are
-alias home="cd ~"
-
-# navigate to the / file system
-alias disk="cd /"
-
 # empty trash
-alias trash="rm -fr ~/.Trash"
+alias trash="rm -rf ~/.Trash"
 
 # tar functions
 alias wad='tar -czvf'
