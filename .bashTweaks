@@ -56,14 +56,6 @@ HISTSIZE=100000
 # HISTFILESIZE=0
 # HISTSIZE=0
 
-#-----------------------------------------
-#------COMPLETTION------------------------
-
-# make sure bash completion is turned on
-if [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-fi
-
 #------------------------------------------
 #------COMPRESSED VIEW START---------------
 
