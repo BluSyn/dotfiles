@@ -80,10 +80,10 @@ export GOROOT=$HOME/go
 export GOARCH=amd64
 export GOOS=linux
 
-# SCM Breeze
-# github.com/ndbroadbent/scm_breeze.git
-[[ -s "$HOME/.scm_breeze/scm_breeze.sh" ]] && . "$HOME/.scm_breeze/scm_breeze.sh"
-
 # Search up/down
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
+
+# SCM Breeze
+# github.com/ndbroadbent/scm_breeze.git
+[[ -s "$HOME/.scm_breeze/scm_breeze.sh" ]] && . "$HOME/.scm_breeze/scm_breeze.sh"
