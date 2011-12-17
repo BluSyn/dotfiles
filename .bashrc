@@ -75,6 +75,11 @@ if [ -f ~/.bashTweaks ]; then
     . ~/.bashTweaks
 fi
 
+# SSH Keychain settings
+export SSH_ASKPASS="/usr/bin/gtk-led-askpass"
+/usr/bin/keychain -Q -q ~/.ssh/id_rsa.git ~/.ssh/id_rsa.local ~/.ssh/id_rsa.server ~/.ssh/id_rsa.other ~/.ssh/id_rsa.old < /dev/null
+[ -f $HOME/.keychain/$HOSTNAME-sh ] && source $HOME/.keychain/$HOSTNAME-sh
+
 # Google Go
 export GOROOT=$HOME/go
 export GOARCH=amd64
