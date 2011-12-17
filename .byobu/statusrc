@@ -31,3 +31,7 @@
 #DISTRO=Ubuntu
 #SERVICES="eucalyptus-nc|NC eucalyptus-cloud|CLC eucalyptus-walrus eucalyptus-cc|CC eucalyptus-sc|SC"
 #FAN=$(find /sys -type f -name fan1_input | head -n1)
+
+# Network settings
+NETWORK_THRESHOLD=5
+NETWORK_UNITS="bytes"
