@@ -13,14 +13,14 @@ ln -sb ~/.dotfiles/.gitglobal ~/.gitconfig
 
 ln -sb ~/.dotfiles/.git.scmbrc ~/.git.scmbrc
 ln -sb ~/.dotfiles/.scmbrc ~/.scmbrc
-ln -sb ~/.dotfiles/.scm_breeze ~/.scm_breeze
+ln -si ~/.dotfiles/.scm_breeze ~/.scm_breeze
 
 # BYOBU
-ln -sb ~/.dotfiles/.byobu ~/.byobu
+ln -si ~/.dotfiles/.byobu ~/.byobu
 ln -sb ~/.dotfiles/.screenrc ~/.screenrc
 
 # VIM
-ln -sb ~/.dotfiles/.vim ~/.vim
+ln -si ~/.dotfiles/.vim ~/.vim
 ln -sb ~/.dotfiles/.vim/vimrc ~/.vimrc
 
 # Other
