@@ -7,16 +7,6 @@
 	remote = origin
 	merge = refs/heads/master
 
-# Short-hand for common servers
-[url "gitosis@git.turnwheel.com"]
-	insteadOf = tw
-
-[url "git@bpwebdesign.com"]
-	insteadOf = bp
-
-[url "git@github.com"]
-	insteadOf = gh
-
 # Start other core configuration
 [alias]
 	unstage = reset HEAD --
