@@ -91,4 +91,4 @@ bind '"\e[B": history-search-forward'
 
 # SCM Breeze
 # github.com/ndbroadbent/scm_breeze.git
-[[ -s "$HOME/.scm_breeze/scm_breeze.sh" ]] && . "$HOME/.scm_breeze/scm_breeze.sh"
+[ -s "/home/blu/.scm_breeze/scm_breeze.sh" ] && . "/home/blu/.scm_breeze/scm_breeze.sh"
