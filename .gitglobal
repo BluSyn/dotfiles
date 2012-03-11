@@ -26,6 +26,12 @@
 	autocrlf = input
 	excludesfile = ~/.gitignore
 
+[merge]
+	conflictstyle = diff3
+
+[rebase]
+	stat = yes
+
 # Graphical
 [giggle]
 	main-window-maximized = false
