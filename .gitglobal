@@ -14,7 +14,8 @@
 	last = log -1 HEAD --stat --relative-date
 	exportfiles = !sh -c 'git diff $0 --name-only | "while read files; do mkdir -p \"$1/$(dirname $files)\"; cp -vf $files $1/$(dirname $files); done"'
 	subupdate = submodule foreach git fetch origin
-	squash = merge --squash --no-commit $0 | commit
+	squash = merge --squash --no-commit
+	mff = merge --no-ff --log
 	new = log master..origin/master --stat
 	ll = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	lls = !git ll --stat
