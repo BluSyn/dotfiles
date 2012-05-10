@@ -77,7 +77,7 @@ fi
 
 # SSH Keychain settings
 export SSH_ASKPASS="/usr/bin/gtk-led-askpass"
-/usr/bin/keychain -q --ignore-missing ~/.ssh/id_rsa.git ~/.ssh/id_rsa.local ~/.ssh/id_rsa.server ~/.ssh/id_rsa.other ~/.ssh/id_rsa.old
+/usr/bin/keychain -q --ignore-missing -k others ~/.ssh/id_rsa.git ~/.ssh/id_rsa.local ~/.ssh/id_rsa.server ~/.ssh/id_rsa.other ~/.ssh/id_rsa.old
 [ -f $HOME/.keychain/$HOSTNAME-sh ] && source $HOME/.keychain/$HOSTNAME-sh
 
 # Google Go
