@@ -48,6 +48,8 @@ alias p='pman'
 # Logout of gnome
 alias gnome-logout="gnome-session-quit --logout --no-prompt"
 
+say() { if [[ "${1}" =~ -[a-z]{2} ]]; then local lang=${1#-}; local text="${*#$1}"; else local lang=${LANG%_*}; local text="$*";fi; mplayer "http://translate.google.com/translate_tts?ie=UTF-8&tl=${lang}&q=${text}" &> /dev/null ; }
+
 #-----------------------------------------
 #------HISTORY START----------------------
 
@@ -91,6 +93,21 @@ PS1="[$DGRAY\t$RESET][$BLUE\u$RESET$CYAN@$RESET$PURPLE\h$RESET]: $GREEN\W$RESET$
 echo -ne "";hostname;
 echo -ne "";uptime;
 echo "";
+
+# GIT Bash Helpers
+# mkdit <name> <server>
+mkgit () {
+	mkdir $1
+	cd $1
+	git init .
+	git remote add origin $2:$1
+	mkdir www docs
+	echo 1 > www/placeholder
+	echo 2 > docs/placeholder
+	git add .
+	git commit -a -m 'Initial Commit'
+	git push origin master
+}
 
 #------------------------------------------
 #------ENCRYPTION/DECRYPTION--------------
