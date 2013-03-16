@@ -7,18 +7,29 @@
 	remote = origin
 	merge = refs/heads/master
 
+# Short-hand for common servers
+[url "git@git.turnwheel.com"]
+	insteadOf = twgit
+
+[url "git@bpwebdesign.com"]
+	insteadOf = bpgit
+
+[url "git@github.com"]
+	insteadOf = gh
+
 # Start other core configuration
 [alias]
+	credit = commit --amend --author "$1 <$2>" -C HEAD
 	unstage = reset HEAD --
 	fuckit = reset --hard HEAD
 	last = log -1 HEAD --stat --relative-date
-	exportfiles = !sh -c 'git diff $0 --name-only | "while read files; do mkdir -p \"$1/$(dirname $files)\"; cp -vf $files $1/$(dirname $files); done"'
 	subupdate = submodule foreach git fetch origin
 	squash = merge --squash --no-commit
 	mff = merge --no-ff --log
 	new = log master..origin/master --stat
 	ll = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	lls = !git ll --stat
+	exportfiles = !sh -c 'git diff $0 --name-only | "while read files; do mkdir -p \"$1/$(dirname $files)\"; cp -vf $files $1/$(dirname $files); done"'
 
 [color]
 	ui = yes
@@ -32,10 +43,3 @@
 
 [rebase]
 	stat = yes
-
-# Graphical
-[giggle]
-	main-window-maximized = false
-	main-window-geometry = 1232x794+182+49
-	history-view-vpane-position = 486
-	main-window-view = HistoryView
