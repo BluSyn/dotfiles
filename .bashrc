@@ -54,7 +54,7 @@ fi
 # enable color support of ls and also add handy aliases
 if [ "$TERM" != "dumb" ]; then
     eval "`dircolors -b`"
-    alias ls='ls --color=auto'
+    alias ls='ls -G'
     #alias dir='ls --color=auto --format=vertical'
     #alias vdir='ls --color=auto --format=long'
 fi
@@ -76,10 +76,14 @@ if [ -f ~/.bashTweaks ]; then
     . ~/.bashTweaks
 fi
 
+source /usr/local/etc/bash_completion.d/*.sh
+
 # SSH Keychain settings
-export SSH_ASKPASS="/usr/bin/gtk-led-askpass"
-/usr/bin/keychain -q --ignore-missing -k others ~/.ssh/id_rsa.git ~/.ssh/id_rsa.local ~/.ssh/id_rsa.server ~/.ssh/id_rsa.other ~/.ssh/id_rsa.old
-[ -f $HOME/.keychain/$HOSTNAME-sh ] && source $HOME/.keychain/$HOSTNAME-sh
+if [ -f /usr/bin/keychain ]; then
+    export SSH_ASKPASS="/usr/bin/gtk-led-askpass"
+    /usr/bin/keychain -q --ignore-missing -k others ~/.ssh/id_rsa.git ~/.ssh/id_rsa.local ~/.ssh/id_rsa.server ~/.ssh/id_rsa.other ~/.ssh/id_rsa.old
+    [ -f $HOME/.keychain/$HOSTNAME-sh ] && source $HOME/.keychain/$HOSTNAME-sh
+fi
 
 # Google Go
 export GOROOT=$HOME/go
