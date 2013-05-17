@@ -1,3 +1,3 @@
 # Default Windows
-screen -t v /usr/bin/vim --servername s
+screen -t htop htop
 screen -t main /bin/bash
