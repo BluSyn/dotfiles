@@ -12,7 +12,7 @@ ln -sb ~/.dotfiles/.bash_logout ~/.bash_logout
 ln -sb ~/.dotfiles/.gitconfig ~/.gitconfig
 
 ln -sb ~/.dotfiles/.git.scmbrc ~/.git.scmbrc
-ln -sb ~/.dotfiles/.scmbrc ~/.scmbrc
+#ln -sb ~/.dotfiles/.scmbrc ~/.scmbrc
 ln -si ~/.dotfiles/.scm_breeze ~/.scm_breeze
 
 # BYOBU
