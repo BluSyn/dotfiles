@@ -2,7 +2,12 @@
 #------ ALIAS SHORTCUTS START-------------
 
 # VI shortcut
-alias v="vim --servername s --remote-tab"
+#alias v="vim --servername s --remote-tab"
+# OSX Versioin
+alias v="mvim"
+
+# OSX Convert FLAC to M4A (Apple Lossless)
+alias doflac='for f in ./*.flac; do ffmpeg -i "$f" -c:a alac "${f%.*}.m4a"; done'
 
 # install a package and automatically respond yes to confirmation prompt
 alias ins="sudo apt-get install -y"
