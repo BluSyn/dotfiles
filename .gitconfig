@@ -30,6 +30,7 @@
 	ll = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	lls = !git ll --stat
 	exportfiles = !sh -c 'git diff $0 --name-only | "while read files; do mkdir -p \"$1/$(dirname $files)\"; cp -vf $files $1/$(dirname $files); done"'
+	pl = !git fetch origin && git rebase -p origin/$(git_current_branch)
 
 [color]
 	ui = yes
@@ -46,3 +47,7 @@
 	stat = yes
 [push]
 	default = simple
+[filter "media"]
+	required = true
+	clean = git media clean %f
+	smudge = git media smudge %f

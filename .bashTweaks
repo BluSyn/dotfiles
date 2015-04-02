@@ -4,7 +4,7 @@
 # VI shortcut
 #alias v="vim --servername s --remote-tab"
 # OSX Versioin
-alias v="mvim"
+alias v="mvim --servername s --remote-tab"
 
 # OSX Convert FLAC to M4A (Apple Lossless)
 alias doflac='for f in ./*.flac; do ffmpeg -i "$f" -c:a alac "${f%.*}.m4a"; done'
