@@ -23,8 +23,6 @@ alias ll='ls -lah'
 alias la='ls -A'
 alias l='ls -CF'
 
-# Yes, startrek TNG
-alias stng='php -f /www/svn/tngepisodepicker-read-only/cpmweb/web.php'
 # Because I can
 alias engage="play -n -c1 synth whitenoise band -n 100 20 band -n 50 20 gain +25  fade h 1 864000 1"
 
@@ -82,7 +80,7 @@ DGRAY="\[\033[1;30m\]"
 WHITE="\[\033[1;37m\]"
 RESET="\[\033[1;0m\]"
 GIT='$(__git_ps1 "[%s]")'
-PS1="[$DGRAY\t$RESET][$BLUE\u$RESET$CYAN@$RESET$PURPLE\h$RESET]: $GREEN\W$RESET$BROWN$GIT$RESET \$$RESET "
+PS1="[$LGRAY\t$RESET][$BLUE\u$RESET$CYAN@$RESET$PURPLE\h$RESET]: $GREEN\W$RESET$BROWN$GIT$RESET \$$RESET "
 
 
 #------------------------------------------
@@ -100,7 +98,7 @@ echo -ne "";uptime;
 echo "";
 
 # GIT Bash Helpers
-# mkdit <name> <server>
+# mkgit <name> <server>
 mkgit () {
 	mkdir $1
 	cd $1
