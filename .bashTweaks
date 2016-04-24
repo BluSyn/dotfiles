@@ -67,6 +67,9 @@ HISTSIZE=100000
 #------------------------------------------
 #------COMPRESSED VIEW START---------------
 
+GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWSTASHSTATE=1
+
 # display compressed folder view preceded by time
 RED="\[\033[0;31m\]"
 GREEN="\[\033[0;32m\]"

@@ -19,6 +19,9 @@ ln -si ~/.dotfiles/.scm_breeze ~/.scm_breeze
 ln -si ~/.dotfiles/.byobu ~/.byobu
 ln -sb ~/.dotfiles/.screenrc ~/.screenrc
 
+# TMUX
+ln -si ~/.dotfiles/.tmux.conf ~/.tmux.conf
+
 # VIM
 ln -si ~/.dotfiles/.vim ~/.vim
 ln -sb ~/.dotfiles/.vim/vimrc ~/.vimrc
