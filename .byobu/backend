@@ -1,2 +1,0 @@
-# Use screen as byobu backend. Alternative: tmux
-BYOBU_BACKEND="screen"

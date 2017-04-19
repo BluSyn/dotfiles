@@ -1,3 +1,0 @@
-# Default Windows
-screen -t htop htop
-screen -t main /bin/bash

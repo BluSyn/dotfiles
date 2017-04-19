@@ -1,6 +1,0 @@
-# Purse Windows
-screen -t redis # cd /www/purseio/backend.purse.io/ && workon purse && redis-server
-screen -t amazon # cd /www/purseio/backend.purse.io/services/amazon/ && workon purse && make run
-screen -t gateway # cd /www/purseio/backend.purse.io/services/gateway/ && workon purse && make run_proxy
-screen -t celeryd # cd /www/purseio/backend.purse.io/ && workon purse && make celeryd
-screen -t app # cd /www/purseio/backend.purse.io/ && workon purse && make bitcoind && make run  
