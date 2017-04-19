@@ -1,24 +1,27 @@
 #-----------------------------------------
 #------ ALIAS SHORTCUTS START-------------
 
+alias d="docker"
+alias dps="docker ps"
+alias dl="docker logs -f --tail=1000"
+alias dc="docker-compose"
+
 # VI shortcut
 #alias v="vim --servername s --remote-tab"
 # OSX Versioin
-alias v="mvim --servername s --remote-tab"
+#alias v="mvim --servername s --remote-tab"
 
 # OSX Convert FLAC to M4A (Apple Lossless)
 alias doflac='for f in ./*.flac; do ffmpeg -i "$f" -c:a alac "${f%.*}.m4a"; done'
 
 alias flushdns='dscacheutil -flushcache;sudo killall -HUP mDNSResponder;say flushed'
 
-# install a package and automatically respond yes to confirmation prompt
-alias ins="sudo apt-get install -y"
+# Timestamp convert
+alias ts='date -r'
 
-# remove a package and its configuration files
-alias remp="sudo apt-get purge"
-
-# search for a package
-alias search="apt-cache search"
+alias fugpg="sudo launchctl unload /System/Library/LaunchDaemons/com.apple.ifdreader.plist && killall gpg-agent && gpg-agent --daemon"
+# YK FIX:
+# sudo launchctl unload /System/Library/LaunchDaemons/com.apple.ifdreader.plist
 
 # shows all files in a directory including hidden files
 alias ll='ls -lah'
@@ -31,12 +34,6 @@ alias engage="play -n -c1 synth whitenoise band -n 100 20 band -n 50 20 gain +25
 # clear the screen
 alias c="clear"
 
-# show size of disc in MB/GB instead of "blocks"
-alias hdd="df -h"
-
-# empty trash
-alias trash="rm -rf ~/.Trash"
-
 # tar functions
 alias wad='tar -czvf'
 alias unwad='tar -xzvf'
@@ -45,10 +42,6 @@ alias ff='find . -iname'
 
 # Show common commands
 alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
-
-# PHP Doc Command
-# Install: apt-get install php-pear && pear install doc.php.net/pman
-alias p='pman'
 
 # Logout of gnome
 alias gnome-logout="gnome-session-quit --logout --no-prompt"
@@ -144,5 +137,3 @@ aes256 () {
 aes256_d () {
 	openssl enc -aes-256-cbc -d -salt -in $1 -out $2
 }
-
-
