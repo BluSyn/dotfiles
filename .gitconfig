@@ -46,6 +46,7 @@
 
 [rebase]
 	stat = yes
+	autostash = true
 [push]
 	default = simple
 [filter "media"]
@@ -60,3 +61,5 @@
 	gpgsign = true
 [credential]
 	helper = osxkeychain
+[pull]
+	rebase = true
