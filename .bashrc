@@ -78,22 +78,6 @@ fi
 
 source /usr/local/etc/bash_completion.d/*.sh
 
-# SSH Keychain settings
-if [ -f /usr/bin/keychain ]; then
-    export SSH_ASKPASS="/usr/bin/gtk-led-askpass"
-    /usr/bin/keychain -q --ignore-missing -k others ~/.ssh/id_rsa.git ~/.ssh/id_rsa.local ~/.ssh/id_rsa.server ~/.ssh/id_rsa.other ~/.ssh/id_rsa.old
-    [ -f $HOME/.keychain/$HOSTNAME-sh ] && source $HOME/.keychain/$HOSTNAME-sh
-fi
-
-# Google Go
-export GOROOT=$HOME/go
-export GOARCH=amd64
-export GOOS=linux
-
 # Search up/down
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
-
-# SCM Breeze
-# github.com/ndbroadbent/scm_breeze.git
-[ -s "~/.scm_breeze/scm_breeze.sh" ] && source "~/.scm_breeze/scm_breeze.sh"

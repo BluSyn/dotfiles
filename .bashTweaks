@@ -6,6 +6,10 @@ alias dps="docker ps"
 alias dl="docker logs -f --tail=1000"
 alias dc="docker-compose"
 
+# Auto attach existing tmux window
+ssh () { /usr/bin/ssh -t "$@" "tmux attach || tmux new"; }
+sshr () { /usr/bin/ssh "$@"; }
+
 # VI shortcut
 #alias v="vim --servername s --remote-tab"
 # OSX Versioin
