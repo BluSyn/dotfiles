@@ -1,6 +1,19 @@
 #-----------------------------------------
 #------ ALIAS SHORTCUTS START-------------
 
+# GIT
+alias gs="git status"
+alias gc="git commit"
+alias ga="git add"
+alias gps="git push"
+alias gpl="git pull"
+alias gr="git remote"
+alias grb="git rebase"
+alias gl="git log"
+alias gco="git checkout"
+alias gb="git branch"
+
+# Docker
 alias d="docker"
 alias dps="docker ps"
 alias dl="docker logs -f --tail=1000"
@@ -89,30 +102,10 @@ PS1="[$LGRAY\t$RESET][$BLUE\u$RESET$CYAN@$RESET$PURPLE\h$RESET]: $GREEN\W$RESET$
 #------WELCOME MESSAGE---------------------
 # customize this first message with a message of your choice.
 # this will display the username, date, time, a calendar, the amount of users, and the up time.
-#clear
-
-#echo -e ""
-#echo -ne "Today is "; date
-#echo -e ""; cal ;
 
 echo -ne "";hostname;
 echo -ne "";uptime;
 echo "";
-
-# GIT Bash Helpers
-# mkgit <name> <server>
-mkgit () {
-	mkdir $1
-	cd $1
-	git init .
-	git remote add origin $2:$1
-	mkdir www docs
-	echo 1 > www/placeholder
-	echo 2 > docs/placeholder
-	git add .
-	git commit -a -m 'Initial Commit'
-	git push origin master
-}
 
 #------------------------------------------
 #------ENCRYPTION/DECRYPTION--------------
