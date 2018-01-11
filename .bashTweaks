@@ -29,19 +29,16 @@ alias dockerrm="docker rm \$(docker ps -aq)"
 ssh () { /usr/bin/ssh -t "$@" "tmux attach || tmux new"; }
 sshr () { /usr/bin/ssh "$@"; }
 
-# VI shortcut
-#alias v="vim --servername s --remote-tab"
-# OSX Versioin
-#alias v="mvim --servername s --remote-tab"
-
 # OSX Convert FLAC to M4A (Apple Lossless)
 alias doflac='for f in ./*.flac; do ffmpeg -i "$f" -c:a alac "${f%.*}.m4a"; done'
 
+# OSX: Kill DNS daemon
 alias flushdns='dscacheutil -flushcache;sudo killall -HUP mDNSResponder;say flushed'
 
 # Timestamp convert
 alias ts='date -r'
 
+# OSX: Kill GPG-agent
 alias fugpg="sudo launchctl unload /System/Library/LaunchDaemons/com.apple.ifdreader.plist && killall gpg-agent && gpg-agent --daemon"
 # YK FIX:
 # sudo launchctl unload /System/Library/LaunchDaemons/com.apple.ifdreader.plist
@@ -60,14 +57,9 @@ alias c="clear"
 # tar functions
 alias wad='tar -czvf'
 alias unwad='tar -xzvf'
-alias md='mkdir -p'
-alias ff='find . -iname'
 
-# Show common commands
+# Show common bash commands
 alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
-
-# Logout of gnome
-alias gnome-logout="gnome-session-quit --logout --no-prompt"
 
 say() { if [[ "${1}" =~ -[a-z]{2} ]]; then local lang=${1#-}; local text="${*#$1}"; else local lang=${LANG%_*}; local text="$*";fi; mplayer "http://translate.google.com/translate_tts?ie=UTF-8&tl=${lang}&q=${text}" &> /dev/null ; }
 
