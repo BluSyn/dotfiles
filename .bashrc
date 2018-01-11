@@ -76,6 +76,8 @@ if [ -f ~/.bashTweaks ]; then
     . ~/.bashTweaks
 fi
 
+export PATH="${PATH}:./node_modules/.bin"
+
 source /usr/local/etc/bash_completion.d/*.sh
 
 # Search up/down

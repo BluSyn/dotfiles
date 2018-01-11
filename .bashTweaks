@@ -2,9 +2,11 @@
 #------ ALIAS SHORTCUTS START-------------
 
 # GIT
+alias g="git"
 alias gs="git status"
 alias gc="git commit"
 alias ga="git add"
+alias gd="git diff"
 alias gps="git push"
 alias gpl="git pull"
 alias gr="git remote"
@@ -12,12 +14,16 @@ alias grb="git rebase"
 alias gl="git log"
 alias gco="git checkout"
 alias gb="git branch"
+alias gm="git merge"
+alias gt="git tag"
 
 # Docker
 alias d="docker"
 alias dps="docker ps"
 alias dl="docker logs -f --tail=1000"
 alias dc="docker-compose"
+alias dockerclean="docker rmi \$(docker images | grep '<none>' | awk '{print $3}')"
+alias dockerrm="docker rm \$(docker ps -aq)"
 
 # Auto attach existing tmux window
 ssh () { /usr/bin/ssh -t "$@" "tmux attach || tmux new"; }
