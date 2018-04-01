@@ -4,7 +4,7 @@
 # GIT
 alias g="git"
 alias gs="git status"
-alias gc="git commit"
+alias gc="TZ=UTC0 git commit"
 alias ga="git add"
 alias gd="git diff"
 alias gps="git push"
@@ -63,6 +63,9 @@ alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' 
 
 say() { if [[ "${1}" =~ -[a-z]{2} ]]; then local lang=${1#-}; local text="${*#$1}"; else local lang=${LANG%_*}; local text="$*";fi; mplayer "http://translate.google.com/translate_tts?ie=UTF-8&tl=${lang}&q=${text}" &> /dev/null ; }
 
+alias mac-logs="sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'select LSQuarantineDataURLString from LSQuarantineEvent'"
+alias mac-logs-clear="sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'delete from LSQuarantineEvent'"
+
 #-----------------------------------------
 #------HISTORY START----------------------
 
@@ -84,7 +87,7 @@ GIT_PS1_SHOWSTASHSTATE=1
 RED="\[\033[0;31m\]"
 GREEN="\[\033[0;32m\]"
 BROWN="\[\033[0;33m\]"
-BLUE="\[\033[0;34m\]"
+BLUE="\[\033[0;94m\]"
 PURPLE="\[\033[0;35m\]"
 CYAN="\[\033[0;36m\]"
 LGRAY="\[\033[0;37m\]"
@@ -93,7 +96,7 @@ DGRAY="\[\033[1;30m\]"
 WHITE="\[\033[1;37m\]"
 RESET="\[\033[1;0m\]"
 GIT='$(__git_ps1 "[%s]")'
-PS1="[$LGRAY\t$RESET][$BLUE\u$RESET$CYAN@$RESET$PURPLE\h$RESET]: $GREEN\W$RESET$BROWN$GIT$RESET \$$RESET "
+PS1="[$LGRAY\t$RESET][$YELLOW\u$RESET$DGRAY@$RESET$BLUE\h$RESET]: $LGRAY\W$RESET$GREEN$GIT$RESET \$$RESET "
 
 
 #------------------------------------------
