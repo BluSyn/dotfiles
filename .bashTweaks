@@ -1,7 +1,4 @@
-#-----------------------------------------
-#------ ALIAS SHORTCUTS START-------------
-
-# GIT
+# GIT shorthands
 alias g="git"
 alias gs="git status"
 alias gc="TZ=UTC0 git commit"
@@ -17,20 +14,25 @@ alias gb="git branch"
 alias gm="git merge"
 alias gt="git tag"
 
-# Docker
+# Docker shorthands
 alias d="docker"
 alias dps="docker ps"
 alias dl="docker logs -f --tail=1000"
 alias dc="docker-compose"
-alias dockerclean="docker rmi \$(docker images | grep '<none>' | awk '{print $3}')"
+alias dockerclean="docker rmi \$(docker images | grep '<none>' | awk '{print \$3}')"
 alias dockerrm="docker rm \$(docker ps -aq)"
 
-# Auto attach existing tmux window
+# gpg/enc shorthands
+encrypt () { gpg -ac "$1"; }
+decrypt () { gpg -ad "$1"; }
+des3 () { openssl enc -des3 -salt -in $1 -out $2; }
+des3_d () { openssl enc -des3 -d -salt -in $1 -out $2; }
+aes256 () { openssl enc -aes-256-cbc -salt -in $1 -out $2; }
+aes256_d () { openssl enc -aes-256-cbc -d -salt -in $1 -out $2; }
+
+# Auto attach existing tmux window on SSH
 ssh () { /usr/bin/ssh -t "$@" "tmux attach || tmux new"; }
 sshr () { /usr/bin/ssh "$@"; }
-
-# OSX Convert FLAC to M4A (Apple Lossless)
-alias doflac='for f in ./*.flac; do ffmpeg -i "$f" -c:a alac "${f%.*}.m4a"; done'
 
 # OSX: Kill DNS daemon
 alias flushdns='dscacheutil -flushcache;sudo killall -HUP mDNSResponder;say flushed'
@@ -47,43 +49,27 @@ alias fugpg="sudo launchctl unload /System/Library/LaunchDaemons/com.apple.ifdre
 alias ll='ls -lah'
 alias la='ls -A'
 alias l='ls -CF'
+alias c='clear'
 
 # Because I can
-alias engage="play -n -c1 synth whitenoise band -n 100 20 band -n 50 20 gain +25  fade h 1 864000 1"
+alias engage='play -n -c1 synth whitenoise band -n 100 20 band -n 50 20 gain +25  fade h 1 864000 1'
 
-# clear the screen
-alias c="clear"
-
-# tar functions
+# tar shorthand
 alias wad='tar -czvf'
 alias unwad='tar -xzvf'
 
 # Show common bash commands
 alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
 
-say() { if [[ "${1}" =~ -[a-z]{2} ]]; then local lang=${1#-}; local text="${*#$1}"; else local lang=${LANG%_*}; local text="$*";fi; mplayer "http://translate.google.com/translate_tts?ie=UTF-8&tl=${lang}&q=${text}" &> /dev/null ; }
-
 alias mac-logs="sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'select LSQuarantineDataURLString from LSQuarantineEvent'"
 alias mac-logs-clear="sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'delete from LSQuarantineEvent'"
 
-#-----------------------------------------
-#------HISTORY START----------------------
-
-# Expand the history size
 HISTFILESIZE=100000000
 HISTSIZE=100000
 
-# If you would like to prevent bash from saving any history (commented out by default).
-# HISTFILESIZE=0
-# HISTSIZE=0
-
-#------------------------------------------
-#------COMPRESSED VIEW START---------------
-
+# Terminal line
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWSTASHSTATE=1
-
-# display compressed folder view preceded by time
 RED="\[\033[0;31m\]"
 GREEN="\[\033[0;32m\]"
 BROWN="\[\033[0;33m\]"
@@ -98,40 +84,7 @@ RESET="\[\033[1;0m\]"
 GIT='$(__git_ps1 "[%s]")'
 PS1="[$LGRAY\t$RESET][$YELLOW\u$RESET$DGRAY@$RESET$BLUE\h$RESET]: $LGRAY\W$RESET$GREEN$GIT$RESET \$$RESET "
 
-
-#------------------------------------------
-#------WELCOME MESSAGE---------------------
-# customize this first message with a message of your choice.
-# this will display the username, date, time, a calendar, the amount of users, and the up time.
-
+# Welcome msg
 echo -ne "";hostname;
 echo -ne "";uptime;
 echo "";
-
-#------------------------------------------
-#------ENCRYPTION/DECRYPTION--------------
-# requires gpg
-# the proper way to use these functions is simply to enter "encrypt filename" or "decrypt filename"
-encrypt () {
-	gpg -ac "$1"
-}
-
-decrypt () {
-	gpg -ad "$1"
-}
-
-des3 () {
-	openssl enc -des3 -salt -in $1 -out $2
-}
-
-des3_d () {
-	openssl enc -des3 -d -salt -in $1 -out $2
-}
-
-aes256 () {
-	openssl enc -aes-256-cbc -salt -in $1 -out $2
-}
-
-aes256_d () {
-	openssl enc -aes-256-cbc -d -salt -in $1 -out $2
-}
