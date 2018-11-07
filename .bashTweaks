@@ -46,8 +46,9 @@ alias fugpg="sudo launchctl unload /System/Library/LaunchDaemons/com.apple.ifdre
 # sudo launchctl unload /System/Library/LaunchDaemons/com.apple.ifdreader.plist
 
 # shows all files in a directory including hidden files
-alias ll='ls -lah'
-alias la='ls -A'
+alias ls='ls -G'
+alias ll='ls -lahG'
+alias la='ls -AG'
 alias l='ls -CF'
 alias c='clear'
 
@@ -62,7 +63,7 @@ alias unwad='tar -xzvf'
 alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
 
 alias mac-logs="sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'select LSQuarantineDataURLString from LSQuarantineEvent'"
-alias mac-logs-clear="sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'delete from LSQuarantineEvent'"
+alias mac-logs-clear="sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'delete from LSQuarantineEvent' && qlmanage -r cache"
 
 HISTFILESIZE=100000000
 HISTSIZE=100000

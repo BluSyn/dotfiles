@@ -32,7 +32,7 @@ if [ -f ~/.bashTweaks ]; then
 fi
 
 # Always include CWD's node_modules bin
-export PATH="${PATH}:./node_modules/.bin"
+export PATH="${PATH}:/usr/local/sbin:./node_modules/.bin"
 
 # Search up/down
 bind '"\e[A": history-search-backward'

@@ -1,7 +1,7 @@
 [user]
 	name = Steven Bower
 	email = bowerblu@gmail.com
-	signingkey = B44287D9
+	signingkey = FDD9AEBC39E62B71
 
 # Makes pushing easier on master branch
 [branch "master"]
@@ -31,7 +31,7 @@
 	ll = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	lls = !git ll --stat
 	exportfiles = !sh -c 'git diff $0 --name-only | "while read files; do mkdir -p \"$1/$(dirname $files)\"; cp -vf $files $1/$(dirname $files); done"'
-	pl = !git fetch origin && git rebase -p origin/$(git_current_branch)
+	rmerge = !git checkout -b $1 origin/$1 && git checkout ${2:-master} && git merge --no-ff $1 && git branch -D $1
 
 [color]
 	ui = yes
