@@ -8,13 +8,6 @@
 	remote = origin
 	merge = refs/heads/master
 
-# Short-hand for common servers
-[url "git@git.turnwheel.com"]
-	insteadOf = twgit
-
-[url "git@git.bpwebdesign.com"]
-	insteadOf = bpgit
-
 [url "git@github.com"]
 	insteadOf = gh
 
@@ -38,7 +31,7 @@
 
 [core]
 	autocrlf = input
-	excludesfile = /Users/blu/.gitignore_global
+	excludesfile = ~/.gitignore_global
 	editor = nano
 
 [merge]
