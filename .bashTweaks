@@ -14,6 +14,21 @@ alias gb="git branch"
 alias gm="git merge"
 alias gt="git tag"
 
+__git_complete g _git
+__git_complete gs _git_status
+__git_complete TZ=UTC0 gc _git_commit
+__git_complete ga _git_add
+__git_complete gd _git_diff
+__git_complete gl _git_log
+__git_complete gt _git_tag
+__git_complete gm _git_merge
+__git_complete gr _git_remote
+__git_complete gb _git_branch
+__git_complete gps _git_push
+__git_complete gpl _git_pull
+__git_complete grb _git_rebase
+__git_complete gco _git_checkout
+
 # Docker shorthands
 alias d="docker"
 alias dps="docker ps"

@@ -23,9 +23,7 @@ if [ -f /etc/bash_completion ]; then
 fi
 
 # More bash completion (brew on osx)
-if [ -d /usr/local/etc/bash_completion.d ]; then
-    source /usr/local/etc/bash_completion.d/*.sh
-fi
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
 if [ -f ~/.bashTweaks ]; then
     . ~/.bashTweaks
@@ -43,6 +41,7 @@ if [ -f '/Users/blu/google-cloud-sdk/path.bash.inc' ]; then source '/Users/blu/g
 
 # # The next line enables shell command completion for gcloud.
 if [ -f '/Users/blu/google-cloud-sdk/completion.bash.inc' ]; then source '/Users/blu/google-cloud-sdk/completion.bash.inc'; fi
+
 
 # Android Studio BS
 export ANDROID_HOME="/Users/blu/Library/Android/sdk"
