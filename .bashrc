@@ -23,10 +23,8 @@ if [ -f /etc/bash_completion ]; then
 fi
 
 # More bash completion (brew on osx)
-[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
-
-if [ -f ~/.bashTweaks ]; then
-    . ~/.bashTweaks
+if [ -f /usr/local/etc/bash_completion ]; then
+	. /usr/local/etc/bash_completion
 fi
 
 # Always include CWD's node_modules bin
@@ -36,12 +34,8 @@ export PATH="${PATH}:/usr/local/sbin:./node_modules/.bin"
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/blu/google-cloud-sdk/path.bash.inc' ]; then source '/Users/blu/google-cloud-sdk/path.bash.inc'; fi
+# Custom aliases, etc.
+if [ -f $HOME/.dotfiles/.bashTweaks ]; then
+    . $HOME/.dotfiles/.bashTweaks
+fi
 
-# # The next line enables shell command completion for gcloud.
-if [ -f '/Users/blu/google-cloud-sdk/completion.bash.inc' ]; then source '/Users/blu/google-cloud-sdk/completion.bash.inc'; fi
-
-
-# Android Studio BS
-export ANDROID_HOME="/Users/blu/Library/Android/sdk"

@@ -1,3 +1,33 @@
+# Terminal line
+if [ -f /usr/share/git/completion/git-completion.bash ]; then
+	. /usr/share/git/completion/git-completion.bash
+fi
+if [ -f /usr/share/git/completion/git-prompt.sh ]; then
+	. /usr/share/git/completion/git-prompt.sh
+fi
+
+GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWSTASHSTATE=1
+RED="\[\033[0;31m\]"
+GREEN="\[\033[0;32m\]"
+BROWN="\[\033[0;33m\]"
+BLUE="\[\033[0;94m\]"
+PURPLE="\[\033[0;35m\]"
+CYAN="\[\033[0;36m\]"
+LGRAY="\[\033[0;37m\]"
+YELLOW="\[\033[0;33m\]"
+DGRAY="\[\033[1;30m\]"
+WHITE="\[\033[1;37m\]"
+RESET="\[\033[1;0m\]"
+GIT='$(__git_ps1 "[%s]")'
+PS1="[$YELLOW\u$RESET$LGRAY@$RESET$BLUE\h$RESET] $LGRAY\W$RESET$GREEN$GIT$RESET\n[$LGRAY\t$RESET] \$$RESET "
+
+# File listings
+alias ls='ls --color=auto'
+#alias ll='ls -lsah'
+alias ll='exa -labgF --git --time-style long-iso'
+alias lls='exa -labgF --git --git-ignore --time-style long-iso --ignore-glob=".git" --tree -L 2'
+
 # GIT shorthands
 alias g="git"
 alias gs="git status"
@@ -37,70 +67,38 @@ alias dc="docker-compose"
 alias dockerclean="docker rmi \$(docker images | grep '<none>' | awk '{print \$3}')"
 alias dockerrm="docker rm \$(docker ps -aq)"
 
-# gpg/enc shorthands
-encrypt () { gpg -ac "$1"; }
-decrypt () { gpg -ad "$1"; }
-des3 () { openssl enc -des3 -salt -in $1 -out $2; }
-des3_d () { openssl enc -des3 -d -salt -in $1 -out $2; }
-aes256 () { openssl enc -aes-256-cbc -salt -in $1 -out $2; }
-aes256_d () { openssl enc -aes-256-cbc -d -salt -in $1 -out $2; }
-
 # Auto attach existing tmux window on SSH
+msh () { /usr/bin/mosh --no-init --predict=never -- "$@" sh -c "tmux attach || tmux new"; }
 ssh () { /usr/bin/ssh -t "$@" "tmux attach || tmux new"; }
 sshr () { /usr/bin/ssh "$@"; }
-
-# OSX: Kill DNS daemon
-alias flushdns='dscacheutil -flushcache;sudo killall -HUP mDNSResponder;say flushed'
-
-# Timestamp convert
-alias ts='date -r'
-
-# OSX: Kill GPG-agent
-alias fugpg="sudo launchctl unload /System/Library/LaunchDaemons/com.apple.ifdreader.plist && killall gpg-agent && gpg-agent --daemon"
-# YK FIX:
-# sudo launchctl unload /System/Library/LaunchDaemons/com.apple.ifdreader.plist
-
-# shows all files in a directory including hidden files
-alias ls='ls -G'
-alias ll='ls -lahG'
-alias la='ls -AG'
-alias l='ls -CF'
-alias c='clear'
 
 # Because I can
 alias engage='play -n -c1 synth whitenoise band -n 100 20 band -n 50 20 gain +25  fade h 1 864000 1'
 
-# tar shorthand
-alias wad='tar -czvf'
-alias unwad='tar -xzvf'
-
 # Show common bash commands
 alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
 
-alias mac-logs="sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'select LSQuarantineDataURLString from LSQuarantineEvent'"
-alias mac-logs-clear="sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'delete from LSQuarantineEvent' && qlmanage -r cache"
+# Linux-specific
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+	export LANG="en_US.UTF-8"
+	export LC_CTYPE="en_US.UTF-8"
+fi
 
-HISTFILESIZE=100000000
-HISTSIZE=100000
+# OSX-Specific features
+if [[ "$OSTYPE" == "darwin"* ]]; then
+	alias flushdns='dscacheutil -flushcache;sudo killall -HUP mDNSResponder;say flushed'
 
-# Terminal line
-GIT_PS1_SHOWDIRTYSTATE=1
-GIT_PS1_SHOWSTASHSTATE=1
-RED="\[\033[0;31m\]"
-GREEN="\[\033[0;32m\]"
-BROWN="\[\033[0;33m\]"
-BLUE="\[\033[0;94m\]"
-PURPLE="\[\033[0;35m\]"
-CYAN="\[\033[0;36m\]"
-LGRAY="\[\033[0;37m\]"
-YELLOW="\[\033[0;33m\]"
-DGRAY="\[\033[1;30m\]"
-WHITE="\[\033[1;37m\]"
-RESET="\[\033[1;0m\]"
-GIT='$(__git_ps1 "[%s]")'
-PS1="[$LGRAY\t$RESET][$YELLOW\u$RESET$DGRAY@$RESET$BLUE\h$RESET]: $LGRAY\W$RESET$GREEN$GIT$RESET \$$RESET "
+	# Kill GPG-agent
+	alias fugpg="sudo launchctl unload /System/Library/LaunchDaemons/com.apple.ifdreader.plist && killall gpg-agent && gpg-agent --daemon"
+
+	alias mac-logs="sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'select LSQuarantineDataURLString from LSQuarantineEvent'"
+	alias mac-logs-clear="sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'delete from LSQuarantineEvent' && qlmanage -r cache"
+
+	# YK FIX:
+	# sudo launchctl unload /System/Library/LaunchDaemons/com.apple.ifdreader.plist
+fi
 
 # Welcome msg
-echo -ne "";hostname;
-echo -ne "";uptime;
+echo $HOSTNAME;
+uptime;
 echo "";
