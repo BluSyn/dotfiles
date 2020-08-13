@@ -72,7 +72,7 @@ alias dockerclean="docker rmi \$(docker images | grep '<none>' | awk '{print \$3
 alias dockerrm="docker rm \$(docker ps -aq)"
 
 # Auto attach existing tmux window on SSH
-msh () { $(which mosh) --no-init --predict=never -- "$@" sh -c "tmux attach || tmux new"; }
+msh () { mosh --no-init --predict=never -- "$@" sh -c "tmux attach || tmux new"; }
 ssh () { /usr/bin/ssh -t "$@" "tmux attach || tmux new"; }
 sshr () { /usr/bin/ssh "$@"; }
 
