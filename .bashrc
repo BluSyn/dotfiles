@@ -28,7 +28,7 @@ if [ -f /usr/local/etc/bash_completion ]; then
 fi
 
 # Always include CWD's node_modules bin
-export PATH="${PATH}:/usr/local/sbin:./node_modules/.bin"
+export PATH="${PATH}:/usr/local/sbin:${HOME}/.cargo/bin"
 
 # Search up/down
 bind '"\e[A": history-search-backward'
@@ -39,3 +39,5 @@ if [ -f $HOME/.dotfiles/.bashTweaks ]; then
     . $HOME/.dotfiles/.bashTweaks
 fi
 
+# TODO: REMOVE WHEN DOCKER DEVS STOP BEING DICKWADS
+export COMPOSE_API_VERSION="1.40"
