@@ -27,7 +27,7 @@ GIT='$(__git_ps1 " [%s]")'
 PS1="$LGRAY\w$RESET$GREEN$GIT$RESET\n[$LGRAY\t$RESET][$YELLOW\u$RESET$LGRAY@$RESET$BLUE\h$RESET] \$$RESET "
 
 # File listings
-alias ls='ls --color=auto'
+#alias ls='ls --color=auto'
 #alias ll='ls -lsah'
 alias ll='exa -labgF --git --time-style long-iso'
 alias lls='exa -labgF --git --git-ignore --time-style long-iso --ignore-glob=".git" --tree -L 2'
@@ -72,8 +72,8 @@ alias dockerclean="docker rmi \$(docker images | grep '<none>' | awk '{print \$3
 alias dockerrm="docker rm \$(docker ps -aq)"
 
 # Auto attach existing tmux window on SSH
-msh () { mosh --no-init --predict=never -- "$@" sh -c "tmux attach || tmux new"; }
-ssh () { /usr/bin/ssh -t "$@" "tmux attach || tmux new"; }
+msh () { mosh --no-init --predict=never -- "$@" sh -c "TERM=xterm-256color tmux attach || tmux new"; }
+ssh () { /usr/bin/ssh -t "$@" "TERM=xterm-256color tmux attach || tmux new"; }
 sshr () { /usr/bin/ssh "$@"; }
 
 # Because I can
@@ -90,6 +90,7 @@ fi
 
 # OSX-Specific features
 if [[ "$OSTYPE" == "darwin"* ]]; then
+	alias dskill='find . -name ".DS_Store" -depth -exec rm {} \;'
 	alias flushdns='dscacheutil -flushcache;sudo killall -HUP mDNSResponder;say flushed'
 
 	# Kill GPG-agent
