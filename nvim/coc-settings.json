@@ -1,0 +1,5 @@
+{
+  "rust-analyzer.cargo-watch.enable": false,
+  "rust-analyzer.serverPath": "/usr/local/bin/rust-analyzer"
+
+}

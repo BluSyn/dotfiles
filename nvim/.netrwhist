@@ -1,0 +1,5 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =3
+let g:netrw_dirhist_3='/Users/blu/.config/coc'
+let g:netrw_dirhist_2='/Users/blu/.config/configstore'
+let g:netrw_dirhist_1='/Users/blu/.config/coc'
