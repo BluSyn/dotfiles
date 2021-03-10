@@ -23,8 +23,9 @@ ln -sb ~/.dotfiles/.screenrc ~/.screenrc
 ln -si ~/.dotfiles/.tmux.conf ~/.tmux.conf
 
 # VIM
-ln -si ~/.dotfiles/.vim ~/.vim
-ln -sb ~/.dotfiles/.vim/vimrc ~/.vimrc
+#ln -si ~/.dotfiles/.vim ~/.vim
+#ln -sb ~/.dotfiles/.vim/vimrc ~/.vimrc
+ln -si ~/.dotfiles/nvim ~/.config/nvim
 
 # Other
 ln -sb ~/.dotfiles/.htoprc ~/.htoprc
