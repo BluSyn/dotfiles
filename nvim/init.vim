@@ -64,6 +64,7 @@ let g:secure_modelines_allowed_items = [
 
 " Lightline
 let g:lightline = {
+      \ 'colorscheme': 'Tomorrow_Night_Bright',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
@@ -181,7 +182,11 @@ set listchars=nbsp:¬,extends:»,precedes:«,trail:•
 nnoremap ; :
 
 nnoremap <silent> <leader>v :vsplit<cr>
-nnoremap <silent> <leader>h :split<cr>
+nnoremap <silent> <leader>b :split<cr>
+nnoremap <leader>j <C-W><C-J>
+nnoremap <leader>k <C-W><C-K>
+nnoremap <leader>l <C-W><C-L>
+nnoremap <leader>h <C-W><C-H>
 
 " Ctrl+h to stop searching
 vnoremap <C-h> :nohlsearch<cr>

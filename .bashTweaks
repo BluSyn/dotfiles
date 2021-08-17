@@ -73,8 +73,8 @@ alias dockerrm="docker rm \$(docker ps -aq)"
 
 # Auto attach existing tmux window on SSH
 msh () { mosh --no-init --predict=never -- "$@" sh -c "TERM=xterm-256color tmux attach || tmux new"; }
-ssh () { /usr/bin/ssh -t "$@" "TERM=xterm-256color tmux attach || tmux new"; }
-sshr () { /usr/bin/ssh "$@"; }
+ssh () { /usr/local/bin/ssh -t "$@" "TERM=xterm-256color tmux attach || tmux new"; }
+sshr () { /usr/local/bin/ssh "$@"; }
 
 # Because I can
 alias engage='play -n -c1 synth whitenoise band -n 100 20 band -n 50 20 gain +25  fade h 1 864000 1'
