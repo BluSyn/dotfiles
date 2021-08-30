@@ -50,7 +50,7 @@ alias gt="git tag"
 
 __git_complete g _git
 __git_complete gs _git_status
-__git_complete TZ=UTC0 gc _git_commit
+__git_complete gc _git_commit
 __git_complete ga _git_add
 __git_complete gd _git_diff
 __git_complete gl _git_log
