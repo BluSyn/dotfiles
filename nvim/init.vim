@@ -14,9 +14,18 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'justinmk/vim-sneak'
 
 " GUI enhancements
+" Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 Plug 'itchyny/lightline.vim'
+Plug 'akinsho/bufferline.nvim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'andymass/vim-matchup'
+
+" File Tree
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'kyazdani42/nvim-tree.lua'
+
+" Cheatsheet
+Plug 'sudormrfbin/cheatsheet.nvim'
 
 " Fuzzy finder
 Plug 'airblade/vim-rooter'
@@ -72,6 +81,24 @@ function! LightlineFilename()
   return expand('%:t') !=# '' ? @% : '[No Name]'
 endfunction
 
+" Bufferline
+lua << EOF
+require("bufferline").setup{
+    options = {
+        diagnostics = "nvim_lsp"
+    }
+}
+EOF
+nnoremap <leader>] :BufferLineCycleNext<CR>
+nnoremap <leader>[ :BufferLineCyclePrev<CR>
+nnoremap <leader>x :bw<CR> <Bar> :BufferLineCyclePrev<CR>
+
+" nvim-tree
+let g:nvim_tree_auto_open = 1
+nnoremap <C-n> :NvimTreeToggle<CR>
+nnoremap <leader>r :NvimTreeRefresh<CR>
+nnoremap <leader>n :NvimTreeFindFile<CR>
+
 " Use auocmd to force lightline update.
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
@@ -84,6 +111,7 @@ nmap <leader>w :w<CR>
 
 " Don't confirm .lvimrc
 let g:localvimrc_ask = 0
+
 
 " rust
 let g:rustfmt_autosave = 1
@@ -210,6 +238,11 @@ inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
 " Use <c-.> to trigger completion.
 inoremap <silent><expr> <c-.> coc#refresh()
