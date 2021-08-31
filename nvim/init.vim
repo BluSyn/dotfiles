@@ -85,7 +85,9 @@ endfunction
 lua << EOF
 require("bufferline").setup{
     options = {
-        diagnostics = "nvim_lsp"
+        diagnostics = "nvim_lsp",
+        tab_size = 20,
+        offsets = {{filetype = "NvimTree", text = "File Explore", text_align = "left"}},
     }
 }
 EOF
