@@ -6,25 +6,14 @@
 ln -sb ~/.dotfiles/.bashrc ~/.bashrc
 ln -sb ~/.dotfiles/.profile ~/.profile
 ln -sb ~/.dotfiles/.bashTweaks ~/.bashTweaks
-ln -sb ~/.dotfiles/.bash_logout ~/.bash_logout
 
-# GIT & scm_breeze
+# GIT
 ln -sb ~/.dotfiles/.gitconfig ~/.gitconfig
-
-ln -sb ~/.dotfiles/.git.scmbrc ~/.git.scmbrc
-#ln -sb ~/.dotfiles/.scmbrc ~/.scmbrc
-ln -si ~/.dotfiles/.scm_breeze ~/.scm_breeze
-
-# BYOBU
-ln -si ~/.dotfiles/.byobu ~/.byobu
-ln -sb ~/.dotfiles/.screenrc ~/.screenrc
 
 # TMUX
 ln -si ~/.dotfiles/.tmux.conf ~/.tmux.conf
 
 # VIM
-#ln -si ~/.dotfiles/.vim ~/.vim
-#ln -sb ~/.dotfiles/.vim/vimrc ~/.vimrc
 ln -si ~/.dotfiles/nvim ~/.config/nvim
 
 # Other
