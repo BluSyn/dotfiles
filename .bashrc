@@ -12,6 +12,9 @@ export HISTCONTROL=ignoredups
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
+# Change dirs without "cd"
+shopt -s autocd
+
 # Default aliases
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
