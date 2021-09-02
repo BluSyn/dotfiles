@@ -224,6 +224,9 @@ set printoptions=paper:letter
 " Always draw sign column. Prevent buffer moving when adding/deleting sign.
 set signcolumn=yes
 
+" Fixes issues with writes not triggering filesystem notifications
+set backupcopy=yes
+
 " Sane splits
 set splitright
 set splitbelow
