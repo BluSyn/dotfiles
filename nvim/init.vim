@@ -95,7 +95,7 @@ require("bufferline").setup{
 EOF
 nnoremap <leader>] :BufferLineCycleNext<CR>
 nnoremap <leader>[ :BufferLineCyclePrev<CR>
-nnoremap <leader>x :bw<CR> <Bar> :BufferLineCyclePrev<CR>
+nnoremap <leader>x :bw<CR> <Bar> :bnext<CR>
 
 " nvim-tree
 let g:nvim_tree_auto_open = 1
