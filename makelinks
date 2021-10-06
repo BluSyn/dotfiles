@@ -7,6 +7,9 @@ ln -sb ~/.dotfiles/.bashrc ~/.bashrc
 ln -sb ~/.dotfiles/.profile ~/.profile
 ln -sb ~/.dotfiles/.bashTweaks ~/.bashTweaks
 
+# FISH
+ln -si ~/.dotfiles/config.fish ~/.config/fish/config.fish
+
 # GIT
 ln -sb ~/.dotfiles/.gitconfig ~/.gitconfig
 

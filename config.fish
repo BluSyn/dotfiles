@@ -1,3 +1,7 @@
+# PATH
+set PATH $PATH /usr/local/bin
+set PATH $PATH ~/.cargo/bin
+
 # GIT Shortcuts
 abbr -a g 'git'
 abbr -a gs 'git status'
@@ -69,3 +73,13 @@ function fish_prompt
     set_color normal; echo -n "] \$ "
 end
 
+# FZF
+function fish_user_key_bindings
+	if functions -q fzf_key_bindings
+		fzf_key_bindings
+	end
+end
+
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/blu/google-cloud-sdk/path.fish.inc' ]; . '/Users/blu/google-cloud-sdk/path.fish.inc'; end
