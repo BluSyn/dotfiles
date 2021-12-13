@@ -46,3 +46,4 @@ fi
 export COMPOSE_API_VERSION="1.40"
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+. "$HOME/.cargo/env"

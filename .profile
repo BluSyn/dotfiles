@@ -26,4 +26,7 @@ export LC_MESSAGES="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
 export LC_COLLATE="en_US.UTF-8"
 
-export PATH="$HOME/.cargo/bin:$PATH"
+eval "$(/opt/homebrew/bin/brew shellenv)"
+. "$HOME/.cargo/env"
+
+export PATH="/Users/blu/.local/share/solana/install/active_release/bin:$PATH"

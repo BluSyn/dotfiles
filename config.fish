@@ -1,6 +1,7 @@
 # PATH
-set PATH $PATH /usr/local/bin
+set PATH $PATH /opt/homebrew/bin
 set PATH $PATH ~/.cargo/bin
+set PATH $PATH ~/.local/share/solana/install/active_release/bin
 
 # GIT Shortcuts
 abbr -a g 'git'
@@ -40,15 +41,15 @@ end
 
 # Auto attach existing tmux window on SSH
 function msh
-    mosh --no-init --predict=neber -- "$argv" sh -c "TERM=xterm-256color tmux attach || tmux new"
+    TERM=xterm-256color mosh --no-init --predict=never -- "$argv" sh -c "tmux attach || tmux new"
 end
 
 function ssh
-    /usr/local/bin/ssh -t "$argv" "TERM=xterm-256color tmux attach || tmux new"
+    LC_CTYPE=en_US.UTF-8 TERM=xterm-256color /usr/bin/ssh -t "$argv" "tmux attach || tmux new"
 end
 
 function sshr
-    /usr/local/bin/ssh "$argv"
+    /usr/bin/ssh "$argv"
 end
 
 # Fish git prompt
@@ -83,3 +84,4 @@ end
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/blu/google-cloud-sdk/path.fish.inc' ]; . '/Users/blu/google-cloud-sdk/path.fish.inc'; end
+fish_add_path /usr/local/sbin
