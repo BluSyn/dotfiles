@@ -26,4 +26,4 @@ ln -si ~/.dotfiles/helix ~/.config/helix
 ln -si ~/.dotfiles/alacritty ~/.config/alacritty
 
 # Other
-ln -si ~/.dotfiles/.htoprc ~/.htoprc
+ln -si ~/.dotfiles/htop/htoprc ~/.config/htop/htoprc
