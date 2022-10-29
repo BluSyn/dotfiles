@@ -1,0 +1,22 @@
+theme = "base16_tomorrow_dark"
+
+[editor]
+line-number = "relative"
+
+[editor.file-picker]
+hidden = false
+
+[keys.normal]
+g = { a = "code_action" } # Maps `ga` to show possible code actions
+"\\" = { "w" = ":w", "c" = ":config-open", "r" = ":config-reload" }
+"ret" = ["move_line_down", "goto_first_nonwhitespace"] # Maps the enter key to move to start of next line
+X = "extend_line_above"
+D = "delete_char_backward"
+"S-left" = "jump_view_left"
+"S-right" = "jump_view_right"
+"S-up" = "jump_view_up"
+"S-down" = "jump_view_down"
+"A-S-left" = "swap_view_left"
+"A-S-right" = "swap_view_right"
+"A-S-up" = "swap_view_up"
+"A-S-down" = "swap_view_down"
