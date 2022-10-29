@@ -19,5 +19,8 @@ ln -si ~/.dotfiles/.tmux.conf ~/.tmux.conf
 # VIM
 ln -si ~/.dotfiles/nvim ~/.config/nvim
 
+# Helix
+ln -si ~/.dotfiles/helix ~/.config/helix
+
 # Other
 ln -sb ~/.dotfiles/.htoprc ~/.htoprc
