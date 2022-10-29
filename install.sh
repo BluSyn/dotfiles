@@ -8,7 +8,7 @@ ln -si ~/.dotfiles/bash/profile ~/.profile
 ln -si ~/.dotfiles/bash/bashTweaks ~/.bashTweaks
 
 # FISH
-ln -si ~/.dotfiles/config.fish ~/.config/fish/config.fish
+ln -si ~/.dotfiles/fish/config.fish ~/.config/fish/config.fish
 
 # GIT
 ln -si ~/.dotfiles/git ~/.config/git
