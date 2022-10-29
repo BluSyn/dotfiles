@@ -2,6 +2,9 @@
 set PATH $PATH /opt/homebrew/bin
 set PATH $PATH ~/.cargo/bin
 set PATH $PATH ~/.local/share/solana/install/active_release/bin
+if not contains ./node_modules/.bin $PATH
+  set PATH ./node_modules/.bin $PATH
+end
 
 # GIT Shortcuts
 abbr -a g 'git'
@@ -41,7 +44,7 @@ end
 
 # Auto attach existing tmux window on SSH
 function msh
-    TERM=xterm-256color mosh --no-init --predict=never -- "$argv" sh -c "tmux attach || tmux new"
+    mosh --no-init --predict=never -- "$argv" sh -c "tmux attach || tmux new"
 end
 
 function ssh
