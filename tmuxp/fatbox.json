@@ -1,0 +1,40 @@
+{
+  "session_name": "default",
+  "windows": [
+    {
+      "layout": "main-vertical",
+      "panes": [
+        {
+          "focus": "true",
+          "shell_command": "btop"
+        },
+        "bandwhich -i bond0 -s",
+        "watch nvidia-smi"
+      ],
+      "start_directory": "/home/box",
+      "window_name": "monitor"
+    },
+    {
+      "layout": "tiled",
+      "panes": [
+        "dl nginx",
+        {
+          "focus": "true",
+          "shell_command": "cd ~/src/fatbox/docker && git status"
+        },
+        "nvim ~/src/fatbox/docker/docker-compose.yml",
+        "cd ~/src/fatbox/docker"
+      ],
+      "start_directory": "/home/box",
+      "window_name": "docker"
+    },
+    {
+      "focus": "true",
+      "panes": [
+        "pane"
+      ],
+      "start_directory": "/home/box",
+      "window_name": "work"
+    }
+  ]
+}
