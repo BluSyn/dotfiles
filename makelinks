@@ -3,24 +3,27 @@
 # Assumes .dotfiles is in ~
 
 # BASH
-ln -sb ~/.dotfiles/.bashrc ~/.bashrc
-ln -sb ~/.dotfiles/.profile ~/.profile
-ln -sb ~/.dotfiles/.bashTweaks ~/.bashTweaks
+ln -si ~/.dotfiles/bash/bashrc ~/.bashrc
+ln -si ~/.dotfiles/bash/profile ~/.profile
+ln -si ~/.dotfiles/bash/bashTweaks ~/.bashTweaks
 
 # FISH
 ln -si ~/.dotfiles/config.fish ~/.config/fish/config.fish
 
 # GIT
-ln -sb ~/.dotfiles/.gitconfig ~/.gitconfig
+ln -si ~/.dotfiles/git ~/.config/git
 
 # TMUX
-ln -si ~/.dotfiles/.tmux.conf ~/.tmux.conf
+ln -si ~/.dotfiles/tmux ~/config/tmux
 
-# VIM
+# NeoVIM
 ln -si ~/.dotfiles/nvim ~/.config/nvim
 
 # Helix
 ln -si ~/.dotfiles/helix ~/.config/helix
 
+# Allacritty
+ln -si ~/.dotfiles/alacritty ~/.config/alacritty
+
 # Other
-ln -sb ~/.dotfiles/.htoprc ~/.htoprc
+ln -si ~/.dotfiles/.htoprc ~/.htoprc
