@@ -6,6 +6,7 @@ ln -si ~/.dotfiles/bash/bashrc ~/.bashrc
 ln -si ~/.dotfiles/bash/profile ~/.profile
 ln -si ~/.dotfiles/bash/bashTweaks ~/.bashTweaks
 
+ln -si ~/.dotfiles/git ~/.config/git
 ln -si ~/.dotfiles/tmux ~/.config/tmux
 ln -si ~/.dotfiles/tmux ~/.config/tmuxp
 ln -si ~/.dotfiles/nvim ~/.config/nvim

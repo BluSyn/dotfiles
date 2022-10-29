@@ -31,7 +31,7 @@
 
 [core]
 	autocrlf = input
-	excludesfile = ~/.gitignore_global
+	excludesfile = ~/.config/git/ignore
 	editor = nano
 
 [merge]
