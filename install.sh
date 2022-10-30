@@ -27,6 +27,8 @@ link ~/dotfiles/tmuxp ~/.config/tmuxp
 link ~/dotfiles/nvim ~/.config/nvim
 link ~/dotfiles/helix ~/.config/helix
 link ~/dotfiles/alacritty ~/.config/alacritty
+
+mkdir ~/,config/htop
 link ~/dotfiles/htop/htoprc ~/.config/htop/htoprc
 
 mkdir ~/.config/fish
