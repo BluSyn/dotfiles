@@ -409,9 +409,9 @@ font:
 #   - (Linux/BSD) user login shell
 #   - (Windows) powershell
 shell:
-  program: /opt/homebrew/bin/fish
-#  args:
-#    - --login
+  program: /usr/bin/env
+  args:
+    - fish
 
 # Startup directory
 #

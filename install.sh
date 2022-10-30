@@ -2,6 +2,12 @@
 
 # Assumes dotfiles is in ~
 
+# Fonts:
+# https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/BitstreamVeraSansMono
+#
+# pacman -Sy alacritty fish nvim helix htop inetutils
+# brew install fish helix nvim htop
+
 ln -si ~/dotfiles/bash/bashrc ~/.bashrc
 ln -si ~/dotfiles/bash/profile ~/.profile
 ln -si ~/dotfiles/bash/bashTweaks ~/.bashTweaks
