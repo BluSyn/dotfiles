@@ -35,9 +35,6 @@ if [ -f /usr/local/etc/bash_completion ]; then
 	. /usr/local/etc/bash_completion
 fi
 
-# Always include CWD's node_modules bin
-export PATH="${PATH}:/usr/local/sbin:${HOME}/.cargo/bin"
-
 # Search up/down
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
@@ -53,6 +50,7 @@ fi
 if [ -f $HOME/.cargo/env ]; then
 	. $HOME/.cargo/env
 fi
+
 # Google Cloud Shit
 if [ -f '/home/box/google-cloud-sdk/path.bash.inc' ]; then
 	. '/home/box/google-cloud-sdk/path.bash.inc';
