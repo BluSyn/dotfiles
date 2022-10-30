@@ -6,23 +6,28 @@
 [ -z "$PS1" ] && return
 
 # don't put duplicate lines in the history. See bash(1) for more options
-export HISTCONTROL=ignoredups
+export HISTCONTROL=ignoredups:erasedups
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
 # Change dirs without "cd"
-shopt -s autocd
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+	shopt -s autocd
+fi
+
+# append history entries..
+shopt -s histappend
 
 # Default aliases
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+if [ -f $HOME/.bash_aliases ]; then
+	. $HOME/.bash_aliases
 fi
 
 # Standard bash completion
 if [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
+	. /etc/bash_completion
 fi
 
 # More bash completion (brew on osx)
@@ -38,12 +43,23 @@ bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 
 # Custom aliases, etc.
-if [ -f $HOME/.dotfiles/.bashTweaks ]; then
-    . $HOME/.dotfiles/.bashTweaks
+if [ -f $HOME/.bashTweaks ]; then
+	. $HOME/.bashTweaks
+fi
+
+if [ -f $HOME/.fzf.bash ]; then
+	. $HOME/.fzf.bash
+fi
+if [ -f $HOME/.cargo/env ]; then
+	. $HOME/.cargo/env
+fi
+# Google Cloud Shit
+if [ -f '/home/box/google-cloud-sdk/path.bash.inc' ]; then
+	. '/home/box/google-cloud-sdk/path.bash.inc';
+fi
+if [ -f '/home/box/google-cloud-sdk/completion.bash.inc' ]; then
+	. '/home/box/google-cloud-sdk/completion.bash.inc';
 fi
 
 # TODO: REMOVE WHEN DOCKER DEVS STOP BEING DICKWADS
 export COMPOSE_API_VERSION="1.40"
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-. "$HOME/.cargo/env"
