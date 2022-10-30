@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
-# Assumes dotfiles is in ~
+# Assumes dotfiles is in $HOME
+# git clone git@github.com:BluSyn/dotfiles.git
 
 # Fonts:
 # https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/BitstreamVeraSansMono
-#
+
+# Packages:
 # pacman -Sy alacritty fish nvim helix htop inetutils
 # brew install fish helix nvim htop
 
@@ -17,19 +19,19 @@ link() {
   fi
 }
 
-link ~/dotfiles/bash/bashrc ~/.bashrc
-link ~/dotfiles/bash/profile ~/.profile
-link ~/dotfiles/bash/bashTweaks ~/.bashTweaks
+link $HOME/dotfiles/bash/bashrc $HOME/.bashrc
+link $HOME/dotfiles/bash/profile $HOME/.profile
+link $HOME/dotfiles/bash/bashTweaks $HOME/.bashTweaks
 
-link ~/dotfiles/git ~/.config/git
-link ~/dotfiles/tmux ~/.config/tmux
-link ~/dotfiles/tmuxp ~/.config/tmuxp
-link ~/dotfiles/nvim ~/.config/nvim
-link ~/dotfiles/helix ~/.config/helix
-link ~/dotfiles/alacritty ~/.config/alacritty
+link $HOME/dotfiles/git $HOME/.config/git
+link $HOME/dotfiles/tmux $HOME/.config/tmux
+link $HOME/dotfiles/tmuxp $HOME/.config/tmuxp
+link $HOME/dotfiles/nvim $HOME/.config/nvim
+link $HOME/dotfiles/helix $HOME/.config/helix
+link $HOME/dotfiles/alacritty $HOME/.config/alacritty
 
-mkdir ~/,config/htop
-link ~/dotfiles/htop/htoprc ~/.config/htop/htoprc
+mkdir $HOME/,config/htop
+link $HOME/dotfiles/htop/htoprc $HOME/.config/htop/htoprc
 
-mkdir ~/.config/fish
-link ~/dotfiles/fish/config.fish ~/.config/fish/config.fish
+mkdir $HOME/.config/fish
+link $HOME/dotfiles/fish/config.fish $HOME/.config/fish/config.fish

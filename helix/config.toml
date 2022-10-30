@@ -9,7 +9,7 @@ hidden = false
 [keys.normal]
 g = { a = "code_action" } # Maps `ga` to show possible code actions
 "\\" = { "w" = ":w", "c" = ":config-open", "r" = ":config-reload" }
-"ret" = ["move_line_down", "goto_first_nonwhitespace"] # Maps the enter key to move to start of next line
+"ret" = ["move_line_down", "goto_first_nonwhitespace"] # enter key move to start of next line
 X = "extend_line_above"
 D = "delete_char_backward"
 "S-left" = "jump_view_left"
