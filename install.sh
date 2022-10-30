@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Assumes dotfiles is in ~
 
@@ -8,16 +8,25 @@
 # pacman -Sy alacritty fish nvim helix htop inetutils
 # brew install fish helix nvim htop
 
-ln -si ~/dotfiles/bash/bashrc ~/.bashrc
-ln -si ~/dotfiles/bash/profile ~/.profile
-ln -si ~/dotfiles/bash/bashTweaks ~/.bashTweaks
+# ln command has different options on MacOS/Linux
+link() {
+  if [[ $OSTYPE == 'darwin'* ]]; then
+    ln -sfh $1 $2
+  elif [[ $OSTYPE == 'linux'* ]]; then
+    ln -sfT $1 $2
+  fi
+}
 
-ln -si ~/dotfiles/git ~/.config/git
-ln -si ~/dotfiles/tmux ~/.config/tmux
-ln -si ~/dotfiles/tmuxp ~/.config/tmuxp
-ln -si ~/dotfiles/nvim ~/.config/nvim
-ln -si ~/dotfiles/helix ~/.config/helix
-ln -si ~/dotfiles/alacritty ~/.config/alacritty
-ln -si ~/dotfiles/htop/htoprc ~/.config/htop/htoprc
+link ~/dotfiles/bash/bashrc ~/.bashrc
+link ~/dotfiles/bash/profile ~/.profile
+link ~/dotfiles/bash/bashTweaks ~/.bashTweaks
 
-ln -si ~/dotfiles/fish/config.fish ~/.config/fish/config.fish
+link ~/dotfiles/git ~/.config/git
+link ~/dotfiles/tmux ~/.config/tmux
+link ~/dotfiles/tmuxp ~/.config/tmuxp
+link ~/dotfiles/nvim ~/.config/nvim
+link ~/dotfiles/helix ~/.config/helix
+link ~/dotfiles/alacritty ~/.config/alacritty
+link ~/dotfiles/htop/htoprc ~/.config/htop/htoprc
+
+link ~/dotfiles/fish/config.fish ~/.config/fish/config.fish
