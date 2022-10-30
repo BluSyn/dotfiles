@@ -29,4 +29,5 @@ link ~/dotfiles/helix ~/.config/helix
 link ~/dotfiles/alacritty ~/.config/alacritty
 link ~/dotfiles/htop/htoprc ~/.config/htop/htoprc
 
+mkdir ~/.config/fish
 link ~/dotfiles/fish/config.fish ~/.config/fish/config.fish
