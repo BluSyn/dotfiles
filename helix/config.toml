@@ -2,6 +2,8 @@ theme = "base16_tomorrow_dark"
 
 [editor]
 line-number = "relative"
+true-color = true
+color-modes = true
 
 [editor.file-picker]
 hidden = false
