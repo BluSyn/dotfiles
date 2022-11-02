@@ -1,6 +1,7 @@
 # PATH
 set PATH $PATH /opt/homebrew/bin
 set PATH $PATH ~/.cargo/bin
+set PATH $PATH ~/.local/bin
 set PATH $PATH ~/.local/share/solana/install/active_release/bin
 if not contains ./node_modules/.bin $PATH
   set PATH ./node_modules/.bin $PATH
