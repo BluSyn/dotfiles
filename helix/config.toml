@@ -11,8 +11,8 @@ hidden = false
 [keys.normal]
 g = { a = "code_action" } # Maps `ga` to show possible code actions
 "\\" = { "w" = ":w", "c" = ":config-open", "r" = ":config-reload" }
-"]" = { "]" = ["goto_next_function", "align_view_top"] } # select next function and align to top
-"[" = { "[" = ["goto_prev_function", "align_view_top"] } # select prev function and align to top
+"]" = { "]" = ["goto_next_function", "align_view_top", "collapse_selection"] } # select next function and align to top
+"[" = { "[" = ["goto_prev_function", "align_view_top", "collapse_selection"] } # select prev function and align to top
 "ret" = ["move_line_down", "goto_first_nonwhitespace"] # enter key move to start of next line
 X = "extend_line_above"
 D = "delete_char_backward"
