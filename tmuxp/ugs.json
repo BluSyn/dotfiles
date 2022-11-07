@@ -24,7 +24,7 @@
           "shell_command": "git status"
         }
       ],
-      "start_directory": "/Users/blu/src/ugs/api"
+      "start_directory": "/Users/blu/src/ugs/backend/api"
     },
     {
       "window_name": "ugs-front",
