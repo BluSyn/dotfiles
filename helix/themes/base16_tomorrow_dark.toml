@@ -23,7 +23,7 @@
 # @brown:           #a3685a; // 0F
 
 "ui.background" = { bg = "base00" }
-"ui.virtual.whitespace" = "base03"
+"ui.virtual.whitespace" = "base02"
 "ui.menu" = { fg = "base05", bg = "base01" }
 "ui.menu.selected" = { fg = "base01", bg = "base04" }
 "ui.popup" = { bg = "base01" }

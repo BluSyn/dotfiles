@@ -5,6 +5,11 @@ line-number = "relative"
 true-color = true
 color-modes = true
 
+[editor.whitespace.render]
+space = "all"
+tab = "all"
+newline = "all"
+
 [editor.file-picker]
 hidden = false
 
