@@ -8,20 +8,21 @@ if not contains ./node_modules/.bin $PATH
 end
 
 # GIT Shortcuts
-abbr -a g 'git'
-abbr -a gs 'git status'
-abbr -a gc 'TZ=UTC0 git commit'
-abbr -a ga 'git add'
-abbr -a gd 'git diff'
+abbr -a g   'git'
+abbr -a gs  'git status'
+abbr -a gc  'TZ=UTC0 git commit'
+abbr -a ga  'git add'
+abbr -a gd  'git diff'
 abbr -a gps 'git push'
 abbr -a gpl 'git pull'
-abbr -a gr 'git remote'
+abbr -a gf  'git fetch'
+abbr -a gr  'git remote'
 abbr -a grb 'git rebase'
-abbr -a gl 'git log'
+abbr -a gl  'git log'
 abbr -a gco 'git checkout'
-abbr -a gb 'git branch'
-abbr -a gm 'git merge'
-abbr -a gt 'git tag'
+abbr -a gb  'git branch'
+abbr -a gm  'git merge'
+abbr -a gt  'git tag'
 
 # Docker
 abbr -a d 'docker'
