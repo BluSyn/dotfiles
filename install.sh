@@ -30,7 +30,7 @@ link $HOME/dotfiles/nvim $HOME/.config/nvim
 link $HOME/dotfiles/helix $HOME/.config/helix
 link $HOME/dotfiles/alacritty $HOME/.config/alacritty
 
-mkdir $HOME/,config/htop
+mkdir $HOME/.config/htop
 link $HOME/dotfiles/htop/htoprc $HOME/.config/htop/htoprc
 
 mkdir $HOME/.config/fish
