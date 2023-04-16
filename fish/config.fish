@@ -70,19 +70,43 @@ set __fish_git_prompt_showstashstate ''
 set __fish_git_prompt_showupstream 'none'
 
 function fish_prompt
+    set -l color_dir 'C0C0C0'
+    set -l color_dir_bg 'normal'
+    set -l color_git 'green'
+    set -l color_git_bg 'normal'
+    set -l color_user 'yellow'
+    set -l color_user_bg 'normal'
+    set -l color_host 'blue'
+    set -l color_host_bg 'normal'
+    set -l color_prompt 'CCCCCC'
+    set -l color_prompt_bg 'normal'
+    set -l color_time 'C0C0C0'
+    set -l color_time_bg 'normal'
+
     # Line 1: <dir> [<git>] \n
-	set_color C0C0C0; echo -n (prompt_pwd)
-    set_color green; printf '%s ' (__fish_git_prompt)
+    set_color $color_dir -b $color_dir_bg; echo -n (prompt_pwd)
+    set_color $color_git -b $color_git_bg; printf '%s' (__fish_git_prompt)
+
+    # \n
     echo ""
 
-    # Line 2: [<time>][<user>@<host>] $
-    set_color normal; echo -n "["
-    set_color C0C0C0; echo -n (date "+%H:%M:%S")
-    set_color normal; echo -n "]["
-    set_color yellow; echo -n (whoami)
-    set_color C0C0C0; echo -n "@"
-    set_color blue; echo -n (hostname -s)
-    set_color normal; echo -n "] \$ "
+    # Line 2: [<time>] <user>@<host> $
+    set_color $color_time -b $color_time_bg; echo -n (date "+%H:%M:%S")
+    echo -n " "
+    set_color $color_user -b $color_user_bg; echo -n (whoami)
+    set_color $color_dir -b $color_dir_bg; echo -n "@"
+    set_color $color_host -b $color_host_bg; echo -n (hostname -s)
+    set_color $color_prompt -b $color_prompt_bg; echo -n " → "
+    set_color $arrowcol -b normal
+end
+
+function fish_right_prompt
+  # empty right prompt
+end
+
+# Starship prompt replaces above if available
+if command -v starship > /dev/null
+    starship init fish | source
 end
 
 # FZF

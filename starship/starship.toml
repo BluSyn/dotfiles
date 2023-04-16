@@ -1,0 +1,90 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+# Which is equivalent to
+format = """
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$deno\
+$golang\
+$nodejs\
+$python\
+$rust\
+$swift\
+$cmd_duration\
+$line_break\
+$time\
+$sudo\
+$username\
+$os\
+$hostname\
+$status\
+$character"""
+
+[directory]
+fish_style_pwd_dir_length = 1
+style = 'C0C0C0'
+
+[git_branch]
+format = '[$symbol$branch(:$remote_branch)]($style) '
+style = 'green'
+
+[cmd_duration]
+min_time = 1_000
+format = '\[[$duration]($style)\]'
+style = 'yellow'
+
+[time]
+disabled = true
+format = '[$time]($style) '
+style = 'white'
+
+[sudo]
+disabled = false
+format = '[$symbol]($style)'
+
+[username]
+show_always = true
+format = '[$user]($style)'
+style_user = 'yellow'
+
+[hostname]
+ssh_only = false
+format = '[$hostname]($style) '
+style = 'blue'
+
+[os]
+disabled = false
+style = 'bold blue'
+format = '[$symbol]($style)'
+
+[os.symbols]
+Arch = ''
+Macos = ''
+
+[deno]
+format = '[$symbol($version )]($style)'
+
+[golang]
+format = '[$symbol($version )]($style)'
+
+[nodejs]
+format = '[$symbol($version )]($style)'
+style = 'green'
+
+[rust]
+format = '[$symbol($version )]($style)'
+style = 'red'
+
+[python]
+format = '[$symbol($version )]($style)'
+
+[swift]
+format = '[$symbol($version )]($style)'
