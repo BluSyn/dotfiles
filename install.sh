@@ -6,9 +6,12 @@
 # Fonts:
 # https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/BitstreamVeraSansMono
 
-# Packages:
-# pacman -Sy alacritty fish nvim helix htop inetutils
-# brew install fish helix nvim htop
+# Default Packages:
+# pacman -Sy alacritty fish nvim helix bat htop rust wget curl openssl inetutils
+# brew install alacritty fish nvim helix bat htop rust wget curl openssl
+
+# Load all submodules
+git submodule update --init --recursive
 
 # ln command has different options on MacOS/Linux
 link() {
@@ -35,3 +38,6 @@ link $HOME/dotfiles/htop/htoprc $HOME/.config/htop/htoprc
 
 mkdir $HOME/.config/fish
 link $HOME/dotfiles/fish/config.fish $HOME/.config/fish/config.fish
+
+# Build tmux plugin
+cargo build --release --manifest-path=$HOME/dotfiles/tmux/plugins/tmux-thumbs/Cargo.toml
