@@ -28,7 +28,8 @@ abbr -a gt  'git tag'
 abbr -a d 'docker'
 abbr -a dps 'docker ps'
 abbr -a dl 'docker logs -f --tail=1000'
-abbr -a dc 'docker-compose'
+abbr -a dc 'docker compose'
+abbr -a dcps 'docker compose ps'
 abbr -a dockerclean 'docker rmi \$(docker images | grep "<none>" | awk "{print \$3}")'
 abbr -a dockerrm 'docker rm \$(docker ps -aq)'
 
@@ -42,6 +43,11 @@ if command -v exa > /dev/null
 else
 	abbr -a l 'ls'
 	abbr -a ll 'ls -l'
+end
+
+# bat > cat
+if command -v bat > /dev/null
+	abbr -a cat 'bat'
 end
 
 # Auto attach existing tmux window on SSH
@@ -90,3 +96,4 @@ end
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/blu/google-cloud-sdk/path.fish.inc' ]; . '/Users/blu/google-cloud-sdk/path.fish.inc'; end
 fish_add_path /usr/local/sbin
+
