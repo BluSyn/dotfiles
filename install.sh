@@ -7,8 +7,10 @@
 # https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/BitstreamVeraSansMono
 
 # Default Packages:
-# pacman -Sy alacritty fish starship nvim helix bat htop rust wget curl openssl inetutils
-# brew install alacritty fish starship nvim helix bat htop rust wget curl openssl
+# pacman -Sy alacritty fish starship neovim helix bat htop rust wget curl openssl inetutils ripgrep
+# brew install alacritty fish starship nvim helix bat htop rust wget curl openssl ripgrep
+#
+# After Running, open nvim and run :PlugInstall
 
 # Load all submodules
 git submodule update --init --recursive
