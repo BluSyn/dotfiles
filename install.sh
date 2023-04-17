@@ -98,7 +98,7 @@ echo -n "Installing Nerd Font... "
 wget -P /tmp/ https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/BitstreamVeraSansMono.zip
 
 if [[ $OSTYPE == 'linux'* ]]; then
-    FONTDIR="/usr/local/share/fonts/"
+    FONTDIR="${HOME}/.local/share/fonts/"
     mkdir -p ${FONTDIR}
 fi
 
