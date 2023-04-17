@@ -29,7 +29,7 @@ elif [[ $OSTYPE == 'linux'* ]]; then
         exit 1
     fi
 
-    sudo pacman -Sy ${SHARED_PKGS[@]} ${PACMAN_PKGS[@]}
+    sudo pacman -Sy --needed ${SHARED_PKGS[@]} ${PACMAN_PKGS[@]}
 fi
 
 if [ $? -ne 0 ]; then
