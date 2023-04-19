@@ -30,15 +30,11 @@ Plug 'andymass/vim-matchup'
 
 " File Tree
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'kyazdani42/nvim-tree.lua'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
 
 " Cheatsheet
 Plug 'sudormrfbin/cheatsheet.nvim'
-
-" Fuzzy finder
-Plug 'airblade/vim-rooter'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 
 " Syntactic language support
 Plug 'cespare/vim-toml'
@@ -169,15 +165,11 @@ nnoremap <leader>] :BufferLineCycleNext<CR>
 nnoremap <leader>[ :BufferLineCyclePrev<CR>
 nnoremap <leader>x :bw<CR> <Bar> :bnext<CR>
 
-" nvim-tree
-let g:nvim_tree_auto_open = 1
-nnoremap <C-n> :NvimTreeToggle<CR>
-nnoremap <leader>r :NvimTreeRefresh<CR>
-nnoremap <leader>n :NvimTreeFindFile<CR>
 
-" Open hotkeys
-map <C-f> :Files<CR>
-nmap <leader>; :Buffers<CR>
+" Find files using Telescope command-line sugar.
+nnoremap <leader>f <cmd>Telescope find_files<cr>
+nnoremap <leader>/ <cmd>Telescope buffers<cr>
+nnoremap <leader>s <cmd>Telescope live_grep<cr>
 
 " Quick-save
 nmap <leader>w :w<CR>
