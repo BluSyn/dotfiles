@@ -87,7 +87,7 @@ echo "✔︎"
 
 # Install nvim plugins
 echo -n "Installing nvim plugins... "
-nvim +'PlugInstall --sync' +qa
+nvim +'PackerInstall' +qa
 echo "✔︎"
 
 # Install Nerd Font
