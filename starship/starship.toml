@@ -21,7 +21,6 @@ $swift\
 $cmd_duration\
 $line_break\
 $time\
-$sudo\
 $username\
 $os\
 $hostname\
@@ -45,10 +44,6 @@ style = 'yellow'
 disabled = true
 format = '[$time]($style) '
 style = 'white'
-
-[sudo]
-disabled = false
-format = '[$symbol]($style)'
 
 [username]
 show_always = true
