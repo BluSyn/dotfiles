@@ -1,3 +1,6 @@
+
+use-grammars = { only = [ "c", "css", "cpp", "diff", "dockerfile", "git-commit", "git-rebase", "git-config", "lua", "json", "rust", "html", "bash", "toml", "yaml", "tsx", "jsx", "sql", "prisma", "javascript", "typescript", "markdown" ] }
+
 # Typescript
 [[language]]
 name = "typescript"
