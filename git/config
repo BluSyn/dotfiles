@@ -1,7 +1,15 @@
+
 [user]
 	name = Steven Bower
 	email = steven@bower.club
-	signingkey = FDD9AEBC39E62B71
+	#signingkey = FDD9AEBC39E62B71
+        signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAYbqqHL5DcesRHvzlwNi1x4jB824LxYWT2nEsnB1x7O
+
+[gpg]
+  format = ssh
+
+[gpg "ssh"]
+  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 
 # Makes pushing easier on master branch
 [branch "master"]
@@ -51,7 +59,8 @@
 	smudge = git-lfs smudge %f
 	required = true
 [commit]
-	# gpgsign = true
+	gpgsign = true
+
 [credential]
 	helper = osxkeychain
 [pull]
