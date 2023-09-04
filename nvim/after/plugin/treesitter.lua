@@ -1,22 +1,98 @@
 require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all"
-  ensure_installed = { "vimdoc", "javascript", "typescript", "c", "lua", "rust" },
-
-  -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = false,
-
-  -- Automatically install missing parsers when entering buffer
-  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-  auto_install = true,
-
-  highlight = {
-    -- `false` will disable the whole extension
-    enable = true,
-
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
-  },
+    ensure_installed = { "vimdoc", "javascript", "typescript", "go", "c", "lua", "rust", "bash", "vim" },
+    sync_install = false,
+    auto_install = true,
+    ignore_install = { "" },
+    matchup = {
+        enable = true,
+        disable_virtual_text = true,
+        disable = { "html" },
+        -- include_match_words = false
+    },
+    highlight = {
+        -- use_languagetree = true,
+        enable = true,
+        -- disable = { "css", "html" },
+        -- disable = { "css", "markdown" },
+        disable = { "markdown" },
+        -- additional_vim_regex_highlighting = true,
+    },
+    autopairs = {
+        enable = true,
+    },
+    indent = { enable = true, disable = { "python", "css", "rust" } },
+    context_commentstring = {
+        enable = true,
+        enable_autocmd = false,
+    },
+    autotag = {
+        enable = true,
+        disable = { "xml", "markdown" },
+    },
+    rainbow = {
+        enable = false,
+        extended_mode = false,
+    },
+    playground = {
+        enable = true,
+    },
+    textobjects = {
+        select = {
+            enable = true,
+            lookahead = true,
+            keymaps = {
+                ["af"] = "@function.outer",
+                ["if"] = "@function.inner",
+                ["at"] = "@class.outer",
+                ["it"] = "@class.inner",
+                ["ac"] = "@call.outer",
+                ["ic"] = "@call.inner",
+                ["aa"] = "@parameter.outer",
+                ["ia"] = "@parameter.inner",
+                ["al"] = "@loop.outer",
+                ["il"] = "@loop.inner",
+                ["ai"] = "@conditional.outer",
+                ["ii"] = "@conditional.inner",
+                ["a/"] = "@comment.outer",
+                ["i/"] = "@comment.inner",
+                ["ab"] = "@block.outer",
+                ["ib"] = "@block.inner",
+                ["as"] = "@statement.outer",
+                ["is"] = "@scopename.inner",
+                ["aA"] = "@attribute.outer",
+                ["iA"] = "@attribute.inner",
+                ["aF"] = "@frame.outer",
+                ["iF"] = "@frame.inner",
+            },
+        },
+        move = {
+            enable = true,
+            set_jumps = true,
+            goto_next_start = {
+                ["]m"] = "@function.outer",
+                ["]]"] = "@class.outer",
+            },
+            goto_next_end = {
+                ["]M"] = "@function.outer",
+                ["]["] = "@class.outer",
+            },
+            goto_previous_start = {
+                ["[m"] = "@function.outer",
+                ["[["] = "@class.outer",
+            },
+            goto_previous_end = {
+                ["[M"] = "@function.outer",
+                ["[]"] = "@class.outer",
+            },
+        },
+        swap = {
+            enable = true,
+            swap_next = {
+                ["<leader>."] = "@parameter.inner",
+            },
+            swap_previous = {
+                ["<leader>,"] = "@parameter.inner",
+            },
+        },
+    },
 }

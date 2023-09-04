@@ -32,7 +32,9 @@ vim.opt.colorcolumn = "80"
 
 vim.opt.list = true
 vim.opt.listchars = {
-    multispace = '∙',
-    tab = '»·',
+    -- multispace = '∙',
+    -- tab = '»·',
     trail = '•',
 }
+
+vim.colorscheme = "base16-tomorrow-night"
