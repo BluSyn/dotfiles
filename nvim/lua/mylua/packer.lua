@@ -37,6 +37,7 @@ return require('packer').startup(function(use)
     use('mbbill/undotree')
     use('tpope/vim-fugitive')
     use('nvim-treesitter/nvim-treesitter-context');
+    use('terrortylor/nvim-comment')
 
     use({
       "folke/which-key.nvim",
@@ -81,6 +82,8 @@ return require('packer').startup(function(use)
 
     -- colorschemes
     use('Yazeed1s/minimal.nvim')
-    vim.cmd('colorscheme minimal-base16')
+
+    -- use('sainnhe/sonokai')
+    -- use({ "catppuccin/nvim", as = "catppuccin" })
 end)
 

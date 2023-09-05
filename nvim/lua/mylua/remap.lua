@@ -32,6 +32,9 @@ vim.keymap.set("n", "Q", "<nop>")
 -- lsp finder
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 
+-- comment/uncomment (nvim-comment)
+vim.keymap.set("v", "<leader>/", ":'<,'>CommentToggle<CR>")
+
 -- location jump
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
