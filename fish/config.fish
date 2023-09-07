@@ -34,15 +34,15 @@ abbr -a dockerclean 'docker rmi \$(docker images | grep "<none>" | awk "{print \
 abbr -a dockerrm 'docker rm \$(docker ps -aq)'
 
 
-# exa > ls
-if command -v exa > /dev/null
-	abbr -a l 'exa'
-	abbr -a ll 'exa -labgF --git --time-style long-iso'
-    abbr -a lls 'exa -labgF --git --git-ignore --time-style long-iso --ignore-glob=".git" --tree -L 2'
-	abbr -a lll 'exa -la'
+# eza > ls
+if command -v eza > /dev/null
+    abbr -a l 'eza'
+    abbr -a ll 'eza -labgF --git --time-style long-iso'
+    abbr -a lls 'eza -labgF --git --git-ignore --time-style long-iso --ignore-glob=".git" --tree -L 2'
+    abbr -a lll 'eza -la'
 else
-	abbr -a l 'ls'
-	abbr -a ll 'ls -l'
+    abbr -a l 'ls'
+    abbr -a ll 'ls -l'
 end
 
 # bat > cat
