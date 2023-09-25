@@ -33,6 +33,9 @@ abbr -a dcps 'docker compose ps'
 abbr -a dockerclean 'docker rmi \$(docker images | grep "<none>" | awk "{print \$3}")'
 abbr -a dockerrm 'docker rm \$(docker ps -aq)'
 
+# pnpm
+abbr -a p 'pnpm'
+
 
 # eza > ls
 if command -v eza > /dev/null
