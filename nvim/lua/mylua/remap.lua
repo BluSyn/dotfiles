@@ -18,7 +18,7 @@ vim.keymap.set("n", "N", "Nzzzv")
 
 -- fast save and quit
 vim.keymap.set("n", "<leader>w", ":w<CR>")
-vim.keymap.set("n", "<leader>q", ":x<CR>")
+vim.keymap.set("n", "<leader>q", ":bufdo q!<CR>")
 
 -- delete without yanking
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
@@ -30,7 +30,7 @@ vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.keymap.set("n", "Q", "<nop>")
 
 -- lsp finder
-vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
+vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format)
 
 -- comment/uncomment (nvim-comment)
 vim.keymap.set("v", "<leader>/", ":'<,'>CommentToggle<CR>")
