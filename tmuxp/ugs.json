@@ -1,8 +1,9 @@
 {
-  "session_name": "ugs",
+  "session_name": "ugs2",
   "windows": [
     {
       "window_name": "main",
+      "focus": true,
       "panes": [
         "brew update"
       ],
@@ -10,40 +11,22 @@
     },
     {
       "window_name": "ugs-api",
-      "focus": true,
-      "layout": "tiled",
+      "layout": "128c,246x74,0,0[246x62,0,0{143x62,0,0,2,102x62,144,0,86},246x11,0,63{123x11,0,63,83,122x11,124,63,85}]",
       "panes": [
-        {
-          "shell_command": "docker logs -f ugs-api-1"
-        },
-        {
-          "shell_command": "git status"
-        },
-        {
-          "shell_command": "docker logs -f ugs-worker-1"
-        },
-        {
-          "shell_command": "exa ."
-        }
+        "nvim src/app.ts",
+        "nvim prisma/schema.prisma",
+        "git status",
+        "docker logs -f ugs-api-1"
       ],
       "start_directory": "/Users/blu/src/ugs/backend/api"
     },
     {
       "window_name": "ugs-front",
-      "layout": "tiled",
+      "layout": "128c,246x74,0,0[246x62,0,0{143x62,0,0,2,102x62,144,0,86},246x11,0,63{123x11,0,63,83,122x11,124,63,85}]",
       "panes": [
-        {
-          "shell_command": "npm run dev"
-        },
-        {
-          "shell_command": "git status"
-        },
-        {
-          "shell_command": "exa ."
-        },
-        {
-          "shell_command": "docker ps"
-        }
+        "nvim src/app/layout.tsx",
+        "git status",
+        "npm run dev"
       ],
       "start_directory": "/Users/blu/src/ugs/frontend"
     }
