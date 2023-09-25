@@ -1,18 +1,4 @@
--- Install lazy if not installed
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
-end
-vim.opt.rtp:prepend(lazypath)
-
-return require('lazy').setup({
+return {
     {
         'nvim-telescope/telescope.nvim', tag = '0.1.0',
         dependencies  = { {'nvim-lua/plenary.nvim'} }
@@ -20,14 +6,9 @@ return require('lazy').setup({
 
     {
         'folke/trouble.nvim',
-        config = function()
-            require('trouble').setup {
-                icons = false,
-                -- your configuration comes here
-                -- or leave it empty to use the default settings
-                -- refer to the configuration section below
-            }
-        end
+        config = {
+            icons = false,
+        }
     },
 
     {
@@ -45,16 +26,7 @@ return require('lazy').setup({
     'nvim-treesitter/nvim-treesitter-context',
     'terrortylor/nvim-comment',
 
-    {
-      "folke/which-key.nvim",
-      config = function()
-        require("which-key").setup {
-          -- your configuration comes here
-          -- or leave it empty to use the default settings
-          -- refer to the configuration section below
-        }
-      end
-    },
+    'folke/which-key.nvim',
 
     {
         'VonHeikemen/lsp-zero.nvim',
@@ -91,5 +63,4 @@ return require('lazy').setup({
 
     -- 'sainnhe/sonokai',
     -- ({ "catppuccin/nvim", as = "catppuccin" }),
-})
-
+}

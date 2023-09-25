@@ -37,4 +37,6 @@ vim.opt.listchars = {
     trail = '•',
 }
 
+vim.opt.showtabline = 0
+
 --vim.colorscheme = "base16-tomorrow-night"
