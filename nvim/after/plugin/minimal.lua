@@ -13,6 +13,7 @@ local function highlight(group, properties)
 end
 
 highlight("Exception", { fg = colors.pink })
+highlight("MatchParen", { fg = colors.orange_wr, style = 'underline' })
 highlight("@field", { fg = colors.white1 })
 highlight("@property", { fg = colors.white1 })
 highlight("@variable", { fg = colors.red_key_w })
