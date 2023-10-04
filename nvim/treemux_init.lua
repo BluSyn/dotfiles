@@ -130,8 +130,9 @@ tmuxtree_lazy = {
                     width = 30,
                     side = "left",
                 },
-                filters = {
-                    custom = { ".git" },
+                git = {
+                    enable = true,
+                    ignore = false,
                 },
             }
         end,
