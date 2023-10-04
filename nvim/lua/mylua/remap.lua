@@ -18,7 +18,7 @@ vim.keymap.set("n", "N", "Nzzzv")
 
 -- fast save and quit
 vim.keymap.set("n", "<leader>w", ":w<CR>")
-vim.keymap.set("n", "<leader>q", ":bufdo q!<CR>")
+vim.keymap.set("n", "<leader>qqq", ":bufdo q!<CR>")
 
 -- delete without yanking
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
