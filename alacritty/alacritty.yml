@@ -129,7 +129,7 @@ font:
     #family: TerminessTTF Nerd Font
 
     # The `style` can be specified to pick a specific face.
-    style: Roman
+    style: Bold
 
   # Italic font face
   italic:
@@ -181,12 +181,12 @@ font:
   #use_thin_strokes: true
 
 # If `true`, bold text is drawn using the bright color variants.
-#draw_bold_text_with_bright_colors: false
+# draw_bold_text_with_bright_colors: true
 
-colors:
-  primary:
-    background: '#1D1F21'
-    foreground: '#CACBD4'
+# colors:
+#   primary:
+#     background: '#1D1F21'
+#     foreground: '#CACBD4'
 
 # Colors (Tomorrow Night)
 #colors:
