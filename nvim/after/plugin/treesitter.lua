@@ -20,7 +20,9 @@ require'nvim-treesitter.configs'.setup {
     autopairs = {
         enable = true,
     },
-    indent = { enable = true, disable = { "python", "css", "rust" } },
+    indent = {
+        enable = true,
+    },
     context_commentstring = {
         enable = true,
         enable_autocmd = false,
@@ -35,64 +37,5 @@ require'nvim-treesitter.configs'.setup {
     },
     playground = {
         enable = true,
-    },
-    textobjects = {
-        select = {
-            enable = true,
-            lookahead = true,
-            keymaps = {
-                ["af"] = "@function.outer",
-                ["if"] = "@function.inner",
-                ["at"] = "@class.outer",
-                ["it"] = "@class.inner",
-                ["ac"] = "@call.outer",
-                ["ic"] = "@call.inner",
-                ["aa"] = "@parameter.outer",
-                ["ia"] = "@parameter.inner",
-                ["al"] = "@loop.outer",
-                ["il"] = "@loop.inner",
-                ["ai"] = "@conditional.outer",
-                ["ii"] = "@conditional.inner",
-                ["a/"] = "@comment.outer",
-                ["i/"] = "@comment.inner",
-                ["ab"] = "@block.outer",
-                ["ib"] = "@block.inner",
-                ["as"] = "@statement.outer",
-                ["is"] = "@scopename.inner",
-                ["aA"] = "@attribute.outer",
-                ["iA"] = "@attribute.inner",
-                ["aF"] = "@frame.outer",
-                ["iF"] = "@frame.inner",
-            },
-        },
-        move = {
-            enable = true,
-            set_jumps = true,
-            goto_next_start = {
-                ["]m"] = "@function.outer",
-                ["]]"] = "@class.outer",
-            },
-            goto_next_end = {
-                ["]M"] = "@function.outer",
-                ["]["] = "@class.outer",
-            },
-            goto_previous_start = {
-                ["[m"] = "@function.outer",
-                ["[["] = "@class.outer",
-            },
-            goto_previous_end = {
-                ["[M"] = "@function.outer",
-                ["[]"] = "@class.outer",
-            },
-        },
-        swap = {
-            enable = true,
-            swap_next = {
-                ["<leader>."] = "@parameter.inner",
-            },
-            swap_previous = {
-                ["<leader>,"] = "@parameter.inner",
-            },
-        },
     },
 }

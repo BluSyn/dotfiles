@@ -60,6 +60,7 @@ return {
 
     -- colorschemes
     'Yazeed1s/minimal.nvim',
+    'navarasu/onedark.nvim',
 
     -- 'sainnhe/sonokai',
     -- ({ "catppuccin/nvim", as = "catppuccin" }),

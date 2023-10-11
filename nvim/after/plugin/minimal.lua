@@ -1,5 +1,4 @@
-
-vim.cmd('colorscheme minimal-base16')
+-- vim.cmd('colorscheme minimal-base16')
 
 -- Fix minimal-base16 with lsp color defs
 
