@@ -1,6 +1,6 @@
 return {
     {
-        'nvim-telescope/telescope.nvim', tag = '0.1.3',
+        'nvim-telescope/telescope.nvim', tag = '0.1.4',
         dependencies  = { {'nvim-lua/plenary.nvim'} },
     },
 
@@ -30,7 +30,7 @@ return {
 
     {
         'VonHeikemen/lsp-zero.nvim',
-        branch = 'v1.x',
+        branch = 'v3.x',
         dependencies = {
             -- LSP Support
             {'neovim/nvim-lspconfig'},
@@ -68,7 +68,4 @@ return {
             vim.cmd([[colorscheme gruvbox-material]])
         end,
     },
-
-    -- 'sainnhe/sonokai',
-    -- ({ "catppuccin/nvim", as = "catppuccin" }),
 }
