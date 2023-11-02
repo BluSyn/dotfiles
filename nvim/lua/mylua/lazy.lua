@@ -23,7 +23,7 @@ return {
     'theprimeagen/harpoon',
     'mbbill/undotree',
     'tpope/vim-fugitive',
-    'nvim-treesitter/nvim-treesitter-context',
+    -- 'nvim-treesitter/nvim-treesitter-context',
     'terrortylor/nvim-comment',
 
     'folke/which-key.nvim',
