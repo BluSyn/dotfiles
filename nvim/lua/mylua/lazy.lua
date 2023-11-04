@@ -59,7 +59,5 @@ return {
     'eandrju/cellular-automaton.nvim',
 
     -- colorschemes
-    'Yazeed1s/minimal.nvim',
     'navarasu/onedark.nvim',
-    'chriskempson/base16-vim',
 }
