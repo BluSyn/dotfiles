@@ -10,12 +10,7 @@ require'nvim-treesitter.configs'.setup {
         -- include_match_words = false
     },
     highlight = {
-        -- use_languagetree = true,
         enable = true,
-        -- disable = { "css", "html" },
-        -- disable = { "css", "markdown" },
-        disable = { "markdown" },
-        -- additional_vim_regex_highlighting = true,
     },
     autopairs = {
         enable = true,
@@ -30,10 +25,6 @@ require'nvim-treesitter.configs'.setup {
     autotag = {
         enable = true,
         disable = { "xml", "markdown" },
-    },
-    rainbow = {
-        enable = false,
-        extended_mode = false,
     },
     playground = {
         enable = true,
