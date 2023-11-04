@@ -3,12 +3,6 @@ require'nvim-treesitter.configs'.setup {
     sync_install = false,
     auto_install = true,
     ignore_install = { "" },
-    matchup = {
-        enable = true,
-        disable_virtual_text = true,
-        disable = { "html" },
-        -- include_match_words = false
-    },
     highlight = {
         enable = true,
     },
@@ -17,14 +11,6 @@ require'nvim-treesitter.configs'.setup {
     },
     indent = {
         enable = true,
-    },
-    context_commentstring = {
-        enable = true,
-        enable_autocmd = false,
-    },
-    autotag = {
-        enable = true,
-        disable = { "xml", "markdown" },
     },
     playground = {
         enable = true,

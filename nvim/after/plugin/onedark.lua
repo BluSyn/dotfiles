@@ -14,6 +14,7 @@ require('onedark').setup {
     },
     highlights = {
         ["@property"] = {fg = '$red'},
+        ["@punctuation.special"] = {fg = '$purple'},
         ["@lsp.type.variable"] = {fg = '$red'},
         ["@lsp.type.property"] = {fg = '$fg'},
     },
