@@ -30,7 +30,8 @@ vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format)
 
 -- comment/uncomment (nvim-comment)
-vim.keymap.set("v", "<leader>/", ":'<,'>CommentToggle<CR>")
+vim.keymap.set("n", "\\", ":CommentToggle<CR>")
+vim.keymap.set("v", "\\", ":'<,'>CommentToggle<CR>")
 
 -- location jump
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
