@@ -61,11 +61,5 @@ return {
     -- colorschemes
     'Yazeed1s/minimal.nvim',
     'navarasu/onedark.nvim',
-    {
-        'sainnhe/gruvbox-material',
-        enabled = true,
-        config = function()
-            vim.cmd([[colorscheme gruvbox-material]])
-        end,
-    },
+    'chriskempson/base16-vim',
 }
