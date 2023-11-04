@@ -54,9 +54,13 @@ return {
             {'rafamadriz/friendly-snippets'},
         }
     },
+    {
+        "zbirenbaum/copilot.lua",
+        cmd = "Copilot",
+        event = "InsertEnter",
+    },
 
     'folke/zen-mode.nvim',
-    'github/copilot.vim',
     'eandrju/cellular-automaton.nvim',
 
     -- colorschemes
