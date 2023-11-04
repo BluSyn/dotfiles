@@ -15,8 +15,7 @@ require('onedark').setup {
     highlights = {
         ["@property"] = {fg = '$red'},
         ["@lsp.type.variable"] = {fg = '$red'},
-        ["@lsp.type.property"] = {fg = '$red'},
-        ["@lsp.mod.declaration"] = {fg = '$fg'},
+        ["@lsp.type.property"] = {fg = '$fg'},
     },
 }
 vim.cmd([[colorscheme onedark]])
