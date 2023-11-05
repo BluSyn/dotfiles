@@ -33,7 +33,6 @@ cmp.setup({
     sources = {
         { name = 'vsnip' },
         { name = 'nvim_lsp' },
-        { name = 'nvim_lsp_signature_help' },
         { name = 'calc' },
         { name = 'buffer' },
         { name = 'path' },
