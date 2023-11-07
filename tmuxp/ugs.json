@@ -29,6 +29,16 @@
         "npm run dev"
       ],
       "start_directory": "/Users/blu/src/ugs/frontend"
-    }
+    },
+    {
+      "window_name": "ugs-admin",
+      "layout": "128c,246x74,0,0[246x62,0,0{143x62,0,0,2,102x62,144,0,86},246x11,0,63{123x11,0,63,83,122x11,124,63,85}]",
+      "panes": [
+        "nvim src/app/layout.tsx",
+        "git status",
+        "npm run dev"
+      ],
+      "start_directory": "/Users/blu/src/ugs/ugs-admin"
+    },
   ]
 }
