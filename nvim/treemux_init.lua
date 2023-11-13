@@ -31,40 +31,25 @@ local function nvim_tree_on_attach(bufnr)
     local nt_remote = require "nvim_tree_remote"
 
     local function opts(desc)
-        return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+        return {
+            desc = "nvim-tree: " .. desc,
+            buffer = bufnr,
+            noremap = true,
+            silent = true,
+            nowait = true
+        }
     end
 
     api.config.mappings.default_on_attach(bufnr)
 
     vim.keymap.set("n", "u", api.tree.change_root_to_node, opts "Dir up")
-    vim.keymap.set("n", "<F1>", api.node.show_info_popup, opts "Show info popup")
-    vim.keymap.set("n", "l", nt_remote.tabnew, opts "Open in treemux")
+    vim.keymap.set("n", ";", api.node.show_info_popup, opts "Show info popup")
     vim.keymap.set("n", "<CR>", nt_remote.tabnew, opts "Open in treemux")
-    vim.keymap.set("n", "<C-t>", nt_remote.tabnew, opts "Open in treemux")
-    vim.keymap.set("n", "<2-LeftMouse>", nt_remote.tabnew, opts "Open in treemux")
-    vim.keymap.set("n", "h", api.tree.close, opts "Close node")
     vim.keymap.set("n", "v", nt_remote.vsplit, opts "Vsplit in treemux")
-    vim.keymap.set("n", "<C-v>", nt_remote.vsplit, opts "Vsplit in treemux")
-    vim.keymap.set("n", "<C-x>", nt_remote.split, opts "Split in treemux")
-    vim.keymap.set("n", "o", nt_remote.tabnew_main_pane, opts "Open in treemux without tmux split")
-
-    vim.keymap.set("n", "-", "", { buffer = bufnr })
-    vim.keymap.del("n", "-", { buffer = bufnr })
-    vim.keymap.set("n", "<C-k>", "", { buffer = bufnr })
-    vim.keymap.del("n", "<C-k>", { buffer = bufnr })
-    vim.keymap.set("n", "O", "", { buffer = bufnr })
-    vim.keymap.del("n", "O", { buffer = bufnr })
 end
 
-function TableConcat(t1,t2)
-   for i=1,#t2 do
-      t1[#t1+1] = t2[i]
-   end
-   return t1
-end
-
-lazy = require('mylua.lazy')
-tmuxtree_lazy = {
+local lazy = require('mylua.lazy')
+local tmuxtree_lazy = {
     {
         "kiyoon/tmuxsend.vim",
         keys = {
@@ -89,7 +74,6 @@ tmuxtree_lazy = {
                     update_cwd = true,
                 },
                 renderer = {
-                    --root_folder_modifier = ":t",
                     icons = {
                         glyphs = {
                             default = "",
@@ -138,5 +122,12 @@ tmuxtree_lazy = {
         end,
     },
 }
+
+function TableConcat(t1,t2)
+    for i=1,#t2 do
+        t1[#t1+1] = t2[i]
+    end
+    return t1
+end
 
 require('lazy').setup(TableConcat(lazy, tmuxtree_lazy))
