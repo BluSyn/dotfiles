@@ -76,7 +76,7 @@ tmuxtree_lazy = {
         },
     },
     "kiyoon/nvim-tree-remote.nvim",
-    "nvim-tree/nvim-web-devicons",
+
     {
         "nvim-tree/nvim-tree.lua",
         config = function()
@@ -137,25 +137,6 @@ tmuxtree_lazy = {
             }
         end,
     },
-    {
-        "aserowy/tmux.nvim",
-        config = function()
-            -- Navigate tmux, and nvim splits.
-            -- Sync nvim buffer with tmux buffer.
-            require("tmux").setup {
-                copy_sync = {
-                    enable = true,
-                    sync_clipboard = false,
-                    sync_registers = true,
-                },
-                resize = {
-                    enable_default_keybindings = false,
-                },
-            }
-        end,
-    },
-
-    'Yazeed1s/minimal.nvim',
 }
 
 require('lazy').setup(TableConcat(lazy, tmuxtree_lazy))

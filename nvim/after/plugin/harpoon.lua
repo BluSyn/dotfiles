@@ -6,3 +6,6 @@ vim.keymap.set('n', '<C-e>', ui.toggle_quick_menu)
 
 vim.keymap.set('n', 'g]', ui.nav_next)
 vim.keymap.set('n', 'g[', ui.nav_prev)
+vim.keymap.set('n', '<leader>1', function() ui.nav_file(1) end)
+vim.keymap.set('n', '<leader>2', function() ui.nav_file(2) end)
+vim.keymap.set('n', '<leader>3', function() ui.nav_file(3) end)

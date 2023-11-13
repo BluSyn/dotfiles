@@ -19,6 +19,9 @@ return {
         end
     },
 
+    'nvim-lualine/lualine.nvim',
+    'nvim-tree/nvim-web-devicons',
+
     'nvim-treesitter/playground',
     'theprimeagen/harpoon',
     'mbbill/undotree',
@@ -59,6 +62,14 @@ return {
         event = "InsertEnter",
     },
 
+    {
+        "aserowy/tmux.nvim",
+        config = function()
+            require("tmux").setup()
+        end,
+    },
+
+    -- Fun stuff
     'folke/zen-mode.nvim',
     'eandrju/cellular-automaton.nvim',
 
