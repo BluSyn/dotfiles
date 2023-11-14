@@ -45,23 +45,14 @@ local function nvim_tree_on_attach(bufnr)
     vim.keymap.set("n", "u", api.tree.change_root_to_node, opts "Dir up")
     vim.keymap.set("n", ";", api.node.show_info_popup, opts "Show info popup")
     vim.keymap.set("n", "<CR>", nt_remote.tabnew, opts "Open in treemux")
+    -- vim.keymap.set("n", "<S-CR>", nt_remote.tabnew, opts "Open in treemux")
+    vim.keymap.set("n", "<CR>", nt_remote.tabnew, opts "Open in treemux")
     vim.keymap.set("n", "v", nt_remote.vsplit, opts "Vsplit in treemux")
 end
 
 local lazy = require('mylua.lazy')
 local tmuxtree_lazy = {
-    {
-        "kiyoon/tmuxsend.vim",
-        keys = {
-            { "-", "<Plug>(tmuxsend-smart)", mode = { "n", "x" } },
-            { "_", "<Plug>(tmuxsend-plain)", mode = { "n", "x" } },
-            { "<space>-", "<Plug>(tmuxsend-uid-smart)", mode = { "n", "x" } },
-            { "<space>_", "<Plug>(tmuxsend-uid-plain)", mode = { "n", "x" } },
-            { "<C-_>", "<Plug>(tmuxsend-tmuxbuffer)", mode = { "n", "x" } },
-        },
-    },
     "kiyoon/nvim-tree-remote.nvim",
-
     {
         "nvim-tree/nvim-tree.lua",
         config = function()
