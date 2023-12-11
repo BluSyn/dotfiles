@@ -40,9 +40,6 @@ return {
             { 'williamboman/mason.nvim' },
             { 'williamboman/mason-lspconfig.nvim' },
 
-            -- inlay (not needed after nvim > 0.10 ???)
-            { 'lvimuser/lsp-inlayhints.nvim' },
-
             -- Autocompletion
             { 'hrsh7th/nvim-cmp' },
             { 'hrsh7th/cmp-buffer' },

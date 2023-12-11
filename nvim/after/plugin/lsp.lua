@@ -1,21 +1,23 @@
 local lsp = require('lsp-zero')
-local ih = require('lsp-inlayhints')
-ih.setup()
 
 lsp.on_attach(function(client, bufnr)
-    local opts = { buffer = bufnr, remap = false }
+    local nmap = function(keys, func, desc)
+        if desc then
+            desc = 'LSP: ' .. desc
+        end
 
-    vim.keymap.set('n', ';', function() vim.lsp.buf.hover() end, opts)
-    vim.keymap.set('n', 'gd', function() vim.lsp.buf.definition() end, opts)
-    vim.keymap.set('n', 'gr', function() vim.lsp.buf.references() end, opts)
-    vim.keymap.set('n', 'gvr', function() vim.lsp.buf.rename() end, opts)
-    vim.keymap.set('n', 'gh', function() ih.toggle() end, opts)
-    vim.keymap.set('n', '[d', function() vim.diagnostic.goto_next() end, opts)
-    vim.keymap.set('n', ']d', function() vim.diagnostic.goto_prev() end, opts)
+        vim.keymap.set('n', keys, func, { buffer = bufnr, remap = false, desc = desc })
+    end
+
+    nmap(';', vim.lsp.buf.hover, 'Hover')
+    nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+    nmap('gr', vim.lsp.buf.references, '[G]oto [R]eferences')
+    nmap('gar', vim.lsp.buf.rename, '[G]lobal [A]ction [R]ename')
+    nmap('gh', function() vim.lsp.inlay_hint(0, nil) end, '[G]lobal [H]ints toggle')
+    nmap('[d', vim.diagnostic.goto_next, 'Next [D]iagnostic')
+    nmap(']d', vim.diagnostic.goto_prev, 'Prev [D]iagnostic')
 
     lsp.buffer_autoformat()
-    ih.on_attach(client, bufnr)
-    ih.toggle()
 end)
 
 -- see :help lsp-zero-guide:integrate-with-mason-nvim
@@ -25,6 +27,15 @@ require('mason-lspconfig').setup({
     ensure_installed = { 'tsserver', 'rust_analyzer' },
     handlers = {
         lsp.default_setup,
+        lua_ls = function()
+            require('lspconfig').lua_ls.setup({
+                settings = {
+                    Lua = {
+                        hint = { enable = true },
+                    }
+                }
+            })
+        end,
     }
 })
 
