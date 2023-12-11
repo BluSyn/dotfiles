@@ -31,7 +31,6 @@ return {
     'terrortylor/nvim-comment',
 
     'folke/which-key.nvim',
-
     {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v3.x',
@@ -40,6 +39,9 @@ return {
             { 'neovim/nvim-lspconfig' },
             { 'williamboman/mason.nvim' },
             { 'williamboman/mason-lspconfig.nvim' },
+
+            -- inlay (not needed after nvim > 0.10 ???)
+            { 'lvimuser/lsp-inlayhints.nvim' },
 
             -- Autocompletion
             { 'hrsh7th/nvim-cmp' },

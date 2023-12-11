@@ -1,4 +1,6 @@
 local lsp = require('lsp-zero')
+local ih = require('lsp-inlayhints')
+ih.setup()
 
 lsp.on_attach(function(client, bufnr)
     local opts = { buffer = bufnr, remap = false }
@@ -7,11 +9,13 @@ lsp.on_attach(function(client, bufnr)
     vim.keymap.set('n', 'gd', function() vim.lsp.buf.definition() end, opts)
     vim.keymap.set('n', 'gr', function() vim.lsp.buf.references() end, opts)
     vim.keymap.set('n', 'gvr', function() vim.lsp.buf.rename() end, opts)
-    vim.keymap.set('n', 'gt', function() vim.lsp.buf.type_definition() end, opts)
+    vim.keymap.set('n', 'gh', function() ih.toggle() end, opts)
     vim.keymap.set('n', '[d', function() vim.diagnostic.goto_next() end, opts)
     vim.keymap.set('n', ']d', function() vim.diagnostic.goto_prev() end, opts)
 
     lsp.buffer_autoformat()
+    ih.on_attach(client, bufnr)
+    ih.toggle()
 end)
 
 -- see :help lsp-zero-guide:integrate-with-mason-nvim
@@ -21,10 +25,6 @@ require('mason-lspconfig').setup({
     ensure_installed = { 'tsserver', 'rust_analyzer' },
     handlers = {
         lsp.default_setup,
-        lua_ls = function()
-            local lua_opts = lsp.nvim_lua_ls()
-            require('lspconfig').lua_ls.setup(lua_opts)
-        end,
     }
 })
 
