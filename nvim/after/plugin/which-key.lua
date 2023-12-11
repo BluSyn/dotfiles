@@ -1,2 +1,2 @@
-local wk = require("which-key")
+local wk = require('which-key')
 wk.register()

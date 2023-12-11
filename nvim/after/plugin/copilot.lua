@@ -1,4 +1,3 @@
-
 require("copilot").setup({
     suggestion = {
         enabled = true,
