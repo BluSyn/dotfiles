@@ -25,8 +25,6 @@ return {
     },
 
     config = function ()
-        local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
-
         vim.api.nvim_create_autocmd('LspAttach', {
             desc = 'LSP actions',
             callback = function(event)
@@ -51,11 +49,23 @@ return {
         })
 
         require('mason').setup({})
+
+        local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+        local default_setup = function(server)
+          require('lspconfig')[server].setup({
+            capabilities = lsp_capabilities,
+          })
+        end
+
         require('mason-lspconfig').setup({
             ensure_installed = {
-                'tsserver', 'rust_analyzer', 'lua_ls',
+                'tsserver',
+                'rust_analyzer',
+                'lua_ls',
             },
+            automatic_installation = true,
             handlers = {
+                default_setup,
                 rust_analyzer = function()
                     require('lspconfig').rust_analyzer.setup({
                         capabilities = lsp_capabilities,
