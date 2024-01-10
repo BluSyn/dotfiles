@@ -90,7 +90,9 @@ return {
         })
 
         local cmp = require('cmp')
-        local cmp_select = { behavior = cmp.SelectBehavior.Select }
+        local cmp_select = {
+            behavior = cmp.SelectBehavior.Select
+        }
 
         cmp.setup({
             sources = {
@@ -125,11 +127,7 @@ return {
 
         cmp.setup.cmdline(':', {
             mapping = cmp.mapping.preset.cmdline(),
-            sources = cmp.config.sources({
-                { name = 'path' }
-            }, {
-                    { name = 'cmdline' }
-                })
+            sources = cmp.config.sources({{ name = 'path' }}, {{ name = 'cmdline' }})
         })
     end
 }
