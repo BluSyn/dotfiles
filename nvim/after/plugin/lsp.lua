@@ -13,11 +13,11 @@ lsp.on_attach(function(client, bufnr)
     nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
     nmap('gr', vim.lsp.buf.references, '[G]oto [R]eferences')
     nmap('gar', vim.lsp.buf.rename, '[G]lobal [A]ction [R]ename')
-    nmap('gh', function() vim.lsp.inlay_hint(0, nil) end, '[G]lobal [H]ints toggle')
+    nmap('gh', function() if vim.lsp.inlay_hint then vim.lsp.inlay_hint(0, nil) end end, '[G]lobal [H]ints toggle')
     nmap('[d', vim.diagnostic.goto_next, 'Next [D]iagnostic')
     nmap(']d', vim.diagnostic.goto_prev, 'Prev [D]iagnostic')
 
-    lsp.buffer_autoformat()
+    -- lsp.buffer_autoformat()
 end)
 
 -- see :help lsp-zero-guide:integrate-with-mason-nvim
@@ -27,15 +27,15 @@ require('mason-lspconfig').setup({
     ensure_installed = { 'tsserver', 'rust_analyzer' },
     handlers = {
         lsp.default_setup,
-        lua_ls = function()
-            require('lspconfig').lua_ls.setup({
+        rust_analyzer = function()
+            require('lspconfig').rust_analyzer.setup({
                 settings = {
-                    Lua = {
+                    rust = {
                         hint = { enable = true },
                     }
                 }
             })
-        end,
+        end
     }
 })
 
