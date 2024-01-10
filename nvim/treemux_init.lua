@@ -27,8 +27,8 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local function nvim_tree_on_attach(bufnr)
-    local api = require "nvim-tree.api"
-    local nt_remote = require "nvim_tree_remote"
+    local api = require('nvim-tree.api')
+    local nt_remote = require('nvim_tree_remote')
 
     local function opts(desc)
         return {
@@ -50,8 +50,12 @@ local function nvim_tree_on_attach(bufnr)
     vim.keymap.set("n", "v", nt_remote.vsplit, opts "Vsplit in treemux")
 end
 
-local lazy = require('mylua.lazy')
-local tmuxtree_lazy = {
+local lazy = require('lazy')
+lazy.setup({
+    {
+        import = 'mylua.lazy'
+    },
+
     "kiyoon/nvim-tree-remote.nvim",
     {
         "nvim-tree/nvim-tree.lua",
@@ -112,13 +116,4 @@ local tmuxtree_lazy = {
             }
         end,
     },
-}
-
-function TableConcat(t1, t2)
-    for i = 1, #t2 do
-        t1[#t1 + 1] = t2[i]
-    end
-    return t1
-end
-
-require('lazy').setup(TableConcat(lazy, tmuxtree_lazy))
+})
