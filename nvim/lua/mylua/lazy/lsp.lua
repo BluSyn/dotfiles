@@ -3,33 +3,33 @@ return {
 
     dependencies = {
         -- LSP Installer
-        { 'williamboman/mason.nvim' },
-        { 'williamboman/mason-lspconfig.nvim' },
+        'williamboman/mason.nvim',
+        'williamboman/mason-lspconfig.nvim',
 
         -- Autocompletion
-        { 'hrsh7th/nvim-cmp' },
-        { 'hrsh7th/cmp-buffer' },
-        { 'hrsh7th/cmp-path' },
-        { 'hrsh7th/cmp-cmdline' },
-        { 'hrsh7th/cmp-emoji' },
-        { 'hrsh7th/cmp-calc' },
-        { 'hrsh7th/cmp-nvim-lsp' },
-        { 'hrsh7th/cmp-nvim-lua' },
+        'hrsh7th/nvim-cmp',
+        'hrsh7th/cmp-buffer',
+        'hrsh7th/cmp-path',
+        'hrsh7th/cmp-cmdline',
+        'hrsh7th/cmp-emoji',
+        'hrsh7th/cmp-calc',
+        'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/cmp-nvim-lua',
 
         -- Snippets
-        { 'hrsh7th/cmp-vsnip' },
-        { 'hrsh7th/vim-vsnip' },
-        { 'rafamadriz/friendly-snippets' },
+        'hrsh7th/cmp-vsnip',
+        'hrsh7th/vim-vsnip',
+        'rafamadriz/friendly-snippets',
+
+        'j-hui/fidget.nvim',
     },
 
     config = function ()
-        local lsp = require('lspconfig')
         local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
         vim.api.nvim_create_autocmd('LspAttach', {
             desc = 'LSP actions',
             callback = function(event)
-                local opts = { buffer = event.buf }
                 local nmap = function(keys, func, desc)
                     if desc then
                         desc = 'LSP: ' .. desc
@@ -129,5 +129,7 @@ return {
             mapping = cmp.mapping.preset.cmdline(),
             sources = cmp.config.sources({{ name = 'path' }}, {{ name = 'cmdline' }})
         })
+
+        require('fidget').setup({})
     end
 }
