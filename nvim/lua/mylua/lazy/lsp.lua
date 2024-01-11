@@ -21,10 +21,12 @@ return {
         'hrsh7th/vim-vsnip',
         'rafamadriz/friendly-snippets',
 
+        -- UI
         'j-hui/fidget.nvim',
     },
 
     config = function ()
+        -- Keybindings
         vim.api.nvim_create_autocmd('LspAttach', {
             desc = 'LSP Keybindings',
             callback = function()
@@ -46,13 +48,7 @@ return {
             end
         })
 
-        vim.api.nvim_create_autocmd('BufWritePost', {
-            desc = 'LSP Format',
-            callback = function()
-                vim.lsp.buf.format()
-            end
-        })
-
+        -- LSP Config
         local lsp_config = require('lspconfig')
         local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
@@ -102,6 +98,19 @@ return {
             }
         })
 
+        -- Format
+        vim.api.nvim_create_autocmd('BufWritePost', {
+            desc = 'LSP Format',
+            pattern = '*',
+            callback = function()
+                -- TODO: Write could create a loop?
+                -- Should lock the buffer while formatting?
+                vim.lsp.buf.format()
+                vim.cmd(':w')
+            end
+        })
+
+        -- Autocompletion
         local cmp = require('cmp')
         local cmp_select = {
             behavior = cmp.SelectBehavior.Select
@@ -143,6 +152,7 @@ return {
             sources = cmp.config.sources({{ name = 'path' }}, {{ name = 'cmdline' }})
         })
 
+        -- UI
         require('fidget').setup({})
     end
 }
