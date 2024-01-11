@@ -50,8 +50,7 @@ local function nvim_tree_on_attach(bufnr)
     vim.keymap.set("n", "v", nt_remote.vsplit, opts "Vsplit in treemux")
 end
 
-local lazy = require('lazy')
-lazy.setup({
+require('lazy').setup({
     {
         import = 'mylua.lazy'
     },

@@ -26,8 +26,9 @@ return {
 
     config = function ()
         vim.api.nvim_create_autocmd('LspAttach', {
-            desc = 'LSP actions',
-            callback = function(event)
+            desc = 'LSP Keybindings',
+            callback = function()
+                local bufnr = vim.api.nvim_get_current_buf()
                 local nmap = function(keys, func, desc)
                     if desc then
                         desc = 'LSP: ' .. desc
@@ -45,15 +46,17 @@ return {
             end
         })
 
-        require('mason').setup({})
+        vim.api.nvim_create_autocmd('BufWritePost', {
+            desc = 'LSP Format',
+            callback = function()
+                vim.lsp.buf.format()
+            end
+        })
 
+        local lsp_config = require('lspconfig')
         local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
-        local default_setup = function(server)
-          require('lspconfig')[server].setup({
-            capabilities = lsp_capabilities,
-          })
-        end
 
+        require('mason').setup({})
         require('mason-lspconfig').setup({
             ensure_installed = {
                 'tsserver',
@@ -62,37 +65,40 @@ return {
             },
             automatic_installation = true,
             handlers = {
-                default_setup,
-                rust_analyzer = function()
-                    require('lspconfig').rust_analyzer.setup({
-                        capabilities = lsp_capabilities,
-                        settings = {
-                            rust = {
-                                hint = { enable = true },
-                            }
-                        }
-                    })
+                function(server)
+                  lsp_config[server].setup({
+                    capabilities = lsp_capabilities,
+                  })
                 end,
-                lua_ls = function()
-                    require('lspconfig').lua_ls.setup({
-                        capabilities = lsp_capabilities,
-                        settings = {
-                            Lua = {
-                                runtime = {
-                                    version = 'LuaJIT'
-                                },
-                                diagnostics = {
-                                    globals = {'vim'},
-                                },
-                                workspace = {
-                                    library = {
-                                        vim.env.VIMRUNTIME,
-                                    }
-                                }
-                            }
+            }
+        })
+
+        -- Custom LSP configs
+        lsp_config.rust_analyzer.setup({
+            capabilities = lsp_capabilities,
+            settings = {
+                rust = {
+                    hint = { enable = true },
+                }
+            }
+        })
+
+        lsp_config.lua_ls.setup({
+            capabilities = lsp_capabilities,
+            settings = {
+                Lua = {
+                    runtime = {
+                        version = 'LuaJIT'
+                    },
+                    diagnostics = {
+                        globals = {'vim'},
+                    },
+                    workspace = {
+                        library = {
+                            vim.env.VIMRUNTIME,
                         }
-                    })
-                end
+                    }
+                }
             }
         })
 
