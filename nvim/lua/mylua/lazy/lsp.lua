@@ -40,11 +40,8 @@ return {
                 nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
                 nmap('gr', vim.lsp.buf.references, '[G]oto [R]eferences')
                 nmap('gar', vim.lsp.buf.rename, '[G]lobal [A]ction [R]ename')
-                nmap('gh', function() if vim.lsp.inlay_hint then vim.lsp.inlay_hint(0, nil) end end, '[G]lobal [H]ints toggle')
                 nmap('[d', vim.diagnostic.goto_next, 'Next [D]iagnostic')
                 nmap(']d', vim.diagnostic.goto_prev, 'Prev [D]iagnostic')
-
-                -- lsp.buffer_autoformat()
             end
         })
 
