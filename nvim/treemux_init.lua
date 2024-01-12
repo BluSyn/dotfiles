@@ -55,10 +55,12 @@ require('lazy').setup({
         import = 'mylua.lazy'
     },
 
-    'nvim-tree/nvim-web-devicons',
-    'kiyoon/nvim-tree-remote.nvim',
     {
         'nvim-tree/nvim-tree.lua',
+        dependencies = {
+            'kyazdani42/nvim-web-devicons',
+            'kiyoon/nvim-tree-remote.nvim',
+        },
         config = function()
             local nvim_tree = require 'nvim-tree'
 
