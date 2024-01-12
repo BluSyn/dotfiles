@@ -1,6 +1,6 @@
 return {
-    "aserowy/tmux.nvim",
+    'aserowy/tmux.nvim',
     config = function()
-        require("tmux").setup()
+        require('tmux').setup()
     end,
 }
