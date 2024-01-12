@@ -8,7 +8,7 @@ return {
         local builtin = require('telescope.builtin')
         vim.keymap.set('n', '<leader>/', function()
             require('telescope.builtin').find_files({
-                hidden = true,
+                -- hidden = true,
                 no_ignore = true
             })
         end, {})
