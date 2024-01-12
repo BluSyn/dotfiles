@@ -10,17 +10,17 @@ vim.o.laststatus = 0
 vim.o.termguicolors = true
 
 vim.o.cursorline = true
-vim.opt.guicursor = ""
+vim.opt.guicursor = ''
 
 -- lazy.nvim plugin manager
-local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system {
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
+        'git',
+        'clone',
+        '--filter=blob:none',
+        'https://github.com/folke/lazy.nvim.git',
+        '--branch=stable', -- latest stable release
         lazypath,
     }
 end
@@ -32,7 +32,7 @@ local function nvim_tree_on_attach(bufnr)
 
     local function opts(desc)
         return {
-            desc = "nvim-tree: " .. desc,
+            desc = 'nvim-tree: ' .. desc,
             buffer = bufnr,
             noremap = true,
             silent = true,
@@ -42,12 +42,12 @@ local function nvim_tree_on_attach(bufnr)
 
     api.config.mappings.default_on_attach(bufnr)
 
-    vim.keymap.set("n", "u", api.tree.change_root_to_node, opts "Dir up")
-    vim.keymap.set("n", ";", api.node.show_info_popup, opts "Show info popup")
-    vim.keymap.set("n", "<CR>", nt_remote.tabnew, opts "Open in treemux")
-    -- vim.keymap.set("n", "<S-CR>", nt_remote.tabnew, opts "Open in treemux")
-    vim.keymap.set("n", "<CR>", nt_remote.tabnew, opts "Open in treemux")
-    vim.keymap.set("n", "v", nt_remote.vsplit, opts "Vsplit in treemux")
+    vim.keymap.set('n', 'u', api.tree.change_root_to_node, opts 'Dir up')
+    vim.keymap.set('n', ';', api.node.show_info_popup, opts 'Show info popup')
+    vim.keymap.set('n', '<CR>', nt_remote.tabnew, opts 'Open in treemux')
+    -- vim.keymap.set('n', '<S-CR>', nt_remote.tabnew, opts 'Open in treemux')
+    vim.keymap.set('n', '<CR>', nt_remote.tabnew, opts 'Open in treemux')
+    vim.keymap.set('n', 'v', nt_remote.vsplit, opts 'Vsplit in treemux')
 end
 
 require('lazy').setup({
@@ -55,11 +55,12 @@ require('lazy').setup({
         import = 'mylua.lazy'
     },
 
-    "kiyoon/nvim-tree-remote.nvim",
+    'nvim-tree/nvim-web-devicons',
+    'kiyoon/nvim-tree-remote.nvim',
     {
-        "nvim-tree/nvim-tree.lua",
+        'nvim-tree/nvim-tree.lua',
         config = function()
-            local nvim_tree = require "nvim-tree"
+            local nvim_tree = require 'nvim-tree'
 
             nvim_tree.setup {
                 on_attach = nvim_tree_on_attach,
@@ -70,26 +71,26 @@ require('lazy').setup({
                 renderer = {
                     icons = {
                         glyphs = {
-                            default = "",
-                            symlink = "",
+                            default = '',
+                            symlink = '',
                             folder = {
-                                arrow_open = "",
-                                arrow_closed = "",
-                                default = "",
-                                open = "",
-                                empty = "",
-                                empty_open = "",
-                                symlink = "",
-                                symlink_open = "",
+                                arrow_open = '',
+                                arrow_closed = '',
+                                default = '',
+                                open = '',
+                                empty = '',
+                                empty_open = '',
+                                symlink = '',
+                                symlink_open = '',
                             },
                             git = {
-                                unstaged = "",
-                                staged = "S",
-                                unmerged = "",
-                                renamed = "➜",
-                                untracked = "U",
-                                deleted = "",
-                                ignored = "◌",
+                                unstaged = '',
+                                staged = 'S',
+                                unmerged = '',
+                                renamed = '➜',
+                                untracked = 'U',
+                                deleted = '',
+                                ignored = '◌',
                             },
                         },
                     },
@@ -98,15 +99,15 @@ require('lazy').setup({
                     enable = true,
                     show_on_dirs = true,
                     icons = {
-                        hint = "",
-                        info = "",
-                        warning = "",
-                        error = "",
+                        hint = '',
+                        info = '',
+                        warning = '',
+                        error = '',
                     },
                 },
                 view = {
                     width = 30,
-                    side = "left",
+                    side = 'left',
                 },
                 git = {
                     enable = true,
