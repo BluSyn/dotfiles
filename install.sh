@@ -87,11 +87,10 @@ echo "✔︎"
 
 # Install Nerd Font
 # https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/BitstreamVeraSansMono
-FONTDIR="${HOME}/Library/Fonts"
-
 echo -n "Installing Nerd Font... "
 wget -P /tmp/ https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/BitstreamVeraSansMono.zip
 
+FONTDIR="${HOME}/Library/Fonts"
 if [[ $OSTYPE == 'linux'* ]]; then
     FONTDIR="${HOME}/.local/share/fonts/"
     mkdir -p ${FONTDIR}
