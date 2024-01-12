@@ -2,7 +2,6 @@
 set PATH $PATH /opt/homebrew/bin
 set PATH $PATH ~/.cargo/bin
 set PATH $PATH ~/.local/bin
-set PATH $PATH ~/.local/share/solana/install/active_release/bin
 if not contains ./node_modules/.bin $PATH
   set PATH ./node_modules/.bin $PATH
 end
@@ -36,7 +35,6 @@ abbr -a dockerrm 'docker rm \$(docker ps -aq)'
 # pnpm
 abbr -a p 'pnpm'
 
-
 # eza > ls
 if command -v eza > /dev/null
     abbr -a l 'eza'
@@ -50,7 +48,7 @@ end
 
 # bat > cat
 if command -v bat > /dev/null
-	abbr -a cat 'bat'
+    abbr -a cat 'bat'
 end
 
 # Auto attach existing tmux window on SSH
@@ -114,11 +112,10 @@ end
 
 # FZF
 function fish_user_key_bindings
-	if functions -q fzf_key_bindings
-		fzf_key_bindings
-	end
+    if functions -q fzf_key_bindings
+        fzf_key_bindings
+    end
 end
-
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/blu/google-cloud-sdk/path.fish.inc' ]; . '/Users/blu/google-cloud-sdk/path.fish.inc'; end
