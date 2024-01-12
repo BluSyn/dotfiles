@@ -85,13 +85,6 @@ echo -n "Building tmux plugin... "
 cargo build --release --manifest-path=$HOME/dotfiles/tmux/plugins/tmux-thumbs/Cargo.toml
 echo "✔︎"
 
-# Install nvim plugins
-echo -n "Installing nvim plugins... "
-git clone --depth 1 https://github.com/wbthomason/packer.nvim\
- ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-nvim +'PackerInstall' +qa
-echo "✔︎"
-
 # Install Nerd Font
 # https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/BitstreamVeraSansMono
 FONTDIR="${HOME}/Library/Fonts"
