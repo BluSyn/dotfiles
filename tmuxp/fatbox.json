@@ -8,7 +8,7 @@
           "focus": "true",
           "shell_command": "btop"
         },
-        "bandwhich -i bond0 -s",
+        "docker stats",
         "watch nvidia-smi"
       ],
       "start_directory": "/home/box",
@@ -22,7 +22,7 @@
           "focus": "true",
           "shell_command": "cd ~/src/fatbox/docker && git status"
         },
-        "helix ~/src/fatbox/docker/docker-compose.yml",
+        "nvim ~/src/fatbox/docker/docker-compose.yml",
         "cd ~/src/fatbox/docker"
       ],
       "start_directory": "/home/box",
