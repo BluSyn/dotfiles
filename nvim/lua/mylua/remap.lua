@@ -41,6 +41,7 @@ vim.keymap.set('n', '<leader>j', '<cmd>lprev<CR>zz')
 -- next / previous buffers
 vim.keymap.set('n', '<leader>p', '<C-o>')
 vim.keymap.set('n', '<leader>n', '<C-i>')
+vim.keymap.set('n', '<leader><leader>', '<C-^>')
 
 -- replace word under cursor
 vim.keymap.set('n', '<leader>r', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
