@@ -25,26 +25,17 @@ return {
         'j-hui/fidget.nvim',
     },
 
-    config = function ()
+    config = function()
         -- Keybindings
         vim.api.nvim_create_autocmd('LspAttach', {
             desc = 'LSP Keybindings',
             callback = function()
-                local bufnr = vim.api.nvim_get_current_buf()
-                local nmap = function(keys, func, desc)
-                    if desc then
-                        desc = 'LSP: ' .. desc
-                    end
-
-                    vim.keymap.set('n', keys, func, { buffer = bufnr, remap = false, desc = desc })
-                end
-
-                nmap(';', vim.lsp.buf.hover, 'Hover')
-                nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-                nmap('gr', vim.lsp.buf.references, '[G]oto [R]eferences')
-                nmap('gar', vim.lsp.buf.rename, '[G]lobal [A]ction [R]ename')
-                nmap('[d', vim.diagnostic.goto_next, 'Next [D]iagnostic')
-                nmap(']d', vim.diagnostic.goto_prev, 'Prev [D]iagnostic')
+                vim.keymap.set('n', ';', vim.lsp.buf.hover, { desc = 'LSP: Hover' })
+                vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'LSP: [G]oto [D]efinition' })
+                vim.keymap.set('n', 'gr', vim.lsp.buf.references, { desc = 'LSP: [G]oto [R]eferences' })
+                vim.keymap.set('n', 'gar', vim.lsp.buf.rename, { desc = 'LSP: [G]lobal [A]ction [R]ename' })
+                vim.keymap.set('n', '[d', vim.diagnostic.goto_next, { desc = 'Next [D]iagnostic' })
+                vim.keymap.set('n', ']d', vim.diagnostic.goto_prev, { desc = 'Next [D]iagnostic' })
             end
         })
 
@@ -62,39 +53,30 @@ return {
             automatic_installation = true,
             handlers = {
                 function(server)
-                  lsp_config[server].setup({
-                    capabilities = lsp_capabilities,
-                  })
+                    lsp_config[server].setup({
+                        capabilities = lsp_capabilities,
+                    })
                 end,
-            }
-        })
-
-        -- Custom LSP configs
-        lsp_config.rust_analyzer.setup({
-            capabilities = lsp_capabilities,
-            settings = {
-                rust = {
-                    hint = { enable = true },
-                }
-            }
-        })
-
-        lsp_config.lua_ls.setup({
-            capabilities = lsp_capabilities,
-            settings = {
-                Lua = {
-                    runtime = {
-                        version = 'LuaJIT'
-                    },
-                    diagnostics = {
-                        globals = {'vim'},
-                    },
-                    workspace = {
-                        library = {
-                            vim.env.VIMRUNTIME,
+                ["lua_ls"] = function()
+                    lsp_config.lua_ls.setup({
+                        capabilities = lsp_capabilities,
+                        settings = {
+                            Lua = {
+                                runtime = {
+                                    version = 'LuaJIT'
+                                },
+                                diagnostics = {
+                                    globals = { 'vim' },
+                                },
+                                workspace = {
+                                    library = {
+                                        vim.env.VIMRUNTIME,
+                                    }
+                                }
+                            }
                         }
-                    }
-                }
+                    })
+                end
             }
         })
 
@@ -149,7 +131,7 @@ return {
 
         cmp.setup.cmdline(':', {
             mapping = cmp.mapping.preset.cmdline(),
-            sources = cmp.config.sources({{ name = 'path' }}, {{ name = 'cmdline' }})
+            sources = cmp.config.sources({ { name = 'path' } }, { { name = 'cmdline' } })
         })
 
         -- UI
