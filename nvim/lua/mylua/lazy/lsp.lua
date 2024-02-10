@@ -81,14 +81,11 @@ return {
         })
 
         -- Format
-        vim.api.nvim_create_autocmd('BufWritePost', {
+        vim.api.nvim_create_autocmd('BufWritePre', {
             desc = 'LSP Format',
             pattern = '*',
             callback = function()
-                -- TODO: Write could create a loop?
-                -- Should lock the buffer while formatting?
-                vim.lsp.buf.format()
-                vim.cmd(':w')
+                vim.lsp.buf.format({ async = true })
             end
         })
 
