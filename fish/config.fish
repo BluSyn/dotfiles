@@ -51,7 +51,8 @@ end
 
 # Auto attach existing tmux window on SSH
 function msh
-    mosh --no-init --predict=never -- "$argv" sh -c "tmux attach || tmux new"
+    #mosh --no-init --predict=never -- "$argv" sh -c "tmux attach || tmux new"
+    mosh --client=/Users/blu/src/git/mosh/src/frontend/mosh-client --server=/home/box/src/git/mosh/src/frontend/mosh-server --no-init --predict=never -- "$argv" sh -c "tmux attach || tmux new"
 end
 
 function ssh
