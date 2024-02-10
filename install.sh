@@ -86,20 +86,20 @@ cargo build --release --manifest-path=$HOME/dotfiles/tmux/plugins/tmux-thumbs/Ca
 echo "✔︎"
 
 # Install Nerd Font
-# https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/BitstreamVeraSansMono
+# https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/DejaVuSansMono
 echo -n "Installing Nerd Font... "
-wget -P /tmp/ https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/BitstreamVeraSansMono.tar.xz
+wget -P /tmp/ https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/DejaVuSansMono.tar.xz
 
 if [[ $OSTYPE == 'darwin'* ]]; then
     FONTDIR="${HOME}/Library/Fonts"
-    tar -xvf /tmp/BitstreamVeraSansMono.tar.xz -C ${FONTDIR} '*.ttf'
+    tar -xvf /tmp/DejaVuSansMono.tar.xz -C ${FONTDIR} '*.ttf'
 elif [[ $OSTYPE == 'linux'* ]]; then
     FONTDIR="${HOME}/.local/share/fonts/"
     mkdir -p ${FONTDIR}
-    tar -xvf /tmp/BitstreamVeraSansMono.tar.xz -C ${FONTDIR} --wildcards '*.ttf'
+    tar -xvf /tmp/DejaVuSansMono.tar.xz -C ${FONTDIR} --wildcards '*.ttf'
 fi
 
-rm /tmp/BitstreamVeraSansMono.tar.xz
+rm /tmp/DejaVuSansMono.tar.xz
 
 echo "✔︎"
 echo "Installation Complete ✔︎"

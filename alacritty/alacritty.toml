@@ -10,19 +10,19 @@ program = "/usr/local/bin/fish"
 size = 12.0
 
 [font.bold]
-family = "BitstromWera Nerd Font Mono"
+family = "DejaVuSansM Nerd Font Mono"
 style = "Bold"
 
 [font.bold_italic]
-family = "BitstromWera Nerd Font Mono"
+family = "DejaVuSansM Nerd Font Mono"
 style = "Bold Oblique"
 
 [font.italic]
-family = "BitstromWera Nerd Font Mono"
+family = "DejaVuSansM Nerd Font Mono"
 style = "Oblique"
 
 [font.normal]
-family = "BitstromWera Nerd Font Mono"
+family = "DejaVuSansM Nerd Font Mono"
 style = "Regular"
 
 # alt+. for previous argument
