@@ -10,20 +10,20 @@ program = "/usr/local/bin/fish"
 size = 12.0
 
 [font.bold]
-family = "BitstreamVeraSansMono Nerd Font Mono"
+family = "BitstromWera Nerd Font Mono"
 style = "Bold"
 
 [font.bold_italic]
-family = "BitstreamVeraSansMono Nerd Font Mono"
+family = "BitstromWera Nerd Font Mono"
 style = "Bold Oblique"
 
 [font.italic]
-family = "BitstreamVeraSansMono Nerd Font Mono"
+family = "BitstromWera Nerd Font Mono"
 style = "Oblique"
 
 [font.normal]
-family = "BitstreamVeraSansMono Nerd Font Mono"
-style = "Roman"
+family = "BitstromWera Nerd Font Mono"
+style = "Regular"
 
 # alt+. for previous argument
 [[keyboard.bindings]]

@@ -88,16 +88,18 @@ echo "✔︎"
 # Install Nerd Font
 # https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/BitstreamVeraSansMono
 echo -n "Installing Nerd Font... "
-wget -P /tmp/ https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/BitstreamVeraSansMono.zip
+wget -P /tmp/ https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/BitstreamVeraSansMono.tar.xz
 
-FONTDIR="${HOME}/Library/Fonts"
-if [[ $OSTYPE == 'linux'* ]]; then
+if [[ $OSTYPE == 'darwin'* ]]; then
+    FONTDIR="${HOME}/Library/Fonts"
+    tar -xvf /tmp/BitstreamVeraSansMono.tar.xz -C ${FONTDIR} '*.ttf'
+elif [[ $OSTYPE == 'linux'* ]]; then
     FONTDIR="${HOME}/.local/share/fonts/"
     mkdir -p ${FONTDIR}
+    tar -xvf /tmp/BitstreamVeraSansMono.tar.xz -C ${FONTDIR} --wildcards '*.ttf'
 fi
 
-unzip -n /tmp/BitstreamVeraSansMono.zip "*.ttf" -d ${FONTDIR}
-rm /tmp/BitstreamVeraSansMono.zip
+rm /tmp/BitstreamVeraSansMono.tar.xz
 
 echo "✔︎"
 echo "Installation Complete ✔︎"
