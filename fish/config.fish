@@ -63,7 +63,14 @@ function sshr
     /usr/bin/ssh "$argv"
 end
 
+# Enable !! to repeat last command (eg, sudo !! from bash)
+function last_history_item
+    echo $history[1]
+end
+abbr -a !! --position anywhere --function last_history_item
+
 # Fish git prompt
+# NOTE: This is only used if starship is not available, see below
 set __fish_git_prompt_showuntrackedfiles 'yes'
 set __fish_git_prompt_showdirtystate 'yes'
 set __fish_git_prompt_showstashstate ''
