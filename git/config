@@ -11,13 +11,25 @@
 [gpg "ssh"]
     program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 
-# Makes pushing easier on master branch
 [branch "master"]
     remote = origin
     merge = refs/heads/master
 
+[branch "main"]
+    remote = origin
+    merge = refs/heads/main
+
 [url "git@github.com"]
     insteadOf = gh
+
+[remote "origin"]
+    fetch = +refs/pull/*/head:refs/remotes/origin/pr/*
+
+[column]
+    ui = auto
+
+[branch]
+    sort = -committerdate
 
 # Start other core configuration
 [alias]
