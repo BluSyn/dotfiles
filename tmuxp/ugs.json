@@ -39,6 +39,12 @@
         "npm run dev"
       ],
       "start_directory": "/Users/blu/src/ugs/ugs-admin"
+    },
+    {
+      "window_name": "spotify",
+      "panes": [
+        "spotify_player"
+      ]
     }
   ]
 }
