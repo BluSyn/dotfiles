@@ -85,7 +85,7 @@ return {
             desc = 'LSP Format',
             pattern = '*',
             callback = function()
-                vim.lsp.buf.format({ async = true })
+                vim.lsp.buf.format()
             end
         })
 
