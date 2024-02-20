@@ -9,7 +9,7 @@ return {
                 grey = '#969896',
                 red = '#cc6666',
                 cyan = '#8abeb7',
-                blue = '#81a2be',
+                blue = '#81a5c8',
                 purple = '#b294bb',
                 orange = '#de935f',
                 yellow = '#f0c674',
