@@ -41,9 +41,9 @@
       "start_directory": "/Users/blu/src/ugs/ugs-admin"
     },
     {
-      "window_name": "spotify",
+      "window_name": "tabby",
       "panes": [
-        "spotify_player"
+        "tabby serve --device metal --model TabbyML/DeepseekCoder-6.7B"
       ]
     }
   ]
