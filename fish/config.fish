@@ -116,6 +116,14 @@ if command -v starship > /dev/null
     starship init fish | source
 end
 
+# 1Password CLI completion if available
+if command -v op > /dev/null
+    op completion fish | source
+    if test -d ~/.config/op/plugins.sh
+        source ~/.config/op/plugins.sh
+    end
+end
+
 # FZF
 function fish_user_key_bindings
     if functions -q fzf_key_bindings
