@@ -1,5 +1,5 @@
 
-use-grammars = { only = [ "c", "css", "cpp", "diff", "dockerfile", "git-commit", "git-rebase", "git-config", "lua", "json", "rust", "html", "bash", "toml", "yaml", "tsx", "jsx", "sql", "prisma", "javascript", "typescript", "markdown" ] }
+use-grammars = { only = [ "c", "css", "cpp", "diff", "dockerfile", "lua", "json", "rust", "html", "bash", "toml", "yaml", "tsx", "jsx", "sql", "prisma", "javascript", "typescript", "markdown" ] }
 
 # Typescript
 [[language]]
@@ -7,18 +7,18 @@ name = "typescript"
 auto-format = true
 
   # pass format options according to https://github.com/typescript-language-server/typescript-language-server#workspacedidchangeconfiguration omitting the "[language].format." prefix.
-  [language.config.format]
-  convertTabsToSpaces = true
-  indentSize = 2
-  insertSpaceAfterCommaDelimiter = true
-  insertSpaceAfterConstructor = false
-  insertSpaceAfterSemicolonInForStatements = true
-  insertSpaceBeforeFunctionParenthesis = false
-  insertSpaceBeforeTypeAnnotation = false
-  placeOpenBraceOnNewLineForControlBlocks = false
-  placeOpenBraceOnNewLineForFunctions = false
-  semicolons = "insert"
-  trimTrailingWhitespace = true
+  # [language.config.format]
+  # convertTabsToSpaces = true
+  # indentSize = 2
+  # insertSpaceAfterCommaDelimiter = true
+  # insertSpaceAfterConstructor = false
+  # insertSpaceAfterSemicolonInForStatements = true
+  # insertSpaceBeforeFunctionParenthesis = false
+  # insertSpaceBeforeTypeAnnotation = false
+  # placeOpenBraceOnNewLineForControlBlocks = false
+  # placeOpenBraceOnNewLineForFunctions = false
+  # semicolons = "insert"
+  # trimTrailingWhitespace = true
 
 
 # RUST
