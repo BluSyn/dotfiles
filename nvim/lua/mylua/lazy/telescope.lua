@@ -1,16 +1,26 @@
 return {
     'nvim-telescope/telescope.nvim',
-
-    tag          = '0.1.5',
+    tag = '0.1.5',
     dependencies = {
         'nvim-lua/plenary.nvim',
     },
-    config       = function()
+    config = function()
+        require('telescope').setup({
+            defaults = {
+                mappings = {
+                    i = {
+                        ["<C-j>"] = "move_selection_next",
+                        ["<C-k>"] = "move_selection_previous",
+                    },
+                },
+            },
+        })
+
         local builtin = require('telescope.builtin')
         vim.keymap.set('n', '<leader>/', function()
-            require('telescope.builtin').find_files({
+            builtin.find_files({
                 -- hidden = true,
-                no_ignore = true
+                no_ignore = true,
             })
         end, {})
 
