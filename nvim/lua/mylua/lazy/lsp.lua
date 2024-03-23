@@ -34,8 +34,8 @@ return {
                 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'LSP: [G]oto [D]efinition' })
                 vim.keymap.set('n', 'gr', vim.lsp.buf.references, { desc = 'LSP: [G]oto [R]eferences' })
                 vim.keymap.set('n', 'gar', vim.lsp.buf.rename, { desc = 'LSP: [G]lobal [A]ction [R]ename' })
-                vim.keymap.set('n', '[d', vim.diagnostic.goto_next, { desc = 'Next [D]iagnostic' })
-                vim.keymap.set('n', ']d', vim.diagnostic.goto_prev, { desc = 'Next [D]iagnostic' })
+                vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Next [D]iagnostic' })
+                vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Next [D]iagnostic' })
             end
         })
 
@@ -126,8 +126,8 @@ return {
             mapping = cmp.mapping.preset.insert({
                 ['<S-Tab>'] = cmp.mapping.select_prev_item(cmp_select),
                 ['<Tab>'] = cmp.mapping.select_next_item(cmp_select),
-                ['<CR>'] = cmp.mapping.confirm({ select = true }),
-                ['<C-Space>'] = cmp.mapping.complete(),
+                ['<CR>'] = cmp.mapping.confirm({ select = false }),
+                -- ['<C-Space>'] = cmp.mapping.complete(),
             }),
         })
 
