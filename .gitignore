@@ -2,3 +2,4 @@ nvim/plugged
 nvim/plugin
 *.swp
 nvim/lazy-lock.json
+scripts
