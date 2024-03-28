@@ -39,4 +39,7 @@ vim.opt.listchars = {
 
 vim.opt.showtabline = 0
 
+-- Generally read .keymap files as C ones
+vim.cmd [[autocmd BufNewFile,BufRead *.keymap setfiletype c]]
+
 --vim.colorscheme = 'base16-tomorrow-night'
