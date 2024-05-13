@@ -41,3 +41,8 @@ mods = "Shift"
 chars = "\u001B[13;5u"
 key = "Return"
 mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u0000"
+key = "Space"
+mods = "Control"
