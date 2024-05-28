@@ -14,7 +14,7 @@
  */
 
 #include <behaviors.dtsi>
-/* Include all behaviour includes needed */
+/* Include all behavior includes needed */
 #include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
@@ -264,7 +264,7 @@
 
 /* Custom Defined Behaviors */
 / {
-    /*****************************************************************************/
+/*****************************************************************************/
                             /* Key Positions */
 /*****************************************************************************/
 
@@ -408,33 +408,33 @@ HOME_THUMB_LAYER_TAP(ht_lt, &kp)  /* Used for Editing and Numbers layers */
         layer_Base {
             bindings = <
       &none              &none              &none             &none             &none                                                                                                                          &none             &none              &none              &none         &none
-  &kp GRAVE             &kp N1             &kp N2            &kp N3            &kp N4  &kp N5                                                                                               &kp N6            &kp N7            &kp N8             &kp N9             &kp N0     &kp MINUS
-  &kp EQUAL              &kp Q              &kp W             &kp E             &kp R   &kp T                                                                                                &kp Y             &kp U             &kp I              &kp O           &kp SEMI      &kp BSLH
-  &kp MINUS  &lh_hr_mt LSHFT A  &lh_hr_mt LCTRL S  &lh_hr_mt LALT D  &lh_hr_mt LGUI F   &kp G                                                                                                &kp H  &rh_hr_mt RGUI J  &rh_hr_mt RALT K  &rh_hr_mt RCTRL L  &rh_hr_mt RSHFT P       &kp SQT
-      &none              &kp Z              &kp X             &kp C             &kp V   &kp B                &none    &none  &magic LAYER_Magic 0  &magic LAYER_Magic 0     &none  &kp TAB   &kp N             &kp M         &kp COMMA            &kp DOT           &kp FSLH  &kp C_VOL_UP
- &kp C_PLAY              &none              &none             &none             &none          &ht_lt SYMBOL SPACE  &kp ESC                 &none                 &none  &kp BSPC  &kp RET                     &none             &none              &none              &none  &kp C_VOL_DN
+      &none             &kp N1             &kp N2            &kp N3            &kp N4  &kp N5                                                                                               &kp N6            &kp N7            &kp N8             &kp N9             &kp N0       &kp DEL
+  &kp GRAVE              &kp Q              &kp W             &kp E             &kp R   &kp T                                                                                                &kp Y             &kp U             &kp I              &kp O            &kp SQT      &kp BSLH
+  &kp MINUS  &lh_hr_mt LSHFT A  &lh_hr_mt LCTRL S  &lh_hr_mt LALT D  &lh_hr_mt LGUI F   &kp G                                                                                                &kp H  &rh_hr_mt RGUI J  &rh_hr_mt RALT K  &rh_hr_mt RCTRL L  &rh_hr_mt RSHFT P      &kp SEMI
+    &kp TAB              &kp Z              &kp X             &kp C             &kp V   &kp B                &none    &none  &magic LAYER_Magic 0  &magic LAYER_Magic 0    &none     &none   &kp N             &kp M         &kp COMMA            &kp DOT           &kp FSLH  &kp C_VOL_UP
+ &kp C_PLAY              &none              &none             &none             &none          &ht_lt SYMBOL SPACE  &kp ESC                 &none                 &none  &kp RET  &kp BSPC                     &none             &none              &none              &none  &kp C_VOL_DN
             >;
         };
 
         layer_colemack {
             bindings = <
       &none              &none              &none             &none             &none                                                                                                                          &none             &none              &none              &none         &none
-  &kp GRAVE             &kp N1             &kp N2            &kp N3            &kp N4  &kp N5                                                                                               &kp N6            &kp N7            &kp N8             &kp N9             &kp N0     &kp MINUS
-  &kp EQUAL              &kp Q              &kp W             &kp F             &kp P   &kp B                                                                                                &kp J             &kp L             &kp I              &kp O           &kp SEMI      &kp BSLH
+      &none             &kp N1             &kp N2            &kp N3            &kp N4  &kp N5                                                                                               &kp N6            &kp N7            &kp N8             &kp N9             &kp N0       &kp DEL
+  &kp GRAVE              &kp Q              &kp W             &kp F             &kp P   &kp B                                                                                                &kp J             &kp L             &kp I              &kp O           &kp SEMI      &kp BSLH
   &kp MINUS  &lh_hr_mt LSHFT A  &lh_hr_mt LCTRL R  &lh_hr_mt LALT S  &lh_hr_mt LGUI T   &kp G                                                                                                &kp M  &rh_hr_mt RGUI N  &rh_hr_mt RALT E  &rh_hr_mt RCTRL I  &rh_hr_mt RSHFT O       &kp SQT
-      &none              &kp Z              &kp X             &kp C             &kp D   &kp V                &none    &none  &magic LAYER_Magic 0  &magic LAYER_Magic 0     &to 0  &kp TAB   &kp K             &kp H         &kp COMMA            &kp DOT           &kp FSLH  &kp C_VOL_UP
+    &kp TAB              &kp Z              &kp X             &kp C             &kp D   &kp V                &none    &none  &magic LAYER_Magic 0  &magic LAYER_Magic 0     &to 0    &none   &kp K             &kp H         &kp COMMA            &kp DOT           &kp FSLH  &kp C_VOL_UP
  &kp C_PLAY              &none              &none             &none             &none          &ht_lt SYMBOL SPACE  &kp ESC                 &none                 &none  &kp BSPC  &kp RET                     &none             &none              &none              &none  &kp C_VOL_DN
             >;
         };
 
         layer_Symbol {
             bindings = <
- &kp F1  &kp F2    &kp F3    &kp F4    &kp F5                                                                                                    &kp F6    &kp F7     &kp F8  &kp F9  &kp F10
- &trans  &trans    &trans    &trans    &trans    &trans                                                                                &trans    &trans    &trans     &trans  &trans   &trans
- &trans  &kp N1    &kp N2    &kp N3    &kp N4    &kp N5                                                                                &kp N6    &kp N7    &kp N8     &kp N9  &kp N0   &trans
- &trans  &trans  &kp LBRC  &kp RBRC  &kp LPAR  &kp RPAR                                                                              &kp LEFT  &kp DOWN    &kp UP  &kp RIGHT  &trans   &trans
- &trans  &trans    &trans    &trans    &trans    &trans  &trans   &to 0  &magic LAYER_Magic 0  &magic LAYER_Magic 0   &to 1  &trans    &trans    &trans  &kp LBKT   &kp RBKT  &trans   &trans
-  &none   &none    &trans    &trans    &trans            &trans  &trans                &trans                &trans  &trans  &trans              &trans    &trans     &trans  &trans   &trans
+    &kp F1    &kp F2    &kp F3    &kp F4    &kp F5                                                                                                         &kp F6    &kp F7     &kp F8     &kp F9    &kp F10
+    &trans    &trans    &trans    &trans    &trans     &trans                                                                                    &trans    &trans    &trans     &trans     &trans     &trans
+ &kp TILDE  &kp EXCL    &kp AT  &kp HASH  &kp DLLR  &kp PRCNT                                                                                 &kp CARET  &kp AMPS  &kp STAR   &kp PLUS    &kp DQT   &kp PIPE
+ &kp UNDER    &kp N1  &kp LBKT  &kp RBKT  &kp LPAR   &kp RPAR                                                                                  &kp LEFT  &kp DOWN    &kp UP  &kp RIGHT  &kp EQUAL  &kp COLON
+    &trans    &trans    &kp N2    &kp N3    &kp N4     &kp N5  &trans   &to 0  &magic LAYER_Magic 0  &magic LAYER_Magic 0   &to 1     &trans     &kp N6    &kp N7    &kp N8     &kp N9     &kp N0     &trans
+     &none     &none    &trans    &trans    &trans             &trans  &trans                &trans                &trans  &trans  &kp RSHFT               &trans    &trans     &trans     &trans     &trans
             >;
         };
 
@@ -445,7 +445,7 @@ HOME_THUMB_LAYER_TAP(ht_lt, &kp)  /* Used for Editing and Numbers layers */
        &none  &rgb_ug RGB_SPI  &rgb_ug RGB_SAI  &rgb_ug RGB_HUI  &rgb_ug RGB_BRI  &rgb_ug RGB_TOG                                                         &none   &none   &none   &none   &none           &none
   &sys_reset  &rgb_ug RGB_SPD  &rgb_ug RGB_SAD  &rgb_ug RGB_HUD  &rgb_ug RGB_BRD  &rgb_ug RGB_EFF                                                         &none   &none   &none   &none   &none     &bootloader
  &bootloader            &none            &none            &none            &none            &none   &bt_2   &bt_3         &none   &none   &none   &none   &none   &none   &none   &none   &none      &sys_reset
-       &none            &none            &none            &none            &none                    &bt_0   &bt_1  &out OUT_USB   &none   &none   &none           &none   &none   &none   &none           &none
+ &bootloader            &none            &none            &none            &none                    &bt_0   &bt_1  &out OUT_USB   &none   &none   &none           &none   &none   &none   &none     &bootloader
             >;
         };
 
