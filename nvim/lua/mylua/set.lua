@@ -37,6 +37,8 @@ vim.opt.listchars = {
     trail = '•',
 }
 
+vim.opt.clipboard:append('unnamedplus')
+
 vim.opt.showtabline = 0
 
 -- Generally read .keymap files as C ones
