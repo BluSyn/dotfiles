@@ -1,4 +1,5 @@
-vim.g.mapleader = ' '
+-- Yes, backspace key is leader key (thumb cluster keys)
+vim.g.mapleader = vim.api.nvim_replace_termcodes('<BS>', false, false, true)
 
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", { desc = "Move selection up" })
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", { desc = "Move selection down" })
