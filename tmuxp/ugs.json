@@ -41,9 +41,9 @@
       "start_directory": "/Users/blu/src/ugs/ugs-admin"
     },
     {
-      "window_name": "tabby",
+      "window_name": "work",
       "panes": [
-        "tabby serve --device metal --model TabbyML/DeepseekCoder-6.7B"
+        "ls"
       ]
     }
   ]
