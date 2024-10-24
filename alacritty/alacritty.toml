@@ -1,9 +1,11 @@
-import = [ "~/.config/alacritty/afterglow.toml" ]
 
 [env]
 TERM = "xterm-256color"
 
-[shell]
+[general]
+import = [ "~/.config/alacritty/afterglow.toml" ]
+
+[terminal.shell]
 program = "/usr/local/bin/fish"
 
 [font]
