@@ -7,7 +7,7 @@ return {
         harpoon:setup()
 
         vim.keymap.set("n", "gs", function() harpoon:list():add() end)
-        vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+        vim.keymap.set("n", "gl", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
         vim.keymap.set('n', 'gn', function() harpoon:list():next() end)
         vim.keymap.set('n', 'gp', function() harpoon:list():prev() end)
