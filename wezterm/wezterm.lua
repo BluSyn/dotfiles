@@ -2,6 +2,7 @@ local wezterm = require 'wezterm'
 
 return {
     default_prog = { 'fish' },
+    audible_bell = 'Disabled',
 
     window_padding = {
         left = 0,
