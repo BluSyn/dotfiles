@@ -82,9 +82,9 @@ rustup default stable
 echo "✔︎"
 
 # Build tmux plugin
-echo -n "Building tmux plugin... "
-cargo build --release --manifest-path=$HOME/dotfiles/tmux/plugins/tmux-thumbs/Cargo.toml
-echo "✔︎"
+# echo -n "Building tmux plugin... "
+# cargo build --release --manifest-path=$HOME/dotfiles/tmux/plugins/tmux-thumbs/Cargo.toml
+# echo "✔︎"
 
 # Install Nerd Font
 # https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/DejaVuSansMono
