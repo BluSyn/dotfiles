@@ -83,3 +83,6 @@ format = '[$symbol($version )]($style)'
 
 [swift]
 format = '[$symbol($version )]($style)'
+
+[status]
+disabled = false
