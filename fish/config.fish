@@ -1,8 +1,12 @@
 # PATH
-set PATH $PATH /opt/homebrew/bin
-set PATH $PATH ~/.cargo/bin
-set PATH $PATH ~/.local/bin
-set PATH $PATH ./node_modules/.bin
+fish_add_path /usr/local/sbin
+fish_add_path /opt/homebrew/bin
+fish_add_path ~/.local/bin
+fish_add_path ~/.cargo/bin
+fish_add_path ./node_modules/.bin
+
+# default editor
+set -x EDITOR nvim
 
 # GIT Shortcuts
 abbr -a g   'git'
@@ -133,5 +137,4 @@ end
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/blu/google-cloud-sdk/path.fish.inc' ]; . '/Users/blu/google-cloud-sdk/path.fish.inc'; end
-fish_add_path /usr/local/sbin
 
