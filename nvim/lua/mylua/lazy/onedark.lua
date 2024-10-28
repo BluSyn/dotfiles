@@ -16,11 +16,11 @@ return {
                 dark_yellow = '#f0c674',
             },
             highlights = {
-                ["MatchParen"] = { fg = '$yellow' },
-                ["@property"] = { fg = '$red' },
-                ["@punctuation.special"] = { fg = '$purple' },
-                ["@lsp.type.variable"] = { fg = '$red' },
-                ["@lsp.type.property"] = { fg = '$fg' },
+                ['MatchParen'] = { fg = '$yellow' },
+                ['@property'] = { fg = '$red' },
+                ['@punctuation.special'] = { fg = '$purple' },
+                ['@lsp.type.variable'] = { fg = '$red' },
+                ['@lsp.type.property'] = { fg = '$fg' },
             },
         }
         vim.cmd([[colorscheme onedark]])
