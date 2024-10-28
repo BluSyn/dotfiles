@@ -10,24 +10,67 @@ return {
             defaults = {
                 mappings = {
                     i = {
-                        ["<C-j>"] = "move_selection_next",
-                        ["<C-k>"] = "move_selection_previous",
+                        ['<C-j>'] = 'move_selection_next',
+                        ['<C-k>'] = 'move_selection_previous',
+                        ['<c-u>'] = 'results_scrolling_up',
+                        ['<c-d>'] = 'results_scrolling_down',
+                        ['<C-n>'] = 'cycle_history_next',
+                        ['<C-p>'] = 'cycle_history_prev',
+                        ['<C-h>'] = 'which_key',
                     },
                 },
             },
         })
 
         local builtin = require('telescope.builtin')
-        vim.keymap.set('n', '<leader>\\', function()
+
+        -- Search through main project files
+        vim.keymap.set('n', '<leader>\\', builtin.git_files, {
+            noremap = true,
+            silent = true,
+            desc = 'Search project files',
+        })
+
+        -- Search through *all* files
+        -- This will include hidden files and files in the .gitignore
+        -- Such as node_modules, .git, etc.
+        vim.keymap.set('n', '<leader>a', function()
             builtin.find_files({
-                -- hidden = true,
+                hidden = true,
                 no_ignore = true,
             })
-        end, {})
+        end, {
+            noremap = true,
+            silent = true,
+            desc = 'Search [a]ll files',
+        })
 
-        -- vim.keymap.set('n', '<leader>a', builtin.git_files, {})
-        vim.keymap.set('n', '<leader>b', builtin.buffers, {})
-        vim.keymap.set('n', '<leader>f', builtin.live_grep, {})
-        vim.keymap.set('n', '<leader>h', builtin.help_tags, {})
+        vim.keymap.set('n', '<leader>b', builtin.buffers, {
+            noremap = true,
+            silent = true,
+            desc = 'Search [b]uffers',
+        })
+        vim.keymap.set('n', '<leader>f', builtin.live_grep, {
+            noremap = true,
+            silent = true,
+            desc = '[F]ind in files',
+        })
+        vim.keymap.set('n', '<leader>h', builtin.help_tags, {
+            noremap = true,
+            silent = true,
+            desc = 'Show [h]elp tags',
+        })
+        vim.keymap.set('n', '<leader>k', builtin.keymaps, {
+            noremap = true,
+            silent = true,
+            desc = 'Show [k]eymap',
+        })
+
+        -- Mapping to reopen the last closed picker
+        vim.keymap.set('n', '<leader>r', builtin.resume, {
+            noremap = true,
+            silent = true,
+            desc = '[R]eopen the last closed picker',
+        })
     end
 }

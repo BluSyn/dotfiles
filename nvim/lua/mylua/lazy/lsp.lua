@@ -30,14 +30,13 @@ return {
         vim.api.nvim_create_autocmd('LspAttach', {
             desc = 'LSP Keybindings',
             callback = function()
+                local tele = require('telescope.builtin')
                 vim.keymap.set('n', ';', vim.lsp.buf.hover, { desc = 'LSP: Hover' })
                 vim.keymap.set('n', '<leader>;', vim.lsp.buf.signature_help, { desc = 'LSP: Signature Help' })
-                vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { desc = 'LSP: [G]oto [I]mplentation' })
-                vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'LSP: [G]oto [D]efinition' })
-                vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, { desc = 'LSP: [G]oto [T]ype Definition' })
-                vim.keymap.set('n', 'gr',
-                    require('telescope.builtin').lsp_references,
-                    { desc = 'LSP: [G]oto [R]eferences' })
+                vim.keymap.set('n', 'gi', tele.lsp_implementations, { desc = 'LSP: [G]oto [I]mplentation' })
+                vim.keymap.set('n', 'gd', tele.lsp_definitions, { desc = 'LSP: [G]oto [D]efinition' })
+                vim.keymap.set('n', 'gt', tele.lsp_type_definitions, { desc = 'LSP: [G]oto [T]ype Definition' })
+                vim.keymap.set('n', 'gr', tele.lsp_references, { desc = 'LSP: [G]oto [R]eferences' })
                 vim.keymap.set('n', 'gar', vim.lsp.buf.rename, { desc = 'LSP: [G]lobal [A]ction [R]ename' })
                 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Next [D]iagnostic' })
                 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Next [D]iagnostic' })
