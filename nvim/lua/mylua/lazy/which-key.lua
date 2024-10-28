@@ -1,7 +1,16 @@
 return {
-    -- 'folke/which-key.nvim',
-    -- config = function()
-    --     local wk = require('which-key')
-    --     wk.register()
-    -- end
+    'folke/which-key.nvim',
+    event = 'VeryLazy',
+    opts = {
+
+    },
+    keys = {
+        {
+            '<leader>?',
+            function()
+                require('which-key').show({ global = false })
+            end,
+            desc = 'Show keymaps',
+        },
+    },
 }
