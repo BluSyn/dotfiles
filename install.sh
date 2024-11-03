@@ -64,6 +64,7 @@ link $HOME/dotfiles/nvim $HOME/.config/nvim
 link $HOME/dotfiles/helix $HOME/.config/helix
 link $HOME/dotfiles/alacritty $HOME/.config/alacritty
 link $HOME/dotfiles/wezterm $HOME/.config/wezterm
+link $HOME/dotfiles/aerospace $HOME/.config/aerospace
 link $HOME/dotfiles/starship/starship.toml $HOME/.config/starship.toml
 
 # Frequently htop dir already exists, just link config
