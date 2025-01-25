@@ -97,7 +97,7 @@ return {
                         capabilities = lsp_capabilities,
                     })
                 end,
-                ["lua_ls"] = function()
+                ['lua_ls'] = function()
                     lsp_config.lua_ls.setup({
                         capabilities = lsp_capabilities,
                         settings = {
@@ -117,14 +117,16 @@ return {
                         }
                     })
                 end,
-                ["tailwindcss"] = function()
+                ['tailwindcss'] = function()
                     lsp_config.tailwindcss.setup({
+                        filetypes = { 'typescriptreact', 'javascriptreact', 'typescript', 'javascript', 'html', 'css' },
                         capabilities = lsp_capabilities,
                         root_dir = function(fname)
-                            local root_pattern = require("lspconfig").util.root_pattern(
-                                "tailwind.config.cjs",
-                                "tailwind.config.js",
-                                "postcss.config.js"
+                            local root_pattern = require('lspconfig').util.root_pattern(
+                                'tailwind.config.cjs',
+                                'tailwind.config.js',
+                                'tailwind.config.ts',
+                                'postcss.config.js'
                             )
                             return root_pattern(fname)
                         end,
@@ -160,7 +162,7 @@ return {
             },
             snippet = {
                 expand = function(args)
-                    vim.fn["vsnip#anonymous"](args.body)
+                    vim.fn['vsnip#anonymous'](args.body)
                 end,
             },
             mapping = cmp.mapping.preset.insert({
