@@ -34,7 +34,7 @@ return {
         -- Search through *all* files
         -- This will include hidden files and files in the .gitignore
         -- Such as node_modules, .git, etc.
-        vim.keymap.set('n', '<leader>a', function()
+        vim.keymap.set('n', '<leader>/', function()
             builtin.find_files({
                 hidden = true,
                 no_ignore = true,
