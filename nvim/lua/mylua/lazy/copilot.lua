@@ -34,15 +34,23 @@ return {
                 },
             })
 
-            local keymap = vim.keymap.set
-            local opts = { noremap = true, silent = true }
+            local function set_keymap(mode, lhs, rhs, desc)
+                local opts = { noremap = true, silent = true, desc = desc }
+                vim.keymap.set(mode, lhs, rhs, opts)
+            end
 
-            keymap('n', '<leader>c', ':CopilotChatToggle<CR>', vim.tbl_extend('force', opts, { desc = 'Copilot: Chat' }))
-            keymap('n', '<leader>af', ':CopilotChatFix<CR>', vim.tbl_extend('force', opts, { desc = 'Copilot: Fix' }))
-            keymap('n', '<leader>ar', ':CopilotChatReview<CR>',
-                vim.tbl_extend('force', opts, { desc = 'Copilot: Review' }))
-            keymap('n', '<leader>ao', ':CopilotChatOptimize<CR>',
-                vim.tbl_extend('force', opts, { desc = 'Copilot: Optimize' }))
+            set_keymap('n', '<leader>c', ':CopilotChatToggle<CR>', 'Copilot: Chat')
+            set_keymap('n', '<leader>af', ':CopilotChatFix<CR>', 'Copilot: Fix')
+            set_keymap('n', '<leader>ar', ':CopilotChatReview<CR>', 'Copilot: Review')
+            set_keymap('n', '<leader>ao', ':CopilotChatOptimize<CR>', 'Copilot: Optimize')
+            set_keymap('n', '<leader>aq', function()
+                local input = vim.fn.input('Quick Chat: ')
+                if input ~= '' then
+                    require('CopilotChat').ask(input, {
+                        selection = require('CopilotChat.select').buffer
+                    })
+                end
+            end, 'CopilotChat - Quick chat')
         end
     },
 }
