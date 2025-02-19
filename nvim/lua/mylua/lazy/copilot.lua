@@ -9,7 +9,7 @@ return {
                     enabled = true,
                     auto_trigger = true,
                     keymap = {
-                        accept = '<C-l>',
+                        accept = '<Right>',
                         accept_word = false,
                         accept_line = false,
                     },
