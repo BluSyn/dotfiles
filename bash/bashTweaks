@@ -31,8 +31,8 @@ PS1="$LGRAY\w$RESET$GREEN$GIT$RESET\n[$LGRAY\t$RESET][$YELLOW\u$RESET$LGRAY@$RES
 # File listings
 #alias ls='ls --color=auto'
 #alias ll='ls -lsah'
-alias ll='exa -labgF --git --time-style long-iso'
-alias lls='exa -labgF --git --git-ignore --time-style long-iso --ignore-glob=".git" --tree -L 2'
+alias ll='eza -labgF --git --time-style long-iso'
+alias lls='eza -labgF --git --git-ignore --time-style long-iso --ignore-glob=".git" --tree -L 2'
 
 # GIT shorthands
 alias g="git"

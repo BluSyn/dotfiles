@@ -43,7 +43,7 @@
     {
       "window_name": "work",
       "panes": [
-        "ls"
+        "ll"
       ]
     }
   ]
