@@ -24,8 +24,12 @@ return {
 
         local builtin = require('telescope.builtin')
 
-        -- Search through main project files
-        vim.keymap.set('n', '<leader>\\', builtin.git_files, {
+        -- Search through main project files, including unstaged files
+        vim.keymap.set('n', '<leader>\\', function()
+            builtin.find_files({
+                find_command = { 'git', 'ls-files', '--cached', '--others', '--exclude-standard' },
+            })
+        end, {
             noremap = true,
             silent = true,
             desc = 'Search project files',
