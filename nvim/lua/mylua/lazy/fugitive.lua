@@ -1,12 +1,15 @@
 return {
     'tpope/vim-fugitive',
     config = function()
-        vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
+        vim.keymap.set('n', '<leader>gs', vim.cmd.Git, {
+            noremap = true,
+            silent = true,
+            desc = 'Git status',
+        })
 
         local Fugitive = vim.api.nvim_create_augroup('Fugitive', {})
 
-        local autocmd = vim.api.nvim_create_autocmd
-        autocmd('BufWinEnter', {
+        vim.api.nvim_create_autocmd('BufWinEnter', {
             group = Fugitive,
             pattern = '*',
             callback = function()

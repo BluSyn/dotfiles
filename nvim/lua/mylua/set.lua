@@ -44,6 +44,9 @@ vim.opt.clipboard:append('unnamedplus')
 
 vim.opt.showtabline = 0
 
+-- netrw explorer
+vim.g.netrw_banner = 0
+
 -- Generally read .keymap files as C ones
 vim.cmd [[autocmd BufNewFile,BufRead *.keymap setfiletype c]]
 

@@ -17,11 +17,22 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup('mylua.lazy')
 
+-- open netrw in the directory of the current file
+vim.keymap.set('n', '<leader>gd', ':Explore %:p:h<CR>', {
+    noremap = true,
+    silent = true,
+    desc = 'Open netrw in the directory of the current file',
+})
+
 -- Create new file or directory in netrw with 'a'
 vim.api.nvim_create_autocmd('FileType', {
     pattern = 'netrw',
     callback = function()
-        vim.api.nvim_buf_set_keymap(0, 'n', 'a', ':lua CreateFileOrDir()<CR>', { noremap = true, silent = true })
+        vim.api.nvim_buf_set_keymap(0, 'n', 'a', ':lua CreateFileOrDir()<CR>', {
+            noremap = true,
+            silent = true,
+            desc = 'Create new file or directory in netrw',
+        })
     end,
 })
 
