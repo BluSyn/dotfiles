@@ -125,6 +125,40 @@ bool rgb_matrix_indicators_user(void) {
     return true;
 }
 
+bool is_symbol_key(uint16_t keycode) {
+    switch(keycode) {
+        case KC_EXLM:
+        case KC_AT:
+        case KC_HASH:
+        case KC_DLR:
+        case KC_PERC:
+        case KC_CIRC:
+        case KC_AMPR:
+        case KC_ASTR:
+        case KC_LPRN:
+        case KC_RPRN:
+            return true;
+        default:
+            return false;
+    }
+}
+
+uint16_t get_number_keycode(uint16_t symbol_keycode) {
+    switch(symbol_keycode) {
+        case KC_EXLM: return KC_1;
+        case KC_AT: return KC_2;
+        case KC_HASH: return KC_3;
+        case KC_DLR: return KC_4;
+        case KC_PERC: return KC_5;
+        case KC_CIRC: return KC_6;
+        case KC_AMPR: return KC_7;
+        case KC_ASTR: return KC_8;
+        case KC_LPRN: return KC_9;
+        case KC_RPRN: return KC_0;
+        default: return KC_NO;
+    }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case ST_MACRO_0:
@@ -158,64 +192,41 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
     }
 
+    if (!record->event.pressed) {
+        return true;
+    }
+
     // support custom shift keys
     // TODO: use custom_shift_keys module when zsa voyager upgrades to latest qmk
     // https://getreuer.info/posts/keyboards/custom-shift-keys/#add-custom-shift-keys-to-your-keymap
-    if (record->event.pressed) {
-        uint8_t shift_mods = get_mods() & MOD_MASK_SHIFT;
-        if (shift_mods) {
-            // Store the current Shift state to restore later
-            bool left_shift = shift_mods & MOD_BIT(KC_LSFT);
-            bool right_shift = shift_mods & MOD_BIT(KC_RSFT);
+    // Behavior:
+    // symbol key = symbol
+    // shift + symbol = number
+    // cmd + symbol = cmd + number
+    uint8_t mods = get_mods();
+    uint8_t cmd_mods = mods & (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI));
+    uint8_t shift_mods = mods & MOD_MASK_SHIFT;
+    bool is_symbol = is_symbol_key(keycode);
+    if (is_symbol && cmd_mods && !shift_mods) {
+        // only command is pressed, no shift
+        uint16_t number_keycode = get_number_keycode(keycode);
+        tap_code(number_keycode);
+        return false;
+    } else if (is_symbol && !cmd_mods && shift_mods) {
+        bool left_shift = shift_mods & MOD_BIT(KC_LSFT);
+        bool right_shift = shift_mods & MOD_BIT(KC_RSFT);
+        uint16_t number_keycode = get_number_keycode(keycode);
 
-            // Unregister all active Shift modifiers
-            if (left_shift) unregister_code(KC_LSFT);
-            if (right_shift) unregister_code(KC_RSFT);
+        // Unregister all active Shift modifiers
+        if (left_shift) unregister_code(KC_LSFT);
+        if (right_shift) unregister_code(KC_RSFT);
 
-            // Handle the custom shift behavior
-            switch (keycode) {
-                case KC_EXLM:  // ! → 1
-                    tap_code(KC_1);
-                    break;
-                case KC_AT:    // @ → 2
-                    tap_code(KC_2);
-                    break;
-                case KC_HASH:  // # → 3
-                    tap_code(KC_3);
-                    break;
-                case KC_DLR:   // $ → 4
-                    tap_code(KC_4);
-                    break;
-                case KC_PERC:  // % → 5
-                    tap_code(KC_5);
-                    break;
-                case KC_CIRC:  // ^ → 6
-                    tap_code(KC_6);
-                    break;
-                case KC_AMPR:  // & → 7
-                    tap_code(KC_7);
-                    break;
-                case KC_ASTR:  // * → 8
-                    tap_code(KC_8);
-                    break;
-                case KC_LPRN:  // ( → 9
-                    tap_code(KC_9);
-                    break;
-                case KC_RPRN:  // ) → 0
-                    tap_code(KC_0);
-                    break;
-                default:
-                    // If not a custom shift key, restore Shift and let QMK handle it
-                    if (left_shift) register_code(KC_LSFT);
-                    if (right_shift) register_code(KC_RSFT);
-                    return true;
-            }
+        tap_code(number_keycode);
 
-            // Restore the original Shift state after sending the number
-            if (left_shift) register_code(KC_LSFT);
-            if (right_shift) register_code(KC_RSFT);
-            return false;
-        }
+        // Restore the original Shift state after sending the number
+        if (left_shift) register_code(KC_LSFT);
+        if (right_shift) register_code(KC_RSFT);
+        return false;
     }
 
     return true;
