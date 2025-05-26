@@ -24,8 +24,6 @@ vim.keymap.set('i', '<C-c>', '<Esc>', { desc = "Escape Insert Mode" })
 -- disable
 vim.keymap.set('n', 'Q', '<nop>')
 
-vim.keymap.set('n', '<leader>gf', vim.lsp.buf.format, { desc = "Format File (LSP)" })
-
 vim.keymap.set('n', '<leader>p', '<C-o>', { desc = "Previous Location" })
 vim.keymap.set('n', '<leader>n', '<C-i>', { desc = "Next Location" })
 vim.keymap.set('n', '<leader><leader>', '<C-^>', { desc = "Prevous Buffer" })

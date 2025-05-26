@@ -3,8 +3,11 @@ return {
 
     dependencies = {
         -- LSP Installer
-        'williamboman/mason.nvim',
-        'williamboman/mason-lspconfig.nvim',
+        'mason-org/mason.nvim',
+        'mason-org/mason-lspconfig.nvim',
+
+        -- LSP Autoformat
+        'lukas-reineke/lsp-format.nvim',
 
         -- Autocompletion
         'hrsh7th/nvim-cmp',
@@ -29,7 +32,10 @@ return {
         -- Keybindings
         vim.api.nvim_create_autocmd('LspAttach', {
             desc = 'LSP Keybindings',
-            callback = function()
+            callback = function(args)
+                local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+                require('lsp-format').on_attach(client, args.buf)
+
                 local tele = require('telescope.builtin')
                 vim.keymap.set('n', ';', vim.lsp.buf.hover, {
                     noremap = true,
@@ -66,12 +72,18 @@ return {
                     silent = true,
                     desc = 'LSP: [G]lobal [A]ction [R]ename'
                 })
-                vim.keymap.set('n', ']d', vim.diagnostic.goto_next, {
+                vim.keymap.set('n', ']d', function()
+                    -- goto_next deprecated in favor of jump
+                    vim.diagnostic.jump({ count = 1, float = true })
+                end, {
                     noremap = true,
                     silent = true,
                     desc = 'Next [D]iagnostic'
                 })
-                vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, {
+                vim.keymap.set('n', '[d', function()
+                    -- goto_prev deprecated in favor of jump
+                    vim.diagnostic.jump({ count = -1, float = true })
+                end, {
                     noremap = true,
                     silent = true,
                     desc = 'Next [D]iagnostic'
@@ -80,68 +92,40 @@ return {
         })
 
         -- LSP Config
-        local lsp_config = require('lspconfig')
         local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-        require('mason').setup({})
+        require('mason').setup()
         require('mason-lspconfig').setup({
             ensure_installed = {
                 'ts_ls',
-                'rust_analyzer',
                 'lua_ls',
+                'eslint',
+                'rust_analyzer',
             },
             automatic_installation = true,
-            handlers = {
-                function(server)
-                    lsp_config[server].setup({
-                        capabilities = lsp_capabilities,
-                    })
-                end,
-                ['lua_ls'] = function()
-                    lsp_config.lua_ls.setup({
-                        capabilities = lsp_capabilities,
-                        settings = {
-                            Lua = {
-                                runtime = {
-                                    version = 'LuaJIT'
-                                },
-                                diagnostics = {
-                                    globals = { 'vim' },
-                                },
-                                workspace = {
-                                    library = {
-                                        vim.env.VIMRUNTIME,
-                                    }
-                                }
-                            }
-                        }
-                    })
-                end,
-                ['tailwindcss'] = function()
-                    lsp_config.tailwindcss.setup({
-                        filetypes = { 'typescriptreact', 'javascriptreact', 'typescript', 'javascript', 'html', 'css' },
-                        capabilities = lsp_capabilities,
-                        root_dir = function(fname)
-                            local root_pattern = require('lspconfig').util.root_pattern(
-                                'tailwind.config.cjs',
-                                'tailwind.config.js',
-                                'tailwind.config.ts',
-                                'postcss.config.js'
-                            )
-                            return root_pattern(fname)
-                        end,
-                    })
-                end,
-            }
         })
 
-        -- Format
-        vim.api.nvim_create_autocmd('BufWritePre', {
-            desc = 'LSP Format',
-            pattern = '*',
-            callback = function()
-                vim.lsp.buf.format()
-            end
+        vim.lsp.config('rust_analyzer', {
+            capabilities = lsp_capabilities,
+        })
+
+        vim.lsp.config('eslint', {
+            capabilities = lsp_capabilities,
+        })
+
+        vim.lsp.config('ts_ls', {
+            capabilities = lsp_capabilities,
+        })
+
+        vim.lsp.config('lua_ls', {
+            capabilities = lsp_capabilities,
+            settings = {
+                Lua = {
+                    diagnostics = {
+                        globals = { 'vim' },
+                    },
+                }
+            }
         })
 
         -- Autocompletion
