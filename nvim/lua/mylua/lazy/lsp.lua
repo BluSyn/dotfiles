@@ -6,9 +6,6 @@ return {
         'mason-org/mason.nvim',
         'mason-org/mason-lspconfig.nvim',
 
-        -- LSP Autoformat
-        'lukas-reineke/lsp-format.nvim',
-
         -- Autocompletion
         'hrsh7th/nvim-cmp',
         'hrsh7th/cmp-buffer',
@@ -32,10 +29,7 @@ return {
         -- Keybindings
         vim.api.nvim_create_autocmd('LspAttach', {
             desc = 'LSP Keybindings',
-            callback = function(args)
-                local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-                require('lsp-format').on_attach(client, args.buf)
-
+            callback = function()
                 local tele = require('telescope.builtin')
                 vim.keymap.set('n', ';', vim.lsp.buf.hover, {
                     noremap = true,
@@ -103,18 +97,6 @@ return {
                 'rust_analyzer',
             },
             automatic_installation = true,
-        })
-
-        vim.lsp.config('rust_analyzer', {
-            capabilities = lsp_capabilities,
-        })
-
-        vim.lsp.config('eslint', {
-            capabilities = lsp_capabilities,
-        })
-
-        vim.lsp.config('ts_ls', {
-            capabilities = lsp_capabilities,
         })
 
         vim.lsp.config('lua_ls', {
