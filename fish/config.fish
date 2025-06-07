@@ -135,6 +135,46 @@ function fish_user_key_bindings
     end
 end
 
+# Function to load environment variables from 1Password items tagged with 'env'
+function load_keys
+    # Ensure 1Password CLI is authenticated
+    if not op whoami >/dev/null 2>&1
+        op signin
+        # echo "Please authenticate with 1Password CLI first (run 'op signin')"
+        # return 1
+    end
+
+    # Get list of items tagged with 'env_var'
+    set items (op item list --tags env --format=json | jq -r '.[].id')
+
+    if test -z "$items"
+        echo "No 1Password items found with tag 'env'"
+        return 1
+    end
+
+    # Loop through each item and set as environment variable
+    for item_id in $items
+        # Get title and credential in one call
+        set item_data (op item get $item_id --format=json | jq -r '.title, (.fields[] | select(.id=="credential") | .value)')
+        set title $item_data[1]
+        set credential $item_data[2]
+
+        if test -n "$credential"
+            # Convert title to uppercase and replace spaces with underscores
+            set env_var_name (echo $title | tr '[:lower:]' '[:upper:]' | tr ' ' '_')
+            set -gx $env_var_name $credential
+            echo "Set $env_var_name"
+        else
+            echo "Failed to load credential for item: $title"
+        end
+    end
+end
+
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/blu/google-cloud-sdk/path.fish.inc' ]; . '/Users/blu/google-cloud-sdk/path.fish.inc'; end
+# if [ -f '/Users/blu/google-cloud-sdk/path.fish.inc' ]; . '/Users/blu/google-cloud-sdk/path.fish.inc'; end
+
+
+# Added by LM Studio CLI (lms)
+set -gx PATH $PATH /Users/blu/.cache/lm-studio/bin
+# End of LM Studio CLI section
 
