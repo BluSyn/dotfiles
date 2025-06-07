@@ -29,3 +29,10 @@ vim.keymap.set('n', '<leader>n', '<C-i>', { desc = "Next Location" })
 vim.keymap.set('n', '<leader><leader>', '<C-^>', { desc = "Prevous Buffer" })
 
 vim.keymap.set('n', '<leader>x', '<cmd>!chmod +x %<CR>', { silent = true, desc = "Mark File Executable" })
+
+-- Terminal mode navigation
+local opts = { noremap = true, silent = true }
+vim.keymap.set('t', '<C-h>', '<C-\\><C-N><C-w>h', opts)
+vim.keymap.set('t', '<C-j>', '<C-\\><C-N><C-w>j', opts)
+vim.keymap.set('t', '<C-k>', '<C-\\><C-N><C-w>k', opts)
+vim.keymap.set('t', '<C-l>', '<C-\\><C-N><C-w>l', opts)
