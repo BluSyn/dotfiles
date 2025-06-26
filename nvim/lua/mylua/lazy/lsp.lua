@@ -80,7 +80,7 @@ return {
                 end, {
                     noremap = true,
                     silent = true,
-                    desc = 'Next [D]iagnostic'
+                    desc = 'Previous [D]iagnostic'
                 })
             end
         })
