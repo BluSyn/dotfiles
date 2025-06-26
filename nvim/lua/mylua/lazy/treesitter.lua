@@ -19,6 +19,7 @@ return {
                 'lua',
                 'rust',
                 'bash',
+                'python',
             },
             sync_install = false,
             auto_install = true,
