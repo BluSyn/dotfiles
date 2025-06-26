@@ -1,11 +1,12 @@
 return {
-    -- 'nvim-treesitter/nvim-treesitter-context',
-
     'nvim-treesitter/nvim-treesitter',
     build = function()
         local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
         ts_update()
     end,
+    dependencies = {
+        'nvim-treesitter/nvim-treesitter-context',
+    },
     config = function()
         require('nvim-treesitter.configs').setup({
             ensure_installed = {
@@ -34,6 +35,10 @@ return {
             playground = {
                 enable = true,
             },
+        })
+
+        require('treesitter-context').setup({
+            enable = true,
         })
     end
 }

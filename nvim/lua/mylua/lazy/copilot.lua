@@ -82,9 +82,6 @@ return {
     --             provider_options = {
     --                 openai_compatible = {
     --                     model = 'qwen/qwen2.5-32b-instruct',
-    --                     system = 'see [Prompt] section for the default value',
-    --                     few_shots = 'see [Prompt] section for the default value',
-    --                     chat_input = 'See [Prompt Section for default value]',
     --                     stream = true,
     --                     end_point = 'https://openrouter.ai/api/v1/chat/completions',
     --                     api_key = 'OPENROUTER_API_KEY',
