@@ -76,5 +76,12 @@ return {
             silent = true,
             desc = '[R]eopen the last closed picker',
         })
+
+        -- Mapping for git status
+        vim.keymap.set('n', '<leader>gs', builtin.git_status, {
+            noremap = true,
+            silent = true,
+            desc = '[G]it [S]tatus',
+        })
     end
 }

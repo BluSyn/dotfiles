@@ -21,6 +21,13 @@ vim.keymap.set('v', '<leader>d', '"_d', { desc = "Delete without yanking" })
 
 vim.keymap.set('i', '<C-c>', '<Esc>', { desc = "Escape Insert Mode" })
 
+-- Map <Esc> in normal mode to clear search highlight
+vim.keymap.set('n', '<Esc>', ':nohlsearch<CR><Esc>', {
+    noremap = true,
+    silent = true,
+    desc = 'Clear search highlight with Esc'
+})
+
 -- disable
 vim.keymap.set('n', 'Q', '<nop>')
 
