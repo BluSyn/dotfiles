@@ -82,6 +82,11 @@ return {
                     silent = true,
                     desc = 'Previous [D]iagnostic'
                 })
+                vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, {
+                    noremap = true,
+                    silent = true,
+                    desc = 'LSP: [D]iagnostic [Q]uickfix list'
+                })
             end
         })
 
