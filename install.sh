@@ -67,6 +67,10 @@ link $HOME/dotfiles/wezterm $HOME/.config/wezterm
 link $HOME/dotfiles/aerospace $HOME/.config/aerospace
 link $HOME/dotfiles/starship/starship.toml $HOME/.config/starship.toml
 
+# aider doesnt use standard config dir, apparently just to annoy everyone
+link $HOME/dotfiles/aider/conf.yml $HOME/.aider.conf.yml
+
+link $HOME/dotfiles/bash/bashTweaks $HOME/.bashTweaks
 # Frequently htop dir already exists, just link config
 mkdir $HOME/.config/htop
 link $HOME/dotfiles/htop/htoprc $HOME/.config/htop/htoprc
