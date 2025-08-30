@@ -136,7 +136,7 @@ function fish_user_key_bindings
 end
 
 # Function to load environment variables from 1Password items tagged with 'env'
-function load_keys
+function load_keys_onepass
     # Ensure 1Password CLI is authenticated
     if not op whoami >/dev/null 2>&1
         op signin
@@ -170,11 +170,42 @@ function load_keys
     end
 end
 
+# Function to load environment variables from pass entries under api/
+function load_keys
+    # Check if pass is available
+    if not command -v pass > /dev/null
+        echo "pass CLI not found"
+        return 1
+    end
+
+    # Get list of entries under api/, strip ANSI and tree chars, preserve newlines
+    # seriously, why does pass not offer clean output flag?
+    set api_entries (pass ls api/ 2>/dev/null | sed -n '/[├└]── /s/[├└─]//g; s/\x1B\[[0-9;]*[a-zA-Z]//g; p' | string trim)
+    if test -z "$api_entries"
+        echo "No pass entries found under api/"
+        return 1
+    end
+
+    for entry in $api_entries
+        if test "$entry" = "api"
+            continue
+        end
+
+        # Sanitize entry: trim whitespace and remove non-alphanumeric chars
+        # this hurts my soul
+        set service (string trim -- "$entry" | string replace -ra '\x1B\[[0-9;]*[a-zA-Z]' '' | string replace -ra '[^a-zA-Z0-9_-]' '')
+        set key (pass show "api/$service" 2>/dev/null)
+
+        if test -n "$key"
+            # Convert service to uppercase and add _API_KEY
+            set env_var_name (echo $service | tr '[:lower:]' '[:upper:]')_API_KEY
+            set -gx $env_var_name $key
+            echo "Set $env_var_name"
+        else
+            echo "Failed to load key for api/$entry"
+        end
+    end
+end
+
 # The next line updates PATH for the Google Cloud SDK.
 # if [ -f '/Users/blu/google-cloud-sdk/path.fish.inc' ]; . '/Users/blu/google-cloud-sdk/path.fish.inc'; end
-
-
-# Added by LM Studio CLI (lms)
-set -gx PATH $PATH /Users/blu/.cache/lm-studio/bin
-# End of LM Studio CLI section
-
