@@ -17,32 +17,103 @@ return {
                 telemetryLevel = 'off',
             },
             -- auth_provider_url = 'http://127.0.0.1:1234/',
-            -- copilot_model = '',
+            copilot_model = 'xai-grok-code-fast-1',
         },
     },
     {
-        'GeorgesAlkhouri/nvim-aider',
-        cmd = 'Aider',
-        -- Example key mappings for common actions:
+        "folke/sidekick.nvim",
+        opts = {
+            nes = { enabled = false },
+            mux = {
+                backend = "tmux",
+                enabled = true,
+            },
+        },
+        -- stylua: ignore
         keys = {
-            { '<leader>a/', '<cmd>Aider toggle<cr>',       desc = 'Toggle Aider' },
-            { '<leader>as', '<cmd>Aider send<cr>',         desc = 'Send to Aider', mode = { 'n', 'v' } },
-            { '<leader>ac', '<cmd>Aider command<cr>',      desc = 'Aider Commands' },
-            { '<leader>ab', '<cmd>Aider buffer<cr>',       desc = 'Send Buffer' },
-            { '<leader>a+', '<cmd>Aider add<cr>',          desc = 'Add File' },
-            { '<leader>a-', '<cmd>Aider drop<cr>',         desc = 'Drop File' },
-            { '<leader>ar', '<cmd>Aider add readonly<cr>', desc = 'Add Read-Only' },
-            { '<leader>aR', '<cmd>Aider reset<cr>',        desc = 'Reset Session' },
+            {
+                "<tab>",
+                function()
+                    -- if there is a next edit, jump to it, otherwise apply it if any
+                    if require("sidekick").nes_jump_or_apply() then
+                        return -- jumped or applied
+                    end
+
+                    -- if you are using Neovim's native inline completions
+                    if vim.lsp.inline_completion.get() then
+                        return
+                    end
+
+                    -- any other things (like snippets) you want to do on <tab> go here.
+
+                    -- fall back to normal tab
+                    return "<tab>"
+                end,
+                mode = { "i", "n" },
+                expr = true,
+                desc = "Goto/Apply Next Edit Suggestion",
+            },
+            {
+                "<leader>aa",
+                function() require("sidekick.cli").toggle({ name = "aider", focus = true }) end,
+                desc = "Sidekick Toggle CLI",
+            },
+            {
+                "<leader>as",
+                function() require("sidekick.cli").select() end,
+                -- Or to select only installed tools:
+                -- require("sidekick.cli").select({ filter = { installed = true } })
+                desc = "Select CLI",
+            },
+            {
+                "<leader>at",
+                function() require("sidekick.cli").send({ msg = "{this}" }) end,
+                mode = { "x", "n" },
+                desc = "Send This",
+            },
+            {
+                "<leader>av",
+                function() require("sidekick.cli").send({ msg = "{selection}" }) end,
+                mode = { "x" },
+                desc = "Send Visual Selection",
+            },
+            {
+                "<leader>ap",
+                function() require("sidekick.cli").prompt() end,
+                mode = { "n", "x" },
+                desc = "Sidekick Select Prompt",
+            },
+            {
+                "<c-.>",
+                function() require("sidekick.cli").focus() end,
+                mode = { "n", "x", "i", "t" },
+                desc = "Sidekick Switch Focus",
+            },
         },
-        dependencies = {
-            'folke/snacks.nvim',
-        },
-        config = function()
-            require('nvim_aider').setup({
-                auto_reload = true,
-            })
-        end,
     },
+    -- {
+    --     'GeorgesAlkhouri/nvim-aider',
+    --     cmd = 'Aider',
+    --     -- Example key mappings for common actions:
+    --     keys = {
+    --         { '<leader>a/', '<cmd>Aider toggle<cr>',       desc = 'Toggle Aider' },
+    --         { '<leader>as', '<cmd>Aider send<cr>',         desc = 'Send to Aider', mode = { 'n', 'v' } },
+    --         { '<leader>ac', '<cmd>Aider command<cr>',      desc = 'Aider Commands' },
+    --         { '<leader>ab', '<cmd>Aider buffer<cr>',       desc = 'Send Buffer' },
+    --         { '<leader>a+', '<cmd>Aider add<cr>',          desc = 'Add File' },
+    --         { '<leader>a-', '<cmd>Aider drop<cr>',         desc = 'Drop File' },
+    --         { '<leader>ar', '<cmd>Aider add readonly<cr>', desc = 'Add Read-Only' },
+    --         { '<leader>aR', '<cmd>Aider reset<cr>',        desc = 'Reset Session' },
+    --     },
+    --     dependencies = {
+    --         'folke/snacks.nvim',
+    --     },
+    --     config = function()
+    --         require('nvim_aider').setup({
+    --             auto_reload = true,
+    --         })
+    --     end,
+    -- },
     -- {
     --     'TabbyML/vim-tabby',
     --     lazy = false,
