@@ -17,6 +17,7 @@ return {
                 telemetryLevel = 'off',
             },
             -- auth_provider_url = 'http://127.0.0.1:1234/',
+            -- doesnt actually work?
             copilot_model = 'xai-grok-code-fast-1',
         },
     },
@@ -55,7 +56,7 @@ return {
             },
             {
                 "<leader>aa",
-                function() require("sidekick.cli").toggle({ name = "aider", focus = true }) end,
+                function() require("sidekick.cli").toggle({ name = "opencode", focus = true }) end,
                 desc = "Sidekick Toggle CLI",
             },
             {
@@ -152,17 +153,18 @@ return {
     --             provider = 'openai_compatible',
     --             provider_options = {
     --                 openai_compatible = {
-    --                     model = 'qwen/qwen2.5-32b-instruct',
-    --                     stream = true,
-    --                     end_point = 'https://openrouter.ai/api/v1/chat/completions',
-    --                     api_key = 'OPENROUTER_API_KEY',
+    --                     -- end_point = 'https://openrouter.ai/api/v1/chat/completions',
+    --                     -- api_key = 'OPENROUTER_API_KEY',
+    --                     end_point = 'https://api.x.ai/v1/chat/completions',
+    --                     api_key = 'XAI_API_KEY',
+    --                     model = 'grok-code-fast-1',
     --                     name = 'Openrouter',
     --                     optional = {
     --                         stop = nil,
     --                         max_tokens = nil,
     --                     },
     --                 }
-    --             }
+    --             },
     --         }
     --     end,
     -- },
