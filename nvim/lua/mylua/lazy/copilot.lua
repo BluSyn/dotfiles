@@ -57,14 +57,17 @@ return {
             {
                 "<leader>aa",
                 function() require("sidekick.cli").toggle({ name = "opencode", focus = true }) end,
-                desc = "Sidekick Toggle CLI",
+                desc = "Sidekick Toggle Opencode",
             },
             {
                 "<leader>as",
                 function() require("sidekick.cli").select() end,
-                -- Or to select only installed tools:
-                -- require("sidekick.cli").select({ filter = { installed = true } })
-                desc = "Select CLI",
+                desc = "Sidekick Select CLI",
+            },
+            {
+                "<leader>ai",
+                function() require("sidekick.cli").toggle({ name = "aider", focus = true }) end,
+                desc = "Sidekick Toggle Aider",
             },
             {
                 "<leader>at",
@@ -83,12 +86,6 @@ return {
                 function() require("sidekick.cli").prompt() end,
                 mode = { "n", "x" },
                 desc = "Sidekick Select Prompt",
-            },
-            {
-                "<c-.>",
-                function() require("sidekick.cli").focus() end,
-                mode = { "n", "x", "i", "t" },
-                desc = "Sidekick Switch Focus",
             },
         },
     },
