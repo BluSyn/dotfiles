@@ -2,7 +2,7 @@
 
 return {
     'folke/zen-mode.nvim',
-    'nvim-treesitter/playground',
+    -- 'nvim-treesitter/playground',
     {
         'eandrju/cellular-automaton.nvim',
         config = function()

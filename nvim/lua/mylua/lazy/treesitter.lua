@@ -1,43 +1,31 @@
 return {
     'nvim-treesitter/nvim-treesitter',
-    build = function()
-        local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-        ts_update()
-    end,
+    branch = "main",
+    build = ":TSUpdate",
     dependencies = {
         'nvim-treesitter/nvim-treesitter-context',
     },
     config = function()
-        require('nvim-treesitter.configs').setup({
-            ensure_installed = {
-                'vim',
-                'vimdoc',
-                'javascript',
-                'typescript',
-                'go',
-                'c',
-                'lua',
-                'rust',
-                'bash',
-                'python',
-            },
-            sync_install = false,
-            auto_install = true,
-            ignore_install = { '' },
-            highlight = {
-                enable = true,
-            },
-            autopairs = {
-                enable = false,
-            },
-            indent = {
-                enable = true,
-            },
-            playground = {
-                enable = true,
-            },
+        require('nvim-treesitter').setup({})
+
+        local ensure_installed = {
+            'vim', 'vimdoc', 'javascript', 'typescript', 'go', 'c',
+            'lua', 'rust', 'bash', 'python', 'markdown', 'markdown_inline',
+        }
+
+        require('nvim-treesitter').install(ensure_installed)
+
+        vim.api.nvim_create_autocmd('FileType', {
+            callback = function(args)
+                -- Start Treesitter parser (handles highlight)
+                pcall(vim.treesitter.start, args.buf)
+
+                -- Treesitter-based indentation (replaces old indent = { enable = true })
+                vim.bo[args.buf].indentexpr = "v:lua.vim.treesitter.indentexpr()"
+            end,
         })
 
+        -- Your treesitter-context config (unchanged)
         require('treesitter-context').setup({
             enable = true,
         })

@@ -1,5 +1,6 @@
 return {
     'navarasu/onedark.nvim',
+    version = "v0.1.0",
     config = function()
         require('onedark').setup {
             style = 'warmer',
@@ -21,6 +22,7 @@ return {
                 ['@punctuation.special'] = { fg = '$purple' },
                 ['@lsp.type.variable'] = { fg = '$red' },
                 ['@lsp.type.property'] = { fg = '$fg' },
+                ['@spell'] = { fg = '$grey' },
             },
         }
         vim.cmd([[colorscheme onedark]])
