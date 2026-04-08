@@ -42,10 +42,6 @@ return {
         vim.lsp.config('ts_ls', {
             capabilities = lsp_capabilities,
             single_file_support = true,
-            root_dir = function(fname)
-                return vim.fs.root(fname, { 'tsconfig.json', 'package.json', 'jsconfig.json', '.git' })
-                    or vim.fs.dirname(fname)
-            end,
         })
         vim.lsp.config('eslint', { capabilities = lsp_capabilities })
         vim.lsp.config('rust_analyzer', { capabilities = lsp_capabilities })

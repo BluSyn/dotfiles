@@ -18,7 +18,7 @@ return {
             },
             -- auth_provider_url = 'http://127.0.0.1:1234/',
             -- doesnt actually work?
-            copilot_model = 'xai-grok-code-fast-1',
+            -- copilot_model = 'xai-grok-code-fast-1',
         },
     },
     {
