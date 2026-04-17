@@ -10,7 +10,7 @@ return {
 
         local ensure_installed = {
             'vim', 'vimdoc', 'javascript', 'typescript', 'go', 'c',
-            'lua', 'rust', 'bash', 'python', 'markdown', 'markdown_inline',
+            'lua', 'rust', 'bash', 'python', 'markdown', 'markdown_inline', 'prisma',
         }
 
         require('nvim-treesitter').install(ensure_installed)

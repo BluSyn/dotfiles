@@ -45,6 +45,7 @@ return {
         })
         vim.lsp.config('eslint', { capabilities = lsp_capabilities })
         vim.lsp.config('rust_analyzer', { capabilities = lsp_capabilities })
+        vim.lsp.config('prismala', { capabilities = lsp_capabilities })
 
         -- Keybindings
         vim.api.nvim_create_autocmd('LspAttach', {
@@ -101,6 +102,7 @@ return {
                 'lua_ls',
                 'eslint',
                 'rust_analyzer',
+                'prismals',
             },
             automatic_enable = true,
         })
