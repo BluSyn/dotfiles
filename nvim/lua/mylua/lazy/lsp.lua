@@ -23,6 +23,10 @@ return {
 
         -- UI
         'j-hui/fidget.nvim',
+
+        -- devcontainers
+        'jedrzejboczar/devcontainers.nvim',
+        'miversen33/netman.nvim', -- optional to browse files in docker container
     },
 
     config = function()
