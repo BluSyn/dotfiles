@@ -1,0 +1,65 @@
+onboarding = false
+
+# Match ~/.config/tmux/tmux.conf: default-shell is Homebrew fish on macOS.
+# Herdr otherwise uses $SHELL (this machine's login shell is /bin/bash).
+[terminal]
+default_shell = "/opt/homebrew/bin/fish"
+shell_mode = "login"
+new_cwd = "follow"
+
+[ui]
+mouse_capture = true
+copy_on_select = true
+
+# Match tmux: prefix C-a, v/b splits, hjkl panes, prefix+a send-prefix.
+# Changing this file does not apply until `herdr server reload-config`
+# (or prefix+shift+r). Restarting only the client keeps the old server keys.
+[keys]
+prefix = "ctrl+a"
+
+split_vertical = "prefix+v"
+split_horizontal = ["prefix+b", "prefix+minus"]
+toggle_sidebar = "prefix+shift+b"
+
+# Always-move herdr panes (even from nvim). Escape hatch from editor splits.
+focus_pane_left = "prefix+h"
+focus_pane_down = "prefix+j"
+focus_pane_up = "prefix+k"
+focus_pane_right = "prefix+l"
+
+reload_config = "prefix+shift+r"
+resize_mode = "prefix+r"
+copy_mode = "prefix+["
+
+# tmux bind-key -n C-h/j/k/l + is_vim. Agents/shells move herdr panes;
+# nvim keeps the chord for its own splits (see nvim herdr_nav).
+[[keys.command]]
+key = "ctrl+h"
+type = "plugin_action"
+command = "pane-nav.left"
+description = "pane left (vim/agent aware)"
+
+[[keys.command]]
+key = "ctrl+j"
+type = "plugin_action"
+command = "pane-nav.down"
+description = "pane down (vim/agent aware)"
+
+[[keys.command]]
+key = "ctrl+k"
+type = "plugin_action"
+command = "pane-nav.up"
+description = "pane up (vim/agent aware)"
+
+[[keys.command]]
+key = "ctrl+l"
+type = "plugin_action"
+command = "pane-nav.right"
+description = "pane right (vim/agent aware)"
+
+# tmux: bind a send-prefix
+[[keys.command]]
+key = "prefix+a"
+type = "shell"
+command = "herdr pane send-keys \"$HERDR_ACTIVE_PANE_ID\" ctrl+a"
+description = "send prefix to pane"
