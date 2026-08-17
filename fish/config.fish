@@ -5,6 +5,11 @@ fish_add_path ~/.local/bin
 fish_add_path ~/.cargo/bin
 fish_add_path ./node_modules/.bin
 
+# Added by installers
+fish_add_path ~/.grok/bin
+fish_add_path ~/.docker/bin
+
+
 # default editor
 set -x EDITOR nvim
 
@@ -207,5 +212,3 @@ function load_keys
     end
 end
 
-# The next line updates PATH for the Google Cloud SDK.
-# if [ -f '/Users/blu/google-cloud-sdk/path.fish.inc' ]; . '/Users/blu/google-cloud-sdk/path.fish.inc'; end
