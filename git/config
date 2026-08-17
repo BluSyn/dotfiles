@@ -2,14 +2,14 @@
 [user]
     name = Steven Bower
     email = steven@bower.club
-    #signingkey = FDD9AEBC39E62B71
-    signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAYbqqHL5DcesRHvzlwNi1x4jB824LxYWT2nEsnB1x7O
+    ; #signingkey = FDD9AEBC39E62B71
+    ; signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAYbqqHL5DcesRHvzlwNi1x4jB824LxYWT2nEsnB1x7O
 
-[gpg]
-    format = ssh
+; [gpg]
+;     format = ssh
 
-[gpg "ssh"]
-    program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+; [gpg "ssh"]
+;     program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 
 [branch "master"]
     remote = origin
@@ -75,11 +75,17 @@
     smudge = git-lfs smudge -- %f
     process = git-lfs filter-process
 
-[commit]
-    gpgsign = true
+# [commit]
+#     gpgsign = true
 
 [credential]
     helper = osxkeychain
 
 [pull]
     rebase = true
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
