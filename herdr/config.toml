@@ -3,13 +3,22 @@ onboarding = false
 # Match ~/.config/tmux/tmux.conf: default-shell is Homebrew fish on macOS.
 # Herdr otherwise uses $SHELL (this machine's login shell is /bin/bash).
 [terminal]
-default_shell = "/opt/homebrew/bin/fish"
+default_shell = "fish"
 shell_mode = "login"
 new_cwd = "follow"
 
+[session]
+resume_agents_on_restore = true
+
 [ui]
+sidebar_width = 15
+sidebar_min_width = 12
+pane_gaps = false
+pane_scrollbars = false
 mouse_capture = true
 copy_on_select = true
+tab_bar_position = "bottom"
+show_agent_labels_on_pane_borders = true
 
 # Match tmux: prefix C-a, v/b splits, hjkl panes, prefix+a send-prefix.
 # Changing this file does not apply until `herdr server reload-config`
@@ -63,3 +72,6 @@ key = "prefix+a"
 type = "shell"
 command = "herdr pane send-keys \"$HERDR_ACTIVE_PANE_ID\" ctrl+a"
 description = "send prefix to pane"
+
+[experimental]
+kitty_graphics = true
