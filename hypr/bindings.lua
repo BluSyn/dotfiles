@@ -10,6 +10,16 @@
 
 local hyper = "SUPER + CTRL + ALT + SHIFT"
 
+-- Undo a previous snap helper that set column_width = 1.0 for the session
+-- (new windows spawned full-width and shoved neighbors off the tape).
+-- Hyprland defaults: one window fills the screen; extra windows are 50% columns.
+hl.config({
+  scrolling = {
+    fullscreen_on_one_column = true,
+    column_width = 0.5,
+  },
+})
+
 -- ---------------------------------------------------------------------------
 -- Helpers
 -- ---------------------------------------------------------------------------
@@ -205,7 +215,19 @@ local function place_on_side(side)
   end
 end
 
--- Tiled snap: set this window's column/split to width_frac; other tiles shrink.
+local function tiled_on_active_workspace()
+  local ws = hl.get_active_workspace()
+  local out = {}
+  for _, win in ipairs(hl.get_workspace_windows(ws) or {}) do
+    if not win.floating then
+      out[#out + 1] = win
+    end
+  end
+  return out
+end
+
+-- Tiled snap: current column gets width_frac; siblings share the rest so the
+-- tape stays ≤ 100% of the view (no horizontal overflow).
 -- side is "left" / "right" / nil (keep current side).
 local function snap_tiled(width_frac, side)
   return function()
@@ -215,17 +237,25 @@ local function snap_tiled(width_frac, side)
 
     local ws = hl.get_active_workspace()
     local layout = (ws and ws.tiled_layout) or ""
+    local n = #tiled_on_active_workspace()
 
     if layout == "scrolling" then
-      -- Allow a single column to be less than full width (otherwise colresize
-      -- is a no-op). New windows still spawn at full width.
-      hl.config({ scrolling = { fullscreen_on_one_column = false, column_width = 1.0 } })
-      hl.dispatch(hl.dsp.layout("colresize " .. string.format("%.3f", width_frac)))
+      if n >= 2 then
+        local others = (1 - width_frac) / (n - 1)
+        hl.dispatch(hl.dsp.layout("colresize all " .. string.format("%.3f", others)))
+        hl.dispatch(hl.dsp.layout("colresize " .. string.format("%.3f", width_frac)))
+      else
+        -- One tiled window already fills the view; Hyper+Z is fullscreen.
+        hl.dispatch(hl.dsp.layout("colresize " .. string.format("%.3f", width_frac)))
+      end
     else
       resize_split_width(width_frac)
     end
 
     place_on_side(side)
+    if layout == "scrolling" then
+      hl.dispatch(hl.dsp.layout("fit_into_view"))
+    end
   end
 end
 
@@ -245,7 +275,9 @@ local function restore_tiled()
   tile_active()
   local ws = hl.get_active_workspace()
   if ws and ws.tiled_layout == "scrolling" then
-    hl.dispatch(hl.dsp.layout("colresize 0.5"))
+    local n = math.max(1, #tiled_on_active_workspace())
+    hl.dispatch(hl.dsp.layout("colresize all " .. string.format("%.3f", 1 / n)))
+    hl.dispatch(hl.dsp.layout("fit_into_view"))
   else
     resize_split_width(0.5)
   end
@@ -323,3 +355,13 @@ o.bind(hyper .. " + code:20", "Left 60", snap_tiled(0.6, "left"))
 o.bind(hyper .. " + code:21", "Right 40", snap_tiled(0.4, "right"))
 o.bind(hyper .. " + Z", "Toggle fullscreen", toggle_zoom)
 o.bind(hyper .. " + B", "Restore", restore_tiled)
+
+-- Repair this session: equalize any columns left wider than the view.
+do
+  local ws = hl.get_active_workspace()
+  if ws and ws.tiled_layout == "scrolling" then
+    local n = math.max(1, #tiled_on_active_workspace())
+    hl.dispatch(hl.dsp.layout("colresize all " .. string.format("%.3f", 1 / n)))
+    hl.dispatch(hl.dsp.layout("fit_into_view"))
+  end
+end
