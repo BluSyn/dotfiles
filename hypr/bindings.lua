@@ -259,7 +259,8 @@ local function snap_tiled(width_frac, side)
   end
 end
 
--- Hyper+Z: fullscreen. Press again to return to the same tiled slot.
+-- Hyper+Z: fill the usable view (keep the Omarchy bar and client chrome).
+-- True fullscreen (hides the bar / Chrome tabs) stays on Super+F.
 local function toggle_zoom()
   local win = hl.get_active_window()
   if not win then
@@ -268,7 +269,11 @@ local function toggle_zoom()
   if win.floating then
     hl.dispatch(hl.dsp.window.float({ action = "disable" }))
   end
-  hl.dispatch(hl.dsp.window.fullscreen({ mode = "fullscreen" }))
+  -- 2 = client/compositor fullscreen. Drop that first so maximize can apply.
+  if win.fullscreen == 2 then
+    hl.dispatch(hl.dsp.window.fullscreen({ mode = "fullscreen", action = "unset" }))
+  end
+  hl.dispatch(hl.dsp.window.fullscreen({ mode = "maximized" }))
 end
 
 local function restore_tiled()
@@ -353,7 +358,7 @@ o.bind(hyper .. " + SPACE", "Center two thirds", snap_tiled(2 / 3, nil))
 o.bind(hyper .. " + code:51", "Last two thirds", snap_tiled(2 / 3, "right"))
 o.bind(hyper .. " + code:20", "Left 60", snap_tiled(0.6, "left"))
 o.bind(hyper .. " + code:21", "Right 40", snap_tiled(0.4, "right"))
-o.bind(hyper .. " + Z", "Toggle fullscreen", toggle_zoom)
+o.bind(hyper .. " + Z", "Toggle maximize (keep bar)", toggle_zoom)
 o.bind(hyper .. " + B", "Restore", restore_tiled)
 
 -- Repair this session: equalize any columns left wider than the view.

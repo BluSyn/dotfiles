@@ -82,6 +82,11 @@ if [[ $OSTYPE == 'linux'* ]]; then
   link $HOME/dotfiles/omarchy-terminal/foot.ini $HOME/.config/foot/foot.ini
   link $HOME/dotfiles/omarchy-terminal/kitty.conf $HOME/.config/kitty/kitty.conf
   link $HOME/dotfiles/omarchy-terminal/ghostty.config $HOME/.config/ghostty/config
+
+  # Asahi/brcmfmac: bounce Wi-Fi once after the desktop starts.
+  mkdir -p $HOME/.config/omarchy/hooks/post-boot.d
+  link $HOME/dotfiles/omarchy-hooks/asahi-wifi-bounce.sh $HOME/.config/omarchy/hooks/post-boot.d/asahi-wifi-bounce.sh
+  chmod 755 $HOME/dotfiles/omarchy-hooks/asahi-wifi-bounce.sh
 fi
 
 # aider doesnt use standard config dir, apparently just to annoy everyone
