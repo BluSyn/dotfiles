@@ -74,6 +74,14 @@ if [[ $OSTYPE == 'linux'* ]]; then
   link $HOME/dotfiles/hypr/hyprland.lua $HOME/.config/hypr/hyprland.lua
   link $HOME/dotfiles/hypr/bindings.lua $HOME/.config/hypr/bindings.lua
   link $HOME/dotfiles/hypr/input.lua $HOME/.config/hypr/input.lua
+
+  # Omarchy terminals: start fish instead of the login shell (bash).
+  # Alacritty is linked as a whole dir earlier (shared Mac config), so only
+  # the Omarchy-specific emulators are linked here.
+  mkdir -p $HOME/.config/foot $HOME/.config/kitty $HOME/.config/ghostty
+  link $HOME/dotfiles/omarchy-terminal/foot.ini $HOME/.config/foot/foot.ini
+  link $HOME/dotfiles/omarchy-terminal/kitty.conf $HOME/.config/kitty/kitty.conf
+  link $HOME/dotfiles/omarchy-terminal/ghostty.config $HOME/.config/ghostty/config
 fi
 
 # aider doesnt use standard config dir, apparently just to annoy everyone

@@ -6,10 +6,9 @@ dofile((os.getenv("OMARCHY_PATH") or "/usr/share/omarchy") .. "/default/hypr/boo
 -- Disable all Omarchy default bindings. Add your own in hypr/bindings.lua.
 -- omarchy_default_bindings = false
 --
--- Drop Super+Shift letter launchers (ChatGPT, Maps, etc.) so those chords can
--- stay Mac app shortcuts (Cmd+Shift+T reopen tab, Cmd+Shift+N new window, ...).
--- Core binds (terminal, browser, file manager) still load.
-omarchy_preinstalled_bindings = false
+-- Or disable only bindings for Omarchy's preinstalled apps/web apps while
+-- keeping core window-manager bindings:
+-- omarchy_preinstalled_bindings = false
 
 -- Load Omarchy defaults.
 require("default.hypr.omarchy")
