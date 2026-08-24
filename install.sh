@@ -67,6 +67,15 @@ link $HOME/dotfiles/wezterm $HOME/.config/wezterm
 link $HOME/dotfiles/aerospace $HOME/.config/aerospace
 link $HOME/dotfiles/starship/starship.toml $HOME/.config/starship.toml
 
+# Hyprland is Linux/Omarchy only. Share the Voyager/Mac-compatible binds;
+# keep monitors.lua, looknfeel.lua, autostart.lua machine-local.
+if [[ $OSTYPE == 'linux'* ]]; then
+  mkdir -p $HOME/.config/hypr
+  link $HOME/dotfiles/hypr/hyprland.lua $HOME/.config/hypr/hyprland.lua
+  link $HOME/dotfiles/hypr/bindings.lua $HOME/.config/hypr/bindings.lua
+  link $HOME/dotfiles/hypr/input.lua $HOME/.config/hypr/input.lua
+fi
+
 # aider doesnt use standard config dir, apparently just to annoy everyone
 # link $HOME/dotfiles/aider/conf.yml $HOME/.aider.conf.yml
 
