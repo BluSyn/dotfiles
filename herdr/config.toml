@@ -19,6 +19,7 @@ mouse_capture = true
 copy_on_select = true
 tab_bar_position = "bottom"
 show_agent_labels_on_pane_borders = true
+prompt_new_tab_name = false
 
 # Match tmux: prefix C-a, v/b splits, hjkl panes, prefix+a send-prefix.
 # Changing this file does not apply until `herdr server reload-config`
