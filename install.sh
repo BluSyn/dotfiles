@@ -58,18 +58,29 @@ link $HOME/dotfiles/bash/profile $HOME/.profile
 link $HOME/dotfiles/bash/bashTweaks $HOME/.bashTweaks
 
 link $HOME/dotfiles/git $HOME/.config/git
-# Omarchy ships ~/.config/tmux as a real directory; ln -sfT cannot replace it.
+
+# Omarchy ships tmux and nvim as existing dirs,needs custom check
 if [[ -e $HOME/.config/tmux && ! -L $HOME/.config/tmux ]]; then
-  rm -rf "$HOME/.config/tmux"
+  mv "$HOME/.config/tmux" "$HOME/.config/tmux.orig"
 fi
 link $HOME/dotfiles/tmux $HOME/.config/tmux
-link $HOME/dotfiles/tmuxp $HOME/.config/tmuxp
+
+if [[ -e $HOME/.config/nvim && ! -L $HOME/.config/nvim ]]; then
+  mv "$HOME/.config/nvim" "$HOME/.config/nvim.orig"
+fi
 link $HOME/dotfiles/nvim $HOME/.config/nvim
+
+link $HOME/dotfiles/tmuxp $HOME/.config/tmuxp
 link $HOME/dotfiles/helix $HOME/.config/helix
 link $HOME/dotfiles/alacritty $HOME/.config/alacritty
 link $HOME/dotfiles/wezterm $HOME/.config/wezterm
-link $HOME/dotfiles/aerospace $HOME/.config/aerospace
 link $HOME/dotfiles/starship/starship.toml $HOME/.config/starship.toml
+link $HOME/dotfiles/herdr/config.toml $HOME/.config/herdr/config.toml
+
+# macos only configs
+if [[ $OSTYPE == 'darwin'* ]]; then
+  link $HOME/dotfiles/aerospace $HOME/.config/aerospace
+fi
 
 # Hyprland is Linux/Omarchy only. Share the Voyager/Mac-compatible binds;
 # keep monitors.lua, looknfeel.lua, autostart.lua machine-local.
@@ -104,9 +115,6 @@ fi
 # aider doesnt use standard config dir, apparently just to annoy everyone
 # link $HOME/dotfiles/aider/conf.yml $HOME/.aider.conf.yml
 
-link $HOME/dotfiles/herdr/config.toml $HOME/.config/herdr/config.toml
-
-link $HOME/dotfiles/bash/bashTweaks $HOME/.bashTweaks
 # Frequently htop dir already exists, just link config
 mkdir $HOME/.config/htop
 link $HOME/dotfiles/htop/htoprc $HOME/.config/htop/htoprc
