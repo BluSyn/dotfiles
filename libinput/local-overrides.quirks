@@ -1,0 +1,21 @@
+# Apple Silicon SPI trackpad (hid-magicmouse on Asahi).
+# libinput only loads /etc/libinput/local-overrides.quirks — run
+# ./install-quirks.sh (pkexec/sudo) to copy this file there.
+#
+# Stock 50-system-apple.quirks treats this like an old USB Apple pad:
+#   AttrTouchSizeRange=150:130  (light taps are ~50-150 here, so they never "down")
+#   default palm pressure 130   (pressure is grams; a click is ~200-400g, so a palm)
+# Kernel reports real pressure in grams (ABS_MT_PRESSURE resolution=1, max 6000).
+
+[Apple Silicon SPI Trackpad]
+MatchUdevType=touchpad
+MatchBus=spi
+MatchVendor=0x05AC
+MatchName=*Apple SPI Trackpad*
+ModelAppleTouchpad=1
+AttrSizeHint=159x98
+AttrTouchSizeRange=20:10
+AttrPressureRange=10:8
+AttrPalmPressureThreshold=2000
+AttrThumbPressureThreshold=1500
+AttrPalmSizeThreshold=0

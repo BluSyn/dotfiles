@@ -58,6 +58,10 @@ link $HOME/dotfiles/bash/profile $HOME/.profile
 link $HOME/dotfiles/bash/bashTweaks $HOME/.bashTweaks
 
 link $HOME/dotfiles/git $HOME/.config/git
+# Omarchy ships ~/.config/tmux as a real directory; ln -sfT cannot replace it.
+if [[ -e $HOME/.config/tmux && ! -L $HOME/.config/tmux ]]; then
+  rm -rf "$HOME/.config/tmux"
+fi
 link $HOME/dotfiles/tmux $HOME/.config/tmux
 link $HOME/dotfiles/tmuxp $HOME/.config/tmuxp
 link $HOME/dotfiles/nvim $HOME/.config/nvim
@@ -87,6 +91,14 @@ if [[ $OSTYPE == 'linux'* ]]; then
   mkdir -p $HOME/.config/omarchy/hooks/post-boot.d
   link $HOME/dotfiles/omarchy-hooks/asahi-wifi-bounce.sh $HOME/.config/omarchy/hooks/post-boot.d/asahi-wifi-bounce.sh
   chmod 755 $HOME/dotfiles/omarchy-hooks/asahi-wifi-bounce.sh
+
+  # Apple Silicon SPI trackpad: user copy is git-tracked; libinput only
+  # reads /etc/libinput/local-overrides.quirks (install-quirks.sh copies it).
+  if [[ -e $HOME/.config/libinput && ! -L $HOME/.config/libinput ]]; then
+    rm -rf "$HOME/.config/libinput"
+  fi
+  link $HOME/dotfiles/libinput $HOME/.config/libinput
+  chmod 755 $HOME/dotfiles/libinput/install-quirks.sh
 fi
 
 # aider doesnt use standard config dir, apparently just to annoy everyone
