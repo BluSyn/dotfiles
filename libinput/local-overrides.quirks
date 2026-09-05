@@ -4,8 +4,15 @@
 #
 # Stock 50-system-apple.quirks treats this like an old USB Apple pad:
 #   AttrTouchSizeRange=150:130  (light taps are ~50-150 here, so they never "down")
+#   AttrPalmSizeThreshold=1600  (wrong scale here; ABS_MT_TOUCH_MAJOR max is 5000)
 #   default palm pressure 130   (pressure is grams; a click is ~200-400g, so a palm)
 # Kernel reports real pressure in grams (ABS_MT_PRESSURE resolution=1, max 6000).
+#
+# AttrPalmSizeThreshold=0 unsets the inherited 1600 and disables size-based palm
+# detection. A threshold of 300 marked normal fingers as palms (Hyprland logs
+# "palm: touch size exceeded" for almost every contact). Pressure-based palm
+# detection at 2000g still applies. Do not add AttrThumbSizeThreshold unless
+# measured; 200 also ate fingers. Tune with: libinput measure touch-size
 
 [Apple Silicon SPI Trackpad]
 MatchUdevType=touchpad
@@ -19,3 +26,10 @@ AttrPressureRange=10:8
 AttrPalmPressureThreshold=2000
 AttrThumbPressureThreshold=1500
 AttrPalmSizeThreshold=0
+
+# External split boards sit in front of the laptop; palms still rest on the
+# built-in pad. libinput DWT only watches keyboards tagged internal.
+[ZSA Voyager]
+MatchUdevType=keyboard
+MatchName=*Voyager*
+AttrKeyboardIntegration=internal
