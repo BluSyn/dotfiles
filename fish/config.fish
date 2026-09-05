@@ -65,7 +65,10 @@ function msh
 end
 
 function ssh
-    LC_CTYPE=en_US.UTF-8 TERM=xterm-256color /usr/bin/ssh -t "$argv" "tmux attach || tmux new"
+    # POSIX sh so this works whether the remote login shell is bash, zsh, or fish.
+    # Attach/create tmux when it exists; otherwise drop into a login shell.
+    set -l remote "sh -c 'command -v tmux >/dev/null 2>&1 && (tmux attach || tmux new) || exec \"\${SHELL:-/bin/sh}\" -l'"
+    LC_CTYPE=en_US.UTF-8 TERM=xterm-256color /usr/bin/ssh -t $argv -- "$remote"
 end
 
 function sshr
