@@ -34,9 +34,37 @@ local function fish_prog()
 	return { "fish" }
 end
 
+-- Chromium-style tab switching on Linux only. macOS already uses Cmd+<n>.
+local keys = {}
+if not wezterm.target_triple:find("darwin", 1, true) then
+	for i = 1, 8 do
+		table.insert(keys, {
+			key = tostring(i),
+			mods = "CTRL",
+			action = wezterm.action.ActivateTab(i - 1),
+		})
+		table.insert(keys, {
+			key = tostring(i),
+			mods = "CTRL|SHIFT",
+			action = wezterm.action.DisableDefaultAssignment,
+		})
+	end
+	table.insert(keys, {
+		key = "9",
+		mods = "CTRL",
+		action = wezterm.action.ActivateTab(-1),
+	})
+	table.insert(keys, {
+		key = "9",
+		mods = "CTRL|SHIFT",
+		action = wezterm.action.DisableDefaultAssignment,
+	})
+end
+
 return {
 	default_prog = fish_prog(),
 	audible_bell = "Disabled",
+	keys = keys,
 
 	window_padding = {
 		left = 0,
@@ -49,6 +77,6 @@ return {
 	hide_tab_bar_if_only_one_tab = true,
 
 	font = wezterm.font("DejaVuSansM Nerd Font Mono", { weight = "Regular" }),
-	font_size = 10.0,
+	font_size = wezterm.target_triple:find("darwin", 1, true) and 12.0 or 10.0,
 	color_scheme = "Afterglow",
 }
