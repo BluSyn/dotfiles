@@ -34,7 +34,7 @@ hl.config({
 			tap_and_drag = true,
 			clickfinger_behavior = true,
 			disable_while_typing = true,
-			scroll_factor = 0.7,
+			scroll_factor = 0.5,
 		},
 	},
 	misc = {
@@ -54,7 +54,7 @@ hl.config({
 -- Same pointer / tap policy on the built-in pad if a USB mouse is added later.
 hl.device({
 	name = "apple-spi-trackpad",
-	sensitivity = 0.6,
+	sensitivity = 0.5,
 	tap_to_click = true,
 	tap_and_drag = true,
 	disable_while_typing = true,
