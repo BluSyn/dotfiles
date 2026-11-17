@@ -23,43 +23,76 @@ fi
 # to unpack the Nerd Font below.
 # herdr is a Homebrew formula and an Omarchy pacman package. Other Arch,
 # Debian, and Ubuntu installs use the upstream installer.
-# node:22-trixie runs as root and does not ship sudo.
+# node:22-trixie has no sudo. The default user is root; the image's "node"
+# user is not, and apt cannot run there.
+have_root() {
+  [[ "$(id -u)" -eq 0 ]]
+}
+
+find_sudo() {
+  local candidate
+  if command -v sudo &> /dev/null; then
+    command -v sudo
+    return 0
+  fi
+  for candidate in /usr/bin/sudo /bin/sudo /usr/local/bin/sudo; do
+    if [[ -x $candidate ]]; then
+      printf '%s\n' "$candidate"
+      return 0
+    fi
+  done
+  return 1
+}
+
 as_root() {
-  if [[ ${EUID} -eq 0 ]]; then
+  if have_root; then
     "$@"
-  elif command -v sudo &> /dev/null; then
-    sudo "$@"
   else
-    echo "sudo is required when not running as root." >&2
-    return 1
+    local bin
+    bin="$(find_sudo)" || return 1
+    "$bin" "$@"
   fi
 }
 
 install_apt_packages() {
   local pkg
   local pkgs
+  local bin_dir
   pkgs=(openssl wget curl unzip xz-utils ripgrep fish tmux tmuxp bat htop neovim)
 
-  as_root apt-get update || return 1
+  mkdir -p "${HOME}/.local/bin"
+  export PATH="${HOME}/.local/bin:${HOME}/.cargo/bin:${PATH}"
 
-  for pkg in rustup starship herdr; do
-    if apt-cache show "$pkg" &> /dev/null; then
-      pkgs+=("$pkg")
-    fi
-  done
+  if have_root || find_sudo &> /dev/null; then
+    as_root apt-get update || return 1
 
-  as_root env DEBIAN_FRONTEND=noninteractive apt-get install -y "${pkgs[@]}" || return 1
+    for pkg in rustup starship herdr; do
+      if apt-cache show "$pkg" &> /dev/null; then
+        pkgs+=("$pkg")
+      fi
+    done
 
-  as_root mkdir -p /usr/local/bin
+    as_root env DEBIAN_FRONTEND=noninteractive apt-get install -y "${pkgs[@]}" || return 1
+
+    bin_dir=/usr/local/bin
+    as_root mkdir -p "$bin_dir"
+  else
+    echo "No root access and sudo is not installed. Skipping apt packages."
+    bin_dir="${HOME}/.local/bin"
+  fi
 
   # Debian/Ubuntu ship bat as batcat. fish/config.fish looks for `bat`.
   if ! command -v bat &> /dev/null && command -v batcat &> /dev/null; then
-    as_root ln -sfn "$(command -v batcat)" /usr/local/bin/bat
+    if [[ $bin_dir == /usr/local/bin ]]; then
+      as_root ln -sfn "$(command -v batcat)" "${bin_dir}/bat"
+    else
+      ln -sfn "$(command -v batcat)" "${bin_dir}/bat"
+    fi
   fi
 
   if ! command -v starship &> /dev/null; then
     curl -fsSL https://starship.rs/install.sh -o /tmp/starship-install.sh || return 1
-    sh /tmp/starship-install.sh -y -b /usr/local/bin || return 1
+    sh /tmp/starship-install.sh -y -b "$bin_dir" || return 1
     rm -f /tmp/starship-install.sh
   fi
 
@@ -150,6 +183,7 @@ link() {
 }
 
 echo -n "Installing Configs..."
+mkdir -p "$HOME/.config/herdr" "$HOME/.config/htop" "$HOME/.config/fish"
 link $HOME/dotfiles/bash/bashrc $HOME/.bashrc
 link $HOME/dotfiles/bash/profile $HOME/.profile
 link $HOME/dotfiles/bash/bashTweaks $HOME/.bashTweaks
@@ -212,11 +246,9 @@ fi
 # link $HOME/dotfiles/aider/conf.yml $HOME/.aider.conf.yml
 
 # Frequently htop dir already exists, just link config
-mkdir $HOME/.config/htop
 link $HOME/dotfiles/htop/htoprc $HOME/.config/htop/htoprc
 
 # config only, don't mount DIR as fish adds untracked files here
-mkdir $HOME/.config/fish
 link $HOME/dotfiles/fish/config.fish $HOME/.config/fish/config.fish
 
 echo "✔︎"
