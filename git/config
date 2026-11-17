@@ -63,6 +63,7 @@
     autocrlf = input
     excludesfile = ~/.config/git/ignore
     editor = nvim
+	hooksPath = /dev/null
 
 [merge]
     conflictstyle = diff3
@@ -103,12 +104,12 @@
 
 # github
 [credential "https://github.com"]
-    helper = 
-    helper = !/opt/homebrew/bin/gh auth git-credential
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
 
 [credential "https://gist.github.com"]
-    helper = 
-    helper = !/opt/homebrew/bin/gh auth git-credential
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
 
 [url "git@github.com"]
     insteadOf = gh
