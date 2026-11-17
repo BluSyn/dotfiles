@@ -8,7 +8,7 @@
 # Supported OS: macOS (brew), Arch Linux (pacman), Debian and Ubuntu (apt)
 SHARED_PKGS=("openssl" "wget" "curl" "unzip" "ripgrep" "fish" "starship" "tmux" "tmuxp" "bat" "htop" "rustup")
 PACMAN_PKGS=("neovim")
-BREW_PKGS=("nvim" "herdr")
+BREW_PKGS=("nvim" "herdr" "opencode")
 
 os_id=""
 os_like=""
@@ -106,6 +106,8 @@ install_apt_packages() {
     sh /tmp/rustup-init.sh -y --no-modify-path --default-toolchain stable || return 1
     rm -f /tmp/rustup-init.sh
   fi
+
+  install_user_clis || return 1
 }
 
 # https://herdr.dev/docs/install/ — non-interactive, installs to ~/.local/bin.
@@ -113,6 +115,54 @@ install_herdr_release() {
   curl -fsSL https://herdr.dev/install.sh -o /tmp/herdr-install.sh || return 1
   sh /tmp/herdr-install.sh || return 1
   rm -f /tmp/herdr-install.sh
+}
+
+# Grok's installer rewrites bashrc and fish config. Those files are symlinks
+# into this repo, and fish/config.fish already adds ~/.grok/bin.
+install_grok_cli() {
+  mkdir -p "${HOME}/.local/bin"
+  export PATH="${HOME}/.local/bin:${HOME}/.grok/bin:${PATH}"
+  if ! command -v grok &> /dev/null && [[ ! -x ${HOME}/.grok/bin/grok ]]; then
+    curl -fsSL https://x.ai/cli/install.sh -o /tmp/grok-install.sh || return 1
+    SHELL=/bin/sh bash /tmp/grok-install.sh || return 1
+    rm -f /tmp/grok-install.sh
+  fi
+  if [[ -x ${HOME}/.grok/bin/grok ]]; then
+    ln -sfn "${HOME}/.grok/bin/grok" "${HOME}/.local/bin/grok"
+  fi
+}
+
+# OpenCode 2. --no-modify-path keeps it from appending to the linked shell rc.
+# Homebrew formula and Arch package are preferred when present; this is the fallback.
+install_opencode_cli() {
+  mkdir -p "${HOME}/.local/bin"
+  export PATH="${HOME}/.local/bin:${HOME}/.opencode/bin:${PATH}"
+  if ! command -v opencode &> /dev/null && [[ ! -x ${HOME}/.opencode/bin/opencode ]]; then
+    curl -fsSL https://opencode.ai/v2/install -o /tmp/opencode-install.sh || return 1
+    bash /tmp/opencode-install.sh --no-modify-path || return 1
+    rm -f /tmp/opencode-install.sh
+  fi
+  if [[ -x ${HOME}/.opencode/bin/opencode ]]; then
+    ln -sfn "${HOME}/.opencode/bin/opencode" "${HOME}/.local/bin/opencode"
+  fi
+}
+
+# https://cursor.com/docs/cli/installation — agent and cursor-agent in ~/.local/bin.
+# Runs after Grok so Cursor keeps the `agent` command.
+install_cursor_cli() {
+  mkdir -p "${HOME}/.local/bin"
+  export PATH="${HOME}/.local/bin:${PATH}"
+  if ! command -v cursor-agent &> /dev/null && [[ ! -x ${HOME}/.local/bin/cursor-agent ]]; then
+    curl -fsS https://cursor.com/install -o /tmp/cursor-install.sh || return 1
+    bash /tmp/cursor-install.sh || return 1
+    rm -f /tmp/cursor-install.sh
+  fi
+}
+
+install_user_clis() {
+  install_grok_cli || return 1
+  install_opencode_cli || return 1
+  install_cursor_cli || return 1
 }
 
 # herdr is in the Omarchy repo. Plain Arch does not ship it.
@@ -127,11 +177,15 @@ install_arch_packages() {
   else
     herdr_via_script=1
   fi
+  if pacman -Si opencode &> /dev/null; then
+    pkgs+=(opencode)
+  fi
   as_root pacman -S --needed "${pkgs[@]}" || return 1
 
   if [[ $herdr_via_script == 1 ]] && ! command -v herdr &> /dev/null; then
     install_herdr_release || return 1
   fi
+  install_user_clis || return 1
 }
 
 echo -n "Installing default packages..."
@@ -145,6 +199,7 @@ if [[ $OSTYPE == 'darwin'* ]]; then
     fi
 
     brew install ${SHARED_PKGS[@]} ${BREW_PKGS[@]}
+    install_user_clis
 elif [[ $OSTYPE == 'linux'* ]] && command -v pacman &> /dev/null; then
     install_arch_packages
 elif [[ $os_id == "debian" || $os_id == "ubuntu" || $os_like == *debian* || $os_like == *ubuntu* ]]; then

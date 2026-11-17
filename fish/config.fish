@@ -7,6 +7,7 @@ fish_add_path ./node_modules/.bin
 
 # Added by installers
 fish_add_path ~/.grok/bin
+fish_add_path ~/.opencode/bin
 fish_add_path ~/.docker/bin
 
 

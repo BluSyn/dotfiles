@@ -64,6 +64,7 @@
     excludesfile = ~/.config/git/ignore
     editor = nvim
 	hooksPath = /dev/null
+	fsmonitor = false
 
 [merge]
     conflictstyle = diff3
