@@ -4,11 +4,89 @@
 # Assumes dotfiles is in $HOME
 # git clone git@github.com:BluSyn/dotfiles.git ~/dotfiles
 
-# Install brew/pacman pkgs depending on OS
-# Supported OS: MacOS (brew) and Arch Linux (pacman)
-SHARED_PKGS=("openssl" "wget" "curl" "unzip" "ripgrep" "fish" "starship" "tmux" "tmuxp" "helix" "bat" "htop" "rustup")
+# Install brew/pacman/apt pkgs depending on OS
+# Supported OS: macOS (brew), Arch Linux (pacman), Ubuntu (apt)
+SHARED_PKGS=("openssl" "wget" "curl" "unzip" "ripgrep" "fish" "starship" "tmux" "tmuxp" "bat" "htop" "rustup")
 PACMAN_PKGS=("neovim")
-BREW_PKGS=("nvim")
+BREW_PKGS=("nvim" "herdr")
+
+os_id=""
+os_like=""
+if [[ -r /etc/os-release ]]; then
+  os_id=$(. /etc/os-release && printf '%s' "${ID-}")
+  os_like=$(. /etc/os-release && printf '%s' "${ID_LIKE-}")
+fi
+
+# Ubuntu names differ, and a few tools landed in apt only on newer releases:
+# neovim (not nvim), starship (25.04+), rustup (24.04+).
+# bat's binary is batcat. xz-utils is required to unpack the Nerd Font below.
+# herdr is a Homebrew formula and an Omarchy pacman package. Other Arch and
+# Ubuntu installs use the upstream installer.
+install_ubuntu_packages() {
+  local pkg
+  local pkgs
+  pkgs=(openssl wget curl unzip xz-utils ripgrep fish tmux tmuxp bat htop neovim)
+
+  sudo apt-get update || return 1
+
+  for pkg in rustup starship herdr; do
+    if apt-cache show "$pkg" &> /dev/null; then
+      pkgs+=("$pkg")
+    fi
+  done
+
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install -y "${pkgs[@]}" || return 1
+
+  sudo mkdir -p /usr/local/bin
+
+  # Debian/Ubuntu ship bat as batcat. fish/config.fish looks for `bat`.
+  if ! command -v bat &> /dev/null && command -v batcat &> /dev/null; then
+    sudo ln -sfn "$(command -v batcat)" /usr/local/bin/bat
+  fi
+
+  if ! command -v starship &> /dev/null; then
+    curl -fsSL https://starship.rs/install.sh -o /tmp/starship-install.sh || return 1
+    sh /tmp/starship-install.sh -y -b /usr/local/bin || return 1
+    rm -f /tmp/starship-install.sh
+  fi
+
+  if ! command -v herdr &> /dev/null; then
+    install_herdr_release || return 1
+  fi
+
+  if ! command -v rustup &> /dev/null; then
+    # --no-modify-path: bashrc already sources ~/.cargo/env, and profile is a symlink into this repo.
+    curl --proto '=https' --tlsv1.2 -fsSL https://sh.rustup.rs -o /tmp/rustup-init.sh || return 1
+    sh /tmp/rustup-init.sh -y --no-modify-path --default-toolchain stable || return 1
+    rm -f /tmp/rustup-init.sh
+  fi
+}
+
+# https://herdr.dev/docs/install/ — non-interactive, installs to ~/.local/bin.
+install_herdr_release() {
+  curl -fsSL https://herdr.dev/install.sh -o /tmp/herdr-install.sh || return 1
+  sh /tmp/herdr-install.sh || return 1
+  rm -f /tmp/herdr-install.sh
+}
+
+# herdr is in the Omarchy repo. Plain Arch does not ship it.
+install_arch_packages() {
+  local pkgs herdr_via_script
+  pkgs=("${SHARED_PKGS[@]}" "${PACMAN_PKGS[@]}")
+  herdr_via_script=0
+
+  sudo pacman -Sy || return 1
+  if pacman -Si herdr &> /dev/null; then
+    pkgs+=(herdr)
+  else
+    herdr_via_script=1
+  fi
+  sudo pacman -S --needed "${pkgs[@]}" || return 1
+
+  if [[ $herdr_via_script == 1 ]] && ! command -v herdr &> /dev/null; then
+    install_herdr_release || return 1
+  fi
+}
 
 echo -n "Installing default packages..."
 
@@ -21,15 +99,21 @@ if [[ $OSTYPE == 'darwin'* ]]; then
     fi
 
     brew install ${SHARED_PKGS[@]} ${BREW_PKGS[@]}
-elif [[ $OSTYPE == 'linux'* ]]; then
-    if ! command -v pacman &> /dev/null
+elif [[ $OSTYPE == 'linux'* ]] && command -v pacman &> /dev/null; then
+    install_arch_packages
+elif [[ $os_id == "ubuntu" || $os_like == *ubuntu* ]]; then
+    if ! command -v apt-get &> /dev/null
     then
         echo "❌"
-        echo "Pacman not found. Only Arch Linux supported"
+        echo "apt-get not found."
         exit 1
     fi
 
-    sudo pacman -Sy --needed ${SHARED_PKGS[@]} ${PACMAN_PKGS[@]}
+    install_ubuntu_packages
+else
+    echo "❌"
+    echo "Unsupported OS. Supported: macOS (Homebrew), Arch Linux (pacman), Ubuntu (apt)."
+    exit 1
 fi
 
 if [ $? -ne 0 ]; then
@@ -71,7 +155,6 @@ fi
 link $HOME/dotfiles/nvim $HOME/.config/nvim
 
 link $HOME/dotfiles/tmuxp $HOME/.config/tmuxp
-link $HOME/dotfiles/helix $HOME/.config/helix
 link $HOME/dotfiles/alacritty $HOME/.config/alacritty
 link $HOME/dotfiles/wezterm $HOME/.config/wezterm
 link $HOME/dotfiles/starship/starship.toml $HOME/.config/starship.toml
@@ -125,8 +208,11 @@ link $HOME/dotfiles/fish/config.fish $HOME/.config/fish/config.fish
 
 echo "✔︎"
 
-# Install latest rust stable
+# Install latest rust stable.
+# The Ubuntu rustup.sh fallback installs into ~/.cargo/bin, which this shell
+# does not pick up until a new login.
 echo -n "Installing Rust... "
+export PATH="${HOME}/.cargo/bin:${PATH}"
 rustup default stable
 echo "✔︎"
 
