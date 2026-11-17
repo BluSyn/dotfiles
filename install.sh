@@ -5,7 +5,7 @@
 # git clone git@github.com:BluSyn/dotfiles.git ~/dotfiles
 
 # Install brew/pacman/apt pkgs depending on OS
-# Supported OS: macOS (brew), Arch Linux (pacman), Ubuntu (apt)
+# Supported OS: macOS (brew), Arch Linux (pacman), Debian and Ubuntu (apt)
 SHARED_PKGS=("openssl" "wget" "curl" "unzip" "ripgrep" "fish" "starship" "tmux" "tmuxp" "bat" "htop" "rustup")
 PACMAN_PKGS=("neovim")
 BREW_PKGS=("nvim" "herdr")
@@ -17,17 +17,30 @@ if [[ -r /etc/os-release ]]; then
   os_like=$(. /etc/os-release && printf '%s' "${ID_LIKE-}")
 fi
 
-# Ubuntu names differ, and a few tools landed in apt only on newer releases:
-# neovim (not nvim), starship (25.04+), rustup (24.04+).
-# bat's binary is batcat. xz-utils is required to unpack the Nerd Font below.
-# herdr is a Homebrew formula and an Omarchy pacman package. Other Arch and
-# Ubuntu installs use the upstream installer.
-install_ubuntu_packages() {
+# Debian/Ubuntu names differ, and a few tools landed in apt only on newer
+# releases: neovim (not nvim), starship (Debian 13+ / Ubuntu 25.04+), rustup
+# (Debian 13+ / Ubuntu 24.04+). bat's binary is batcat. xz-utils is required
+# to unpack the Nerd Font below.
+# herdr is a Homebrew formula and an Omarchy pacman package. Other Arch,
+# Debian, and Ubuntu installs use the upstream installer.
+# node:22-trixie runs as root and does not ship sudo.
+as_root() {
+  if [[ ${EUID} -eq 0 ]]; then
+    "$@"
+  elif command -v sudo &> /dev/null; then
+    sudo "$@"
+  else
+    echo "sudo is required when not running as root." >&2
+    return 1
+  fi
+}
+
+install_apt_packages() {
   local pkg
   local pkgs
   pkgs=(openssl wget curl unzip xz-utils ripgrep fish tmux tmuxp bat htop neovim)
 
-  sudo apt-get update || return 1
+  as_root apt-get update || return 1
 
   for pkg in rustup starship herdr; do
     if apt-cache show "$pkg" &> /dev/null; then
@@ -35,13 +48,13 @@ install_ubuntu_packages() {
     fi
   done
 
-  sudo DEBIAN_FRONTEND=noninteractive apt-get install -y "${pkgs[@]}" || return 1
+  as_root env DEBIAN_FRONTEND=noninteractive apt-get install -y "${pkgs[@]}" || return 1
 
-  sudo mkdir -p /usr/local/bin
+  as_root mkdir -p /usr/local/bin
 
   # Debian/Ubuntu ship bat as batcat. fish/config.fish looks for `bat`.
   if ! command -v bat &> /dev/null && command -v batcat &> /dev/null; then
-    sudo ln -sfn "$(command -v batcat)" /usr/local/bin/bat
+    as_root ln -sfn "$(command -v batcat)" /usr/local/bin/bat
   fi
 
   if ! command -v starship &> /dev/null; then
@@ -75,13 +88,13 @@ install_arch_packages() {
   pkgs=("${SHARED_PKGS[@]}" "${PACMAN_PKGS[@]}")
   herdr_via_script=0
 
-  sudo pacman -Sy || return 1
+  as_root pacman -Sy || return 1
   if pacman -Si herdr &> /dev/null; then
     pkgs+=(herdr)
   else
     herdr_via_script=1
   fi
-  sudo pacman -S --needed "${pkgs[@]}" || return 1
+  as_root pacman -S --needed "${pkgs[@]}" || return 1
 
   if [[ $herdr_via_script == 1 ]] && ! command -v herdr &> /dev/null; then
     install_herdr_release || return 1
@@ -101,7 +114,7 @@ if [[ $OSTYPE == 'darwin'* ]]; then
     brew install ${SHARED_PKGS[@]} ${BREW_PKGS[@]}
 elif [[ $OSTYPE == 'linux'* ]] && command -v pacman &> /dev/null; then
     install_arch_packages
-elif [[ $os_id == "ubuntu" || $os_like == *ubuntu* ]]; then
+elif [[ $os_id == "debian" || $os_id == "ubuntu" || $os_like == *debian* || $os_like == *ubuntu* ]]; then
     if ! command -v apt-get &> /dev/null
     then
         echo "❌"
@@ -109,10 +122,10 @@ elif [[ $os_id == "ubuntu" || $os_like == *ubuntu* ]]; then
         exit 1
     fi
 
-    install_ubuntu_packages
+    install_apt_packages
 else
     echo "❌"
-    echo "Unsupported OS. Supported: macOS (Homebrew), Arch Linux (pacman), Ubuntu (apt)."
+    echo "Unsupported OS. Supported: macOS (Homebrew), Arch Linux (pacman), Debian and Ubuntu (apt)."
     exit 1
 fi
 
