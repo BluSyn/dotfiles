@@ -6,7 +6,7 @@
 
 # Install brew/pacman/apt pkgs depending on OS
 # Supported OS: macOS (brew), Arch Linux (pacman), Debian and Ubuntu (apt)
-SHARED_PKGS=("openssl" "wget" "curl" "unzip" "ripgrep" "fish" "starship" "tmux" "tmuxp" "bat" "htop" "rustup")
+SHARED_PKGS=("openssl" "wget" "curl" "unzip" "ripgrep" "fish" "starship" "tmux" "tmuxp" "bat" "htop" "rustup" "jq")
 PACMAN_PKGS=("neovim")
 BREW_PKGS=("nvim" "herdr" "opencode")
 
@@ -58,7 +58,7 @@ install_apt_packages() {
   local pkg
   local pkgs
   local bin_dir
-  pkgs=(openssl wget curl unzip xz-utils ripgrep fish tmux tmuxp bat htop neovim)
+  pkgs=(openssl wget curl unzip xz-utils ripgrep fish tmux tmuxp bat htop neovim jq)
 
   mkdir -p "${HOME}/.local/bin"
   export PATH="${HOME}/.local/bin:${HOME}/.cargo/bin:${PATH}"
@@ -163,6 +163,30 @@ install_user_clis() {
   install_grok_cli || return 1
   install_opencode_cli || return 1
   install_cursor_cli || return 1
+}
+
+# pane-nav actions are resolved by the herdr server that owns the session.
+# The shared config.toml only names them, so every machine must link the plugin.
+# Manifest platforms are linux and macos. This script has no Windows path.
+# Re-running link replaces the same plugin id.
+install_herdr_plugins() {
+  case "$OSTYPE" in
+    darwin*|linux*) ;;
+    *)
+      echo "pane-nav is linux/macos only"
+      return 0
+      ;;
+  esac
+
+  # Upstream herdr installs into ~/.local/bin. The apt path exports that;
+  # a plain Arch script install does not.
+  export PATH="${HOME}/.local/bin:${PATH}"
+  if ! command -v herdr &> /dev/null; then
+    echo "herdr not found"
+    return 1
+  fi
+
+  herdr plugin link "${HOME}/dotfiles/herdr/plugins/pane-nav"
 }
 
 # herdr is in the Omarchy repo. Plain Arch does not ship it.
@@ -306,6 +330,15 @@ link $HOME/dotfiles/htop/htoprc $HOME/.config/htop/htoprc
 # config only, don't mount DIR as fish adds untracked files here
 link $HOME/dotfiles/fish/config.fish $HOME/.config/fish/config.fish
 
+echo "✔︎"
+
+echo -n "Linking herdr plugins... "
+install_herdr_plugins
+if [ $? -ne 0 ]; then
+  echo "❌"
+  echo "Failed to link herdr plugins!"
+  exit 1
+fi
 echo "✔︎"
 
 # Install latest rust stable.

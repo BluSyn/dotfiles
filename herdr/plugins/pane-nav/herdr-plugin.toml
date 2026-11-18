@@ -1,0 +1,30 @@
+id = "pane-nav"
+name = "Pane navigation"
+version = "0.1.0"
+min_herdr_version = "0.7.0"
+description = "Prefix-free Ctrl+h/j/k/l pane movement with Vim/Neovim awareness"
+platforms = ["linux", "macos"]
+
+[[actions]]
+id = "left"
+title = "Navigate left"
+contexts = ["global"]
+command = ["bash", "navigate.sh", "left"]
+
+[[actions]]
+id = "down"
+title = "Navigate down"
+contexts = ["global"]
+command = ["bash", "navigate.sh", "down"]
+
+[[actions]]
+id = "up"
+title = "Navigate up"
+contexts = ["global"]
+command = ["bash", "navigate.sh", "up"]
+
+[[actions]]
+id = "right"
+title = "Navigate right"
+contexts = ["global"]
+command = ["bash", "navigate.sh", "right"]
