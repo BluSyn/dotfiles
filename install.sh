@@ -10,6 +10,20 @@ BREW_PKGS=(eza starship rustup nvim herdr opencode)
 PACMAN_PKGS=(eza starship rustup neovim)
 APT_PKGS=(xz-utils neovim)
 
+CONFIGS_ONLY=0
+FORCE_FONTS=0
+
+usage() {
+  cat << 'EOF'
+Usage: install.sh [options]
+
+Options:
+  --configs-only   Only update submodules, config symlinks, and herdr plugins
+  --force-fonts    Re-download and reinstall the Nerd Font even if already installed
+  -h, --help       Show this help message
+EOF
+}
+
 mkdir -p "${HOME}/.local/bin"
 export PATH="${HOME}/.local/bin:${HOME}/.cargo/bin:${HOME}/.grok/bin:${HOME}/.opencode/bin:${PATH}"
 
@@ -258,33 +272,73 @@ install_herdr_plugins() {
   herdr plugin link "${DOTFILES}/herdr/plugins/pane-nav"
 }
 
+install_rust() {
+  if ! command -v rustup &> /dev/null; then
+    echo "" >&2
+    echo "rustup not found; skipping." >&2
+    return 0
+  fi
+  if ! rustup show active-toolchain &> /dev/null; then
+    rustup default stable
+  fi
+}
+
 # https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/DejaVuSansMono
 install_nerd_font() {
   local url="https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/DejaVuSansMono.tar.xz"
   local tmp font_dir
+
+  if [[ $OSTYPE == darwin* ]]; then
+    font_dir="${HOME}/Library/Fonts"
+  elif [[ $OSTYPE == linux* ]]; then
+    font_dir="${HOME}/.local/share/fonts"
+  else
+    return 0
+  fi
+
+  if [[ $FORCE_FONTS != 1 ]] && compgen -G "${font_dir}/DejaVuSansM*.ttf" &> /dev/null; then
+    return 0
+  fi
+
   tmp=$(mktemp) || return 1
   if curl -fsSL "$url" -o "$tmp"; then
+    mkdir -p "$font_dir"
     if [[ $OSTYPE == darwin* ]]; then
-      font_dir="${HOME}/Library/Fonts"
-      mkdir -p "$font_dir"
       tar -xvf "$tmp" -C "$font_dir" '*.ttf'
-    elif [[ $OSTYPE == linux* ]]; then
-      font_dir="${HOME}/.local/share/fonts"
-      mkdir -p "$font_dir"
+    else
       tar -xvf "$tmp" -C "$font_dir" --wildcards '*.ttf'
+      if command -v fc-cache &> /dev/null; then
+        fc-cache -f "$font_dir"
+      fi
     fi
   fi
   rm -f "$tmp"
 }
 
 main() {
-  echo -n "Installing default packages..."
-  if ! install_packages; then
-    echo "❌"
-    echo "Failed to install packages!"
-    exit 1
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --configs-only) CONFIGS_ONLY=1 ;;
+      --force-fonts)  FORCE_FONTS=1 ;;
+      -h|--help)      usage; exit 0 ;;
+      *)
+        echo "Unknown option: $1" >&2
+        usage >&2
+        exit 2
+        ;;
+    esac
+    shift
+  done
+
+  if [[ $CONFIGS_ONLY != 1 ]]; then
+    echo -n "Installing default packages..."
+    if ! install_packages; then
+      echo "❌"
+      echo "Failed to install packages!"
+      exit 1
+    fi
+    echo "✔︎"
   fi
-  echo "✔︎"
 
   echo -n "Git Submodules... "
   git -C "$DOTFILES" submodule update --init --recursive
@@ -294,21 +348,25 @@ main() {
   install_configs
   echo "✔︎"
 
-  echo -n "Linking herdr plugins... "
-  if ! install_herdr_plugins; then
-    echo "❌"
-    echo "Failed to link herdr plugins!"
-    exit 1
+  if [[ $CONFIGS_ONLY != 1 ]] || command -v herdr &> /dev/null; then
+    echo -n "Linking herdr plugins... "
+    if ! install_herdr_plugins; then
+      echo "❌"
+      echo "Failed to link herdr plugins!"
+      exit 1
+    fi
+    echo "✔︎"
   fi
-  echo "✔︎"
 
-  echo -n "Installing Rust... "
-  rustup default stable
-  echo "✔︎"
+  if [[ $CONFIGS_ONLY != 1 ]]; then
+    echo -n "Installing Rust... "
+    install_rust
+    echo "✔︎"
 
-  echo -n "Installing Nerd Font... "
-  install_nerd_font
-  echo "✔︎"
+    echo -n "Installing Nerd Font... "
+    install_nerd_font
+    echo "✔︎"
+  fi
 
   echo "Installation Complete ✔︎"
 }
