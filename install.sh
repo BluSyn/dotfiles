@@ -5,9 +5,9 @@
 
 DOTFILES="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 
-SHARED_PKGS=(openssl wget curl unzip ripgrep fish tmux tmuxp bat htop jq)
-BREW_PKGS=(starship rustup nvim herdr opencode)
-PACMAN_PKGS=(starship rustup neovim)
+SHARED_PKGS=(git openssl wget curl unzip ripgrep fzf fish tmux tmuxp bat htop jq)
+BREW_PKGS=(eza starship rustup nvim herdr opencode)
+PACMAN_PKGS=(eza starship rustup neovim)
 APT_PKGS=(xz-utils neovim)
 
 mkdir -p "${HOME}/.local/bin"
@@ -84,7 +84,7 @@ install_arch_packages() {
 }
 
 # Debian/Ubuntu package names differ (neovim, batcat, xz-utils for Nerd Font), and newer tools
-# (rustup, starship, herdr) may not be in apt on older releases. Also tolerates containers like
+# (eza, rustup, starship, herdr) may not be in apt on older releases. Also tolerates containers like
 # node:22-trixie running as a non-root user without sudo.
 install_apt_packages() {
   if ! command -v apt-get &> /dev/null; then
@@ -98,7 +98,7 @@ install_apt_packages() {
 
   if have_root || find_sudo &> /dev/null; then
     as_root apt-get update || return 1
-    for pkg in rustup starship herdr; do
+    for pkg in eza rustup starship herdr; do
       if apt-cache show "$pkg" &> /dev/null; then
         pkgs+=("$pkg")
       fi
