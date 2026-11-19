@@ -46,6 +46,10 @@ is_debian_like() {
   )
 }
 
+is_omarchy() {
+  [[ -d /usr/share/omarchy || -n ${OMARCHY_PATH-} ]]
+}
+
 run_installer() {
   local url=$1 interpreter=$2 tmp status=0
   shift 2
@@ -198,7 +202,6 @@ install_configs() {
   backup_and_link tmux        "${HOME}/.config/tmux"
   backup_and_link nvim        "${HOME}/.config/nvim"
   link tmuxp                  "${HOME}/.config/tmuxp"
-  link alacritty              "${HOME}/.config/alacritty"
   link wezterm                "${HOME}/.config/wezterm"
   link starship/starship.toml "${HOME}/.config/starship.toml"
   link herdr/config.toml      "${HOME}/.config/herdr/config.toml"
@@ -210,13 +213,17 @@ install_configs() {
     link aerospace "${HOME}/.config/aerospace"
   fi
 
-  if [[ $OSTYPE == linux* ]]; then
-    # Hyprland (Linux/Omarchy): share binds/input; keep machine-local monitors/looknfeel/autostart.
+  if [[ $OSTYPE == linux* ]] && is_omarchy; then
+    # Hyprland (Omarchy): share binds/input; keep machine-local monitors/looknfeel/autostart.
     link hypr/hyprland.lua "${HOME}/.config/hypr/hyprland.lua"
     link hypr/bindings.lua "${HOME}/.config/hypr/bindings.lua"
     link hypr/input.lua    "${HOME}/.config/hypr/input.lua"
 
-    # Omarchy terminals: start fish instead of bash (Alacritty is linked above).
+    # Omarchy terminals: start fish instead of bash and use Omarchy's dynamic theme.
+    if [[ -L ${HOME}/.config/alacritty ]]; then
+      rm -f "${HOME}/.config/alacritty"
+    fi
+    link omarchy-terminal/alacritty.toml "${HOME}/.config/alacritty/alacritty.toml"
     link omarchy-terminal/foot.ini       "${HOME}/.config/foot/foot.ini"
     link omarchy-terminal/kitty.conf     "${HOME}/.config/kitty/kitty.conf"
     link omarchy-terminal/ghostty.config "${HOME}/.config/ghostty/config"
@@ -231,6 +238,8 @@ install_configs() {
     fi
     link libinput "${HOME}/.config/libinput"
     chmod 755 "${DOTFILES}/libinput/install-quirks.sh"
+  else
+    link alacritty "${HOME}/.config/alacritty"
   fi
 }
 
