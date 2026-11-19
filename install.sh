@@ -80,7 +80,7 @@ install_arch_packages() {
       pkgs+=("$pkg")
     fi
   done
-  as_root pacman -S --needed "${pkgs[@]}"
+  as_root pacman -Syu --needed "${pkgs[@]}"
 }
 
 # Debian/Ubuntu package names differ (neovim, batcat, xz-utils for Nerd Font), and newer tools
