@@ -217,58 +217,64 @@ link() {
 backup_and_link() {
   local dst="$2"
   if [[ -e $dst && ! -L $dst ]]; then
-    mv "$dst" "${dst}.orig"
+    local backup="${dst}.orig"
+    if [[ -e $backup || -L $backup ]]; then
+      backup="${dst}.orig.$(date +%Y%m%d%H%M%S)"
+    fi
+    mv "$dst" "$backup"
   fi
   link "$1" "$dst"
 }
 
 install_configs() {
+  local cfg="${XDG_CONFIG_HOME:-${HOME}/.config}"
+
   link bash/bashrc            "${HOME}/.bashrc"
   link bash/profile           "${HOME}/.profile"
   link bash/bashTweaks        "${HOME}/.bashTweaks"
-  link git                    "${HOME}/.config/git"
+  link git                    "${cfg}/git"
   # Omarchy ships tmux and nvim as real directories.
-  backup_and_link tmux        "${HOME}/.config/tmux"
-  backup_and_link nvim        "${HOME}/.config/nvim"
-  link tmuxp                  "${HOME}/.config/tmuxp"
-  link wezterm                "${HOME}/.config/wezterm"
-  link starship/starship.toml "${HOME}/.config/starship.toml"
-  link herdr/config.toml      "${HOME}/.config/herdr/config.toml"
+  backup_and_link tmux        "${cfg}/tmux"
+  backup_and_link nvim        "${cfg}/nvim"
+  link tmuxp                  "${cfg}/tmuxp"
+  link wezterm                "${cfg}/wezterm"
+  link starship/starship.toml "${cfg}/starship.toml"
+  link herdr/config.toml      "${cfg}/herdr/config.toml"
   # Link config files only so htop/fish can keep untracked state in their dirs.
-  link htop/htoprc            "${HOME}/.config/htop/htoprc"
-  link fish/config.fish       "${HOME}/.config/fish/config.fish"
+  link htop/htoprc            "${cfg}/htop/htoprc"
+  link fish/config.fish       "${cfg}/fish/config.fish"
 
   if [[ $OSTYPE == darwin* ]]; then
-    link aerospace "${HOME}/.config/aerospace"
+    link aerospace "${cfg}/aerospace"
   fi
 
   if [[ $OSTYPE == linux* ]] && is_omarchy; then
     # Hyprland (Omarchy): share binds/input; keep machine-local monitors/looknfeel/autostart.
-    link hypr/hyprland.lua "${HOME}/.config/hypr/hyprland.lua"
-    link hypr/bindings.lua "${HOME}/.config/hypr/bindings.lua"
-    link hypr/input.lua    "${HOME}/.config/hypr/input.lua"
+    link hypr/hyprland.lua "${cfg}/hypr/hyprland.lua"
+    link hypr/bindings.lua "${cfg}/hypr/bindings.lua"
+    link hypr/input.lua    "${cfg}/hypr/input.lua"
 
     # Omarchy terminals: start fish instead of bash and use Omarchy's dynamic theme.
-    if [[ -L ${HOME}/.config/alacritty ]]; then
-      rm -f "${HOME}/.config/alacritty"
+    if [[ -L ${cfg}/alacritty ]]; then
+      rm -f "${cfg}/alacritty"
     fi
-    link omarchy-terminal/alacritty.toml "${HOME}/.config/alacritty/alacritty.toml"
-    link omarchy-terminal/foot.ini       "${HOME}/.config/foot/foot.ini"
-    link omarchy-terminal/kitty.conf     "${HOME}/.config/kitty/kitty.conf"
-    link omarchy-terminal/ghostty.config "${HOME}/.config/ghostty/config"
+    link omarchy-terminal/alacritty.toml "${cfg}/alacritty/alacritty.toml"
+    link omarchy-terminal/foot.ini       "${cfg}/foot/foot.ini"
+    link omarchy-terminal/kitty.conf     "${cfg}/kitty/kitty.conf"
+    link omarchy-terminal/ghostty.config "${cfg}/ghostty/config"
 
     # Asahi/brcmfmac: bounce Wi-Fi once after the desktop starts.
-    link omarchy-hooks/asahi-wifi-bounce.sh "${HOME}/.config/omarchy/hooks/post-boot.d/asahi-wifi-bounce.sh"
+    link omarchy-hooks/asahi-wifi-bounce.sh "${cfg}/omarchy/hooks/post-boot.d/asahi-wifi-bounce.sh"
     chmod 755 "${DOTFILES}/omarchy-hooks/asahi-wifi-bounce.sh"
 
     # Apple Silicon SPI trackpad quirks (install-quirks.sh copies to /etc/libinput/).
-    if [[ -e ${HOME}/.config/libinput && ! -L ${HOME}/.config/libinput ]]; then
-      rm -rf "${HOME}/.config/libinput"
+    if [[ -e ${cfg}/libinput && ! -L ${cfg}/libinput ]]; then
+      rm -rf "${cfg}/libinput"
     fi
-    link libinput "${HOME}/.config/libinput"
+    link libinput "${cfg}/libinput"
     chmod 755 "${DOTFILES}/libinput/install-quirks.sh"
   else
-    link alacritty "${HOME}/.config/alacritty"
+    link alacritty "${cfg}/alacritty"
   fi
 }
 
