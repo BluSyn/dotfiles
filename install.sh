@@ -269,7 +269,9 @@ install_herdr_plugins() {
     echo "herdr not found" >&2
     return 1
   fi
-  herdr plugin link "${DOTFILES}/herdr/plugins/pane-nav"
+  herdr plugin link "${DOTFILES}/herdr/plugins/pane-nav" || return 1
+  # Apply updated config/plugins immediately if a herdr server is running.
+  herdr server reload-config &> /dev/null || true
 }
 
 install_rust() {
