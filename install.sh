@@ -7,11 +7,13 @@ DOTFILES="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 
 SHARED_PKGS=(git openssl wget curl unzip ripgrep fzf fish tmux tmuxp bat htop jq)
 BREW_PKGS=(eza starship rustup nvim herdr opencode)
+BREW_CASKS=(nikitabobko/tap/aerospace wezterm alacritty)
 PACMAN_PKGS=(eza starship rustup neovim)
 APT_PKGS=(xz-utils neovim)
 
 CONFIGS_ONLY=0
 FORCE_FONTS=0
+INSTALL_GUI=0
 
 usage() {
   cat << 'EOF'
@@ -20,6 +22,7 @@ Usage: install.sh [options]
 Options:
   --configs-only   Only update submodules, config symlinks, and herdr plugins
   --force-fonts    Re-download and reinstall the Nerd Font even if already installed
+  --gui            Also install macOS GUI casks (AeroSpace, WezTerm, Alacritty)
   -h, --help       Show this help message
 EOF
 }
@@ -77,11 +80,23 @@ run_installer() {
 
 install_brew_packages() {
   if ! command -v brew &> /dev/null; then
+    local brew_bin
+    for brew_bin in /opt/homebrew/bin/brew /usr/local/bin/brew; do
+      if [[ -x $brew_bin ]]; then
+        eval "$("$brew_bin" shellenv)"
+        break
+      fi
+    done
+  fi
+  if ! command -v brew &> /dev/null; then
     echo "" >&2
     echo "Homebrew not found. Go to https://brew.sh" >&2
     return 1
   fi
-  brew install "${SHARED_PKGS[@]}" "${BREW_PKGS[@]}"
+  brew install "${SHARED_PKGS[@]}" "${BREW_PKGS[@]}" || return 1
+  if [[ $INSTALL_GUI == 1 ]]; then
+    brew install --cask "${BREW_CASKS[@]}" || return 1
+  fi
 }
 
 # herdr and opencode are in Omarchy/Arch repos when available; otherwise fall back to upstream installers.
@@ -322,6 +337,7 @@ main() {
     case "$1" in
       --configs-only) CONFIGS_ONLY=1 ;;
       --force-fonts)  FORCE_FONTS=1 ;;
+      --gui)          INSTALL_GUI=1 ;;
       -h|--help)      usage; exit 0 ;;
       *)
         echo "Unknown option: $1" >&2
